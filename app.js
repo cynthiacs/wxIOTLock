@@ -7,14 +7,9 @@ App({
     wx.setStorageSync('logs', logs)
 
     var sessionId = wx.getStorageSync('SESSIONID')
-    var expiredTime = wx.getStorageSync('EXPIREDTIME')
-    console.log("expiredTime = "+expiredTime)
     console.log("sessionId = "+sessionId)
-    var now = new Date()
-    if(expiredTime > 0 && now <= expiredTime) {
-      console.log("expend expiredtime")
+    if(sessionId) {
       this.globalData.sessionId = sessionId
-      this.globalData.expiredTime = now + 1 * 24 * 60 * 60 * 1000
     }
 
     // // 登录
@@ -46,7 +41,6 @@ App({
   },
   globalData: {
     sessionId: null,
-    expiredTime: 0,
     userInfo: null
   }
 })

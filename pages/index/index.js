@@ -29,6 +29,15 @@ Page({
       this.setData({
         isAuthed: true
       })
+      wx.checkSession({
+        success: res => {
+          console.log("session effective")
+        },
+        fail: res => {
+          console.log("session invalid")
+          this.login()
+        }
+      })
     }else {
       this.setData({
         isAuthed: false
@@ -38,49 +47,52 @@ Page({
 
   bindGetUserInfo: function(e) {
     console.log(e)
-    var that = this
     if (e.detail.userInfo) {
-      wx.login({
-        success: res => {
-          console.log("wx login success")
-          //test code
-          app.globalData.sessionId = "021qEHFZ1wrOJ01TLKFZ1RoYFZ1qEHFo"
-          wx.setStorageSync("SESSIONID", app.globalData.sessionId)
-          var expiredTime = + new Date() + 1 * 24 * 60 * 60 * 1000
-          console.log(expiredTime)
-          app.globalData.expiredTime = expiredTime
-          wx.setStorageSync("EXPIREDTIME", expiredTime)
-          that.setData({
-            isAuthed: true
-          })
-          // serverProxy.login(res.code, e.detail.userInfo, function(msg){
-          //   if (msg.statusCode == 200) {
-          //     app.globalData.sessionId = msg.data.token
-          //     wx.setStorageSync("SESSIONID", app.globalData.sessionId)
-          //     var expiredTime = new Date() + 1 * 24 * 60 * 60 * 1000
-          //     app.globalData.expiredTime = expiredTime
-          //     wx.setStorageSync("EXPIREDTIME", expiredTime)
-          //     that.setData({
-          //       isAuthed: true
-          //     })
-          //   } else {
-          //     wx.showToast({
-          //       title: '登录失败，可能是网络问题',
-          //       icon: 'none',
-          //       duration: 1500
-          //     })
-          //   }
-          // })
-        },
-        fail: res => {
-          wx.showToast({
-            title: '登录失败，可能是网络问题',
-            icon: 'none',
-            duration: 1500
-          })
-        }
-      })
+      this.login()
     }
+  },
+
+  login: function () {
+    var that = this
+    wx.login({
+      success: res => {
+        console.log("wx login success")
+        var code = res.code
+        //test code
+        // app.globalData.sessionId = "021qEHFZ1wrOJ01TLKFZ1RoYFZ1qEHFo"
+        // wx.setStorageSync("SESSIONID", app.globalData.sessionId)
+        // that.setData({
+        //   isAuthed: true
+        // })
+        wx.getUserInfo({
+          success: res => {
+            var userInfo = res.userInfo
+            serverProxy.login(code, userInfo, function (msg) {
+              if (msg.statusCode == 200) {
+                app.globalData.sessionId = msg.data.token
+                wx.setStorageSync("SESSIONID", app.globalData.sessionId)
+                that.setData({
+                  isAuthed: true
+                })
+              } else {
+                wx.showToast({
+                  title: '登录失败，可能是网络问题',
+                  icon: 'none',
+                  duration: 1500
+                })
+              }
+            })
+          }
+        })
+      },
+      fail: res => {
+        wx.showToast({
+          title: '登录失败，可能是网络问题',
+          icon: 'none',
+          duration: 1500
+        })
+      }
+    })
   },
   
   getBattery: function () {
@@ -91,6 +103,12 @@ Page({
       title: '电量剩余：30%',
       icon: 'none',
       duration: 3000
+    })
+  },
+
+  getLockList: function () {
+    wx.navigateTo({
+      url: '../locklist/locklist',
     })
   },
 

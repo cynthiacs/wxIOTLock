@@ -1,0 +1,62 @@
+/* pages/locklist/locklist.wxss */
+.lists {
+  background-color: #f2f2f2;
+  padding-top: 5rpx;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 8rpx;
+  margin-right: 8rpx;
+  margin-top: 8rpx;
+  background-color: #fff;
+  align-items: center;
+}
+
+.item-left {
+  display: flex;
+  flex-direction: column;
+  padding-left: 50rpx;
+}
+
+.item-top {
+  margin-bottom: 20rpx;
+}
+
+.lock-name {
+  color: #000;
+  font-family: "微软雅黑";
+  font-weight: bold;
+  line-height: 20rpx;
+  padding: 32rpx 16rpx, 0, 16rpx;
+  font-size: 40rpx;
+  margin-top: 60rpx;
+  overflow: hidden; /*自动隐藏文字*/
+  text-overflow: ellipsis; /*文字隐藏后添加省略号*/
+}
+
+.lock-eq {
+  font-family: "微软雅黑";
+  color: #808080;
+  line-height: 10rpx;
+  font-size: 32rpx;
+  padding: 0 16rpx, 0, 16rpx;
+  overflow: hidden; /**自动隐藏文字*/
+  text-overflow: ellipsis; /**文字隐藏后添加省略号*/
+  white-space: nowrap; /**强制不换行*/
+}
+
+.pswbtn {
+  font-family: "微软雅黑";
+  color: #34425f;
+  font-size: 32rpx;
+  background-color: rgb(159, 201, 219)
+}
+
+.line {
+  height: 1rpx;
+  width: 100%;
+  background-color: #e0e1e2;
+}

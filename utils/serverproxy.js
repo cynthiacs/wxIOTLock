@@ -12,16 +12,25 @@ function login(wxCode, userinfo, listener) {
   var userinfoJson = {}
   userinfoJson.username = userinfo.nickName
   userinfoJson.avtor = userinfo.avatarUrl
+  
   var data = {
     js_code: wxCode,
-    userinfo: userinfoJson,
+    userinfo: JSON.stringify(userinfoJson),
   }
-  console.log(data)
+  var datastr = JSON.stringify(data)
+  console.log(datastr)
   wx.request({
     url: baseUrl + '/iot/api/wx/login',
     method: 'POST',
     data: data,
     success: function(data) {
+      if (data.statusCode === 200) {
+        console.log(data.data.token)
+        // resolve(data)
+      } else {
+        // reject(data)
+      }
+      // console.log(JSON.stringify(r))
       listener(data)
     },
     fail: function(data) {

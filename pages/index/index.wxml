@@ -49,7 +49,7 @@
   </view>
   <view class="line"></view>
   <view class="item">
-    <view class="item_left" class="top_image" bindtap="isShowToast">
+    <view class="item_left" class="top_image" bindtap="getLockList">
       <image src="/icons/setting.png" class="image" />
       <view class="mark">
         <text class="text">门锁设置</text>
