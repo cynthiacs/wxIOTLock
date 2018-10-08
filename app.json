@@ -1,7 +1,9 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/locklist/locklist"
+    "pages/locklist/locklist",
+    "pages/pswsettings/pswsettings",
+    "pages/pswsettings/addpassword/addpassword"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="welcome" hidden='{{isAuthed}}'>
   <button class="authbtn" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo"> 授权登录 </button>
-  </view>
+</view>
 <view hidden='{{!isAuthed}}'>
   <loading hidden="{{isHiddenLoading}}" stytle="display:flex  width:100rpx">
     查询中...
@@ -9,8 +9,8 @@
   <toast hidden="{{isHiddenToast}}" stytle="display:flex  width:100rpx" duration="3000" bindchange="toastHide">
     {{battery}}
   </toast>
-  
-  
+
+
   <view class="discovery withtab">
     <swiper class="activity" indicator-dots="{{indicatorDots}}" circular="true" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
       <block wx:for="{{imgUrls}}" wx:key='this'>
@@ -22,51 +22,54 @@
   </view>
 
   <view class="item">
-    <view class="item_left" class="top_image" bindtap="getBattery">
-      <image src="/icons/battery.png" class="image" />
-      <view class="mark">
-        <text class="text">门锁电量</text>
-      </view>
-    </view>
-    <view class="item_right" class="top_image" bindtap="isShowToast">
-      <image src="/icons/lockinfo.png" class="image" />
-      <view class="mark">
-        <text class="text">门锁状态</text>
-      </view>
-    </view>
-    <view class="item_right" class="top_image" bindtap="isShowToast">
+    <view class="item_left" class="top_image" bindtap="isShowToast">
       <image src="/icons/unlock.png" class="image" />
       <view class="mark">
         <text class="text">一键开锁</text>
       </view>
     </view>
+    
+    <view class="item_right" class="top_image" bindtap="isShowToast">
+      <image src="/icons/lockinfo.png" class="image" />
+      <view class="mark">
+        <text class="text">钥匙列表</text>
+      </view>
+    </view>
+
     <view class="item_right" class="top_image" bindtap="isShowToast">
       <image src="/icons/share.png" class="image" />
       <view class="mark">
         <text class="text">分享密钥</text>
       </view>
     </view>
+
+    <view class="item_right" class="top_image" bindtap="getBattery">
+      <image src="/icons/battery.png" class="image" />
+      <view class="mark">
+        <text class="text">门锁日志</text>
+      </view>
+    </view>
   </view>
   <view class="line"></view>
   <view class="item">
-    <view class="item_left" class="top_image" bindtap="getLockList">
+    <view class="item_left" class="top_image" bindtap="setPassword">
       <image src="/icons/setting.png" class="image" />
       <view class="mark">
-        <text class="text">门锁设置</text>
+        <text class="text">门锁管理</text>
       </view>
     </view>
     <view class='vertical-line'></view>
     <view class="item_right" class="top_image" bindtap="isShowToast">
       <image src="/icons/user_guide.png" class="image" />
       <view class="mark">
-        <text class="text">用户手册</text>
+        <text class="text">报警信息</text>
       </view>
     </view>
     <view class='vertical-line'></view>
     <view class="item_right" class="top_image" bindtap="isShowToast">
       <image src="/icons/about_us.png" class="image" />
       <view class="mark">
-        <text class="text">关于我们</text>
+        <text class="text">激活智能锁</text>
       </view>
     </view>
   </view>

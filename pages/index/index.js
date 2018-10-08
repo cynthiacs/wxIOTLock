@@ -106,9 +106,9 @@ Page({
     })
   },
 
-  getLockList: function () {
+  setPassword: function () {
     wx.navigateTo({
-      url: '../locklist/locklist',
+      url: '../pswsettings/pswsettings',
     })
   },
 

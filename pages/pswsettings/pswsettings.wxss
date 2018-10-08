@@ -1,0 +1,26 @@
+/* pages/pswsettings/pswsettings.wxss */
+
+.item {
+  display: flex;
+  flex-direction: row;
+  padding: 25rpx;
+  margin-left: 68rpx;
+  align-items: center;
+}
+
+.image_left {
+  width: 88rpx;
+  height: 88rpx
+}
+
+.line {
+  height: 1rpx;
+  width: 100%;
+  background-color: #9a9fa5;
+}
+
+.psw_text {
+  color: #000;
+  font-family: "微软雅黑";
+  margin-left: 20rpx;
+}

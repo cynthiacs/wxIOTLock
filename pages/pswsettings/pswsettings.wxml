@@ -1,0 +1,10 @@
+<!--pages/pswsettings/pswsettings.wxml-->
+<view class="psw_type_list">
+  <block wx:for="{{lists}}" wx:for-index="index" wx:key="this">
+    <view class="item" data-index="{{index}}" bindtap='addpsw'>
+      <image class="image_left" src="{{item.icon}}"></image>
+      <text class="psw_text">{{item.title}}</text>
+    </view>
+    <view class="line"></view>
+  </block>
+</view>
