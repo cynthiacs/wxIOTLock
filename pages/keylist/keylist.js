@@ -1,32 +1,24 @@
-// pages/pswsettings/pswsettings.js
+// pages/keylist/keylist.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    lists:[
+    lists: [
       {
-        icon:"/icons/password.png",
-        title:"数字密码设置",
+        icon: "/icons/password.png",
+        title: "数字密码",
       },
       {
         icon: "/icons/fingerprint.png",
-        title: "指纹密码设置",
+        title: "指纹密码",
       },
       {
         icon: "/icons/rfid.png",
-        title: "IC卡密码设置",
+        title: "IC卡密码",
       }
     ],
-  },
-
-  addpsw: function(e) {
-    var index = e.currentTarget.dataset.index
-    console.log("index = "+index)
-    wx.navigateTo({
-      url: 'addpassword/addpassword?index='+index
-    })
   },
 
   /**
@@ -34,6 +26,14 @@ Page({
    */
   onLoad: function (options) {
 
+  },
+
+  addpsw: function (e) {
+    var index = e.currentTarget.dataset.index
+    console.log("index = " + index)
+    wx.navigateTo({
+      url: 'passwordlist/passwordlist?index=' + index
+    })
   },
 
   /**

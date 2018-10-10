@@ -41,6 +41,7 @@ App({
   },
   globalData: {
     sessionId: null,
-    userInfo: null
+    userInfo: null,
+    deviceName: "dev_rrpc"
   }
 })

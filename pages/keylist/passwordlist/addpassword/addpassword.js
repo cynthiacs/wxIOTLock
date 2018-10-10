@@ -1,5 +1,5 @@
 // pages/pswsettings/addpassword/addpassword.js
-const serverProxy = require('../../../utils/serverproxy.js')
+const serverProxy = require('../../../../utils/serverproxy.js')
 const app = getApp()
 
 Page({

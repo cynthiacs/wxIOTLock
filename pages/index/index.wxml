@@ -22,21 +22,21 @@
   </view>
 
   <view class="item">
-    <view class="item_left" class="top_image" bindtap="isShowToast">
+    <view class="item_left" class="top_image" bindtap="unlockonce">
       <image src="/icons/unlock.png" class="image" />
       <view class="mark">
         <text class="text">一键开锁</text>
       </view>
     </view>
     
-    <view class="item_right" class="top_image" bindtap="isShowToast">
+    <view class="item_right" class="top_image" bindtap="getKeyLists">
       <image src="/icons/lockinfo.png" class="image" />
       <view class="mark">
         <text class="text">钥匙列表</text>
       </view>
     </view>
 
-    <view class="item_right" class="top_image" bindtap="isShowToast">
+    <view class="item_right" class="top_image" bindtap="shareKey">
       <image src="/icons/share.png" class="image" />
       <view class="mark">
         <text class="text">分享密钥</text>
@@ -52,24 +52,24 @@
   </view>
   <view class="line"></view>
   <view class="item">
-    <view class="item_left" class="top_image" bindtap="setPassword">
+    <view class="item_left" class="top_image">
       <image src="/icons/setting.png" class="image" />
       <view class="mark">
-        <text class="text">门锁管理</text>
+        <text class="text">激活智能锁</text>
       </view>
     </view>
     <view class='vertical-line'></view>
-    <view class="item_right" class="top_image" bindtap="isShowToast">
+    <view class="item_right" class="top_image" bindtap="">
       <image src="/icons/user_guide.png" class="image" />
       <view class="mark">
         <text class="text">报警信息</text>
       </view>
     </view>
     <view class='vertical-line'></view>
-    <view class="item_right" class="top_image" bindtap="isShowToast">
+    <view class="item_right" class="top_image" bindtap="">
       <image src="/icons/about_us.png" class="image" />
       <view class="mark">
-        <text class="text">激活智能锁</text>
+        <text class="text">关于我们</text>
       </view>
     </view>
   </view>

@@ -1,0 +1,27 @@
+<!--pages/tempkeylist/tempkeylist.wxml-->
+<view class='page'>
+  <view class='createkey'>
+    <text>新增密码</text>
+    <image class='image' src='/icons/next.png'></image>
+  </view>
+  <view class='list'>
+    <text class='keytype'>长期密码</text>
+
+    <view class='longkeyview'>
+      <text class='keyinnertype'>限时密码</text>
+      <text class='keynum'>33455666</text>
+      <text class='date'>有效期至：2018-11-30</text>
+      <view class="line"></view>
+      <view class='editview'>
+      <text class='date'>2018-9-1 15:09</text>
+      <view>
+      <text>分享</text>
+      </view>
+      <view>
+      <text>删除</text>
+      </view>
+      </view>
+    </view>
+
+  </view>
+</view>

@@ -1,32 +1,11 @@
-// pages/pswsettings/pswsettings.js
+// pages/tempkeylist/tempkeylist.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    lists:[
-      {
-        icon:"/icons/password.png",
-        title:"数字密码设置",
-      },
-      {
-        icon: "/icons/fingerprint.png",
-        title: "指纹密码设置",
-      },
-      {
-        icon: "/icons/rfid.png",
-        title: "IC卡密码设置",
-      }
-    ],
-  },
 
-  addpsw: function(e) {
-    var index = e.currentTarget.dataset.index
-    console.log("index = "+index)
-    wx.navigateTo({
-      url: 'addpassword/addpassword?index='+index
-    })
   },
 
   /**

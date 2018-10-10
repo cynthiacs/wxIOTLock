@@ -3,7 +3,11 @@
     "pages/index/index",
     "pages/locklist/locklist",
     "pages/pswsettings/pswsettings",
-    "pages/pswsettings/addpassword/addpassword"
+    "pages/pswsettings/addpassword/addpassword",
+    "pages/keylist/keylist",
+    "pages/keylist/passwordlist/passwordlist",
+    "pages/keylist/passwordlist/addpassword/addpassword",
+    "pages/tempkeylist/tempkeylist"
   ],
   "window": {
     "backgroundTextStyle": "light",

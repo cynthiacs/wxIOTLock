@@ -1,0 +1,56 @@
+/* pages/tempkeylist/tempkeylist.wxss */
+.page {
+  display: flex;
+  flex-direction: column;
+  background: rgba(65, 36, 36, 0.144);
+}
+
+.createkey {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: #fff;
+  align-items: center;
+  margin-top: 20rpx;
+  padding-left: 20rpx;
+}
+
+.image {
+  width: 88rpx;
+  height: 88rpx;
+}
+
+.list {
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  padding-top: 20rpx;
+}
+
+.keytype {
+  color: rgb(114, 109, 109)
+}
+
+.longkeyview {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 10rpx;
+  align-items: center;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  padding: 10rpx;
+}
+
+.line {
+  width: 90%;
+  height: 1rpx;
+  background-color: rgba(65, 36, 36, 0.144);
+}
+
+.editview {
+  width: 90%;
+  margin-top: 10rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

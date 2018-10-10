@@ -94,6 +94,39 @@ Page({
       }
     })
   },
+
+  unlockonce: function() {
+    serverProxy.unlockonce(function(msg) {
+      console.log(msg)
+      if(msg.statusCode == 200) {
+        if(msg.data.result == 0) {
+          wx.showToast({
+            title: '开锁成功',
+            icon: 'none',
+            duration: 3000,
+          })
+        }else {
+          wx.showToast({
+            title: '开锁失败',
+            icon: 'none',
+            duration: 3000,
+          })
+        }
+      }else {
+        wx.showToast({
+          title: '网络请求失败',
+          icon: 'none',
+          duration: 3000,
+        })
+      }
+    })
+  },
+
+  shareKey: function() {
+    wx.navigateTo({
+      url: '../tempkeylist/tempkeylist',
+    })
+  },
   
   getBattery: function () {
     // this.setData({
@@ -103,6 +136,12 @@ Page({
       title: '电量剩余：30%',
       icon: 'none',
       duration: 3000
+    })
+  },
+
+  getKeyLists: function () {
+    wx.navigateTo({
+      url: '../keylist/keylist',
     })
   },
 
