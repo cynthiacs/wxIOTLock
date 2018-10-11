@@ -1,8 +1,13 @@
 /* pages/tempkeylist/tempkeylist.wxss */
-.page {
+page {
+  height: 100%;
+}
+
+.all {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  background: rgba(65, 36, 36, 0.144);
+  background: rgb(240, 232, 232);
 }
 
 .createkey {
@@ -26,11 +31,19 @@
   padding-top: 20rpx;
 }
 
+.keytypeview {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .keytype {
+  font-size: 34rpx;
   color: rgb(114, 109, 109)
 }
 
-.longkeyview {
+.keyview {
   display: flex;
   flex-direction: column;
   background: #fff;
@@ -47,10 +60,35 @@
   background-color: rgba(65, 36, 36, 0.144);
 }
 
+.textback {
+  display: flex;
+  flex-direction: column;
+  width: 200rpx;
+  border-radius: 44rpx;
+  background-color: #eee;
+  align-items: center;
+}
+
+.keynum {
+  font-size: 40rpx;
+  font-weight: bold;
+}
+
 .editview {
   width: 90%;
   margin-top: 10rpx;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+}
+
+.date {
+  font-size: 34rpx;
+  color: rgba(151, 147, 147, 0.849)
+}
+
+.edit_text {
+  font-size: 34rpx;
+  color: rgb(90, 140, 153);
 }

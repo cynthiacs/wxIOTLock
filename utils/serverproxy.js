@@ -44,19 +44,6 @@ function login(wxCode, userinfo, listener) {
 }
 
 function addPassword(keytype, keyname, listener) {
-  // var baseUrl = 'https://www.leadcoreiot.top';
-  // var typestr = "password"//card/finger
-  // switch (parseInt(keytype)) {
-  //   case 0:
-  //     typestr = "password"
-  //     break
-  //   case 1:
-  //     typestr = "finger"
-  //     break
-  //   case 2:
-  //     typestr = "card"
-  //     break
-  // }
   var typestr = getKeyType(keytype)
   var data = {
     access_token: app.globalData.sessionId,
@@ -128,6 +115,19 @@ function unlockonce(listener) {
   wxRequest(options, listener)
 }
 
+function getPassword(passwordType, listener) {
+  var data = {
+    access_token: app.globalData.sessionId,
+    devname: devName
+  }
+  var options = {
+    url: '/iot/api/password/'+passwordType+'/search',
+    data: data,
+    method: 'GET',
+  }
+  wxRequest(options, listener)
+}
+
 function wxRequest(options, listener) {
   wx.request({
     url: baseUrl + options.url,
@@ -153,4 +153,5 @@ module.exports = {
   getKeys: getKeys,
   deleteKey: deleteKey,
   unlockonce: unlockonce,
+  getPassword: getPassword,
 }

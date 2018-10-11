@@ -1,0 +1,45 @@
+/* pages/tempkeylist/addtemppsw/addtemppsw.wxss */
+
+.all {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image {
+  width: 88rpx;
+  height: 88rpx;
+  margin-top: 50rpx;
+  margin-bottom: 20rpx;
+}
+
+.line {
+  height: 1rpx;
+  width: 100%;
+  background-color: #9a9fa5;
+  margin-top: 20rpx;
+}
+
+.picker {
+  background-color: #f4f6f8;
+  padding: 13px;
+  margin: 10rpx;
+}
+
+.text {
+  padding: 13px;
+  margin: 10rpx;
+}
+
+.button {
+  width: 80%;
+  padding-left: 13px;
+  padding-right: 13rpx;
+  margin: 10rpx;
+  background: #5af0b1
+}

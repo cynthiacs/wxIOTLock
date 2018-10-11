@@ -1,11 +1,15 @@
 // pages/tempkeylist/tempkeylist.js
+const serverProxy = require('../../utils/serverproxy.js')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    countkeyList: [],
+    timekeyList: [],
+    deadlinekeyList: [],
   },
 
   /**
@@ -13,6 +17,12 @@ Page({
    */
   onLoad: function (options) {
 
+  },
+
+  addpsw: function () {
+    wx.navigateTo({
+      url: 'addtemppsw/addtemppsw',
+    })
   },
 
   /**
@@ -26,7 +36,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    serverProxy.getPassword('counts', function (msg) {
+      console.log("counts:")
+      console.log(msg)
+    })
+    serverProxy.getPassword('time', function (msg) {
+      console.log("time:")
+      console.log(msg)
+    })
+    serverProxy.getPassword('deadline', function (msg) {
+      console.log("deadline:")
+      console.log(msg)
+    })
   },
 
   /**

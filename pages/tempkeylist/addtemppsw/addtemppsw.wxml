@@ -1,0 +1,37 @@
+<!--pages/tempkeylist/addtemppsw/addtemppsw.wxml-->
+<view class='all'>
+  <view class='title'>
+    <image class='image' src='/icons/logo.png'></image>
+    <text>您的智能锁密钥安全管家</text>
+  </view>
+
+  <view class='line'></view>
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{typeList}}">
+    <view class="picker">
+      密钥类型: {{typeList[index]}}
+    </view>
+  </picker>
+
+  <picker mode="date" value="{{date}}" start="{{today}}" end="2038-10-01" bindchange="bindDateChange">
+    <view class="picker" hidden='{{index!=1}}'>
+      有效期至: {{date}}
+    </view>
+  </picker>
+
+  <picker mode="time" value="{{bgtime}}" start="{{now}}" end="23:59" bindchange="bindbgTimeChange">
+    <view class="picker" hidden='{{index!=2}}'>
+      开始时间: {{bgtime}}
+    </view>
+  </picker>
+
+  <picker mode="time" value="{{edtime}}" start="{{now}}" end="23:59" bindchange="bindedTimeChange">
+    <view class="picker" hidden='{{index!=2}}'>
+      开始时间: {{edtime}}
+    </view>
+  </picker>
+
+  <text class='text'>{{tips}}</text>
+  <view class='title'>
+    <button class='button'>生成密码</button>
+  </view>
+</view>
