@@ -1,0 +1,11 @@
+<!--pages/tempkeylist/sharepsw/sharepsw.wxml-->
+
+<view class='item'>
+  <view class='textback'>
+    <text class='text'>{{pswtype}}</text>
+  </view>
+  <text class='pswtext'>{{psw}}</text>
+  <text class='text'>{{tips}}</text>
+</view>
+
+<button class='button' open-type="share">分享到微信</button>

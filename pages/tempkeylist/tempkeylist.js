@@ -25,6 +25,63 @@ Page({
     })
   },
 
+  shareCountkey: function(e) {
+    var index = e.currentTarget.dataset.index
+    var pswInfo = this.data.countkeyList[index]
+    wx.navigateTo({
+      url: 'sharepsw/sharepsw?pswtype=临时密码&psw=' + pswInfo.key + '&tips=' + '仅能开锁一次',
+    })
+  },
+
+  delCountkey: function(e) {
+    var that = this
+    var index = e.currentTarget.dataset.index
+    serverProxy.deletePassword('counts', this.data.countkeyList[index].id,
+      function (msg) {
+        if(msg.statusCode == 200 && msg.data.success) {
+          wx.showToast({
+            title: '删除密钥成功',
+            icon: 'none',
+            duration: 1500
+          })
+          that.updateCountPsw()
+        }
+      })
+  },
+
+  updateCountPsw: function() {
+    var that = this
+    serverProxy.getPassword('counts', function (msg) {
+      console.log("counts:")
+      console.log(msg)
+      that.setData({
+        countkeyList: msg.data
+      })
+    })
+  },
+
+  updateDeadlinePsw: function() {
+    var that = this
+    serverProxy.getPassword('time', function (msg) {
+      console.log("time:")
+      console.log(msg)
+      that.setData({
+        timekeyList: msg.data
+      })
+    })
+  },
+
+  updateTimePsw: function() {
+    var that = this
+    serverProxy.getPassword('deadline', function (msg) {
+      console.log("deadline:")
+      console.log(msg)
+      that.setData({
+        deadlinekeyList: msg.data
+      })
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -36,18 +93,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    serverProxy.getPassword('counts', function (msg) {
-      console.log("counts:")
-      console.log(msg)
-    })
-    serverProxy.getPassword('time', function (msg) {
-      console.log("time:")
-      console.log(msg)
-    })
-    serverProxy.getPassword('deadline', function (msg) {
-      console.log("deadline:")
-      console.log(msg)
-    })
+    this.updateCountPsw()
+    this.updateDeadlinePsw()
+    this.updateTimePsw()
   },
 
   /**

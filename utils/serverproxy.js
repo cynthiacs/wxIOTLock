@@ -43,7 +43,7 @@ function login(wxCode, userinfo, listener) {
   });
 }
 
-function addPassword(keytype, keyname, listener) {
+function addKey(keytype, keyname, listener) {
   var typestr = getKeyType(keytype)
   var data = {
     access_token: app.globalData.sessionId,
@@ -128,6 +128,53 @@ function getPassword(passwordType, listener) {
   wxRequest(options, listener)
 }
 
+function newPassword(passwordType, param, listener) {
+  console.log("newPassword " + passwordType)
+  var data = {
+    access_token: app.globalData.sessionId,
+    
+    devname: devName,
+    key: param.key,
+  }
+  var pswstr = 'counts'
+  switch(parseInt(passwordType)) {
+    case 0:
+      data.counts = param.counts
+      data.name = '临时密码'
+      break;
+    case 1:
+      data.due_date = param.due_date
+      data.name = '限时密码'
+      pswstr = 'deadline'
+      break;
+    case 2:
+      data.bt = param.bt
+      data.et = param.et
+      data.name = '限时段密码'
+      pswstr = 'time'
+      break;
+  }
+  var options = {
+    url: '/iot/api/password/' + pswstr + '/add',
+    data: data,
+    method: 'POST',
+  }
+  wxRequest(options, listener)
+}
+
+function deletePassword(passwordtype, id, listener) {
+  var data = {
+    access_token: app.globalData.sessionId,
+    devname: devName,
+  }
+  var options = {
+    url: '/iot/api/password/' + passwordtype + '/' + id + '/del',
+    data: data,
+    method: 'POST'
+  }
+  wxRequest(options, listener)
+}
+
 function wxRequest(options, listener) {
   wx.request({
     url: baseUrl + options.url,
@@ -149,9 +196,11 @@ function wxRequest(options, listener) {
 module.exports = {
   serverProxy: serverProxy,
   login: login,
-  addPassword: addPassword,
+  addKey: addKey,
   getKeys: getKeys,
   deleteKey: deleteKey,
   unlockonce: unlockonce,
   getPassword: getPassword,
+  newPassword: newPassword,
+  deletePassword: deletePassword,
 }

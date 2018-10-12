@@ -1,51 +1,79 @@
 <!--pages/tempkeylist/tempkeylist.wxml-->
-<view class='all'>
+<view>
   <view class='createkey' bindtap='addpsw'>
     <text class='keytype'>新增密码</text>
     <image class='image' src='/icons/next.png'></image>
   </view>
-  <view class='list' hidden='{{longkeyList.length<=0}}'>
+  <view class='list' hidden='{{deadlinekeyList.length<=0 && timekeyList.length<=0}}'>
     <text class='keytype'>长期密码</text>
-
-    <view class='keyview'>
-      <view class='textback'>
-        <text class='date'>限时密码</text>
-      </view>
-      <text class='keynum'>33455666</text>
-      <text class='date'>有效期至：2018-11-30</text>
-
-      <view class="line"></view>
-
-      <view class='editview'>
-        <text class='date'>2018-9-1 15:09</text>
-        <view>
-          <text class='edit_text'>分享</text>
+    <block wx:for='{{deadlinekeyList}}' wx:for-index="index" wx:key="this">
+      <view class='item' data-index='{{index}}'>
+        <view class='textback'>
+          <text class='date'>限时密码</text>
         </view>
-        <view>
-          <text class='edit_text'>修改</text>
+        <text class='keynum'>{{item.key}}</text>
+        <text class='date'>有效期至：{{item.due_date}}</text>
+
+        <view class="line"></view>
+
+        <view class='editview'>
+          <text class='date'>{{item.create_date}}</text>
+          <view bindtap='shareDeadlineKey' data-index='{{index}}'>
+            <text class='edit_text'>分享</text>
+          </view>
+          <view bindtap='editDeadlineKey'>
+            <text class='edit_text'>修改</text>
+          </view>
         </view>
       </view>
-    </view>
+    </block>
+
+    <block wx:for='{{timekeyList}}' wx:for-index="index" wx:key="this">
+      <view class='item' data-index='{{index}}'>
+        <view class='textback'>
+          <text class='date'>限时段密码</text>
+        </view>
+        <text class='keynum'>{{item.key}}</text>
+        <text class='date'>有效时间段：{{item.bt}}-{{item.et}}</text>
+
+        <view class="line"></view>
+
+        <view class='editview'>
+          <text class='date'>{{item.create_date}}</text>
+          <view bindtap='shareTimeKey' data-index='{{index}}'>
+            <text class='edit_text'>分享</text>
+          </view>
+          <view bindtap='editTimeKey'>
+            <text class='edit_text'>修改</text>
+          </view>
+        </view>
+      </view>
+    </block>
   </view>
-  <view class='list'>
-  <view class='keytypeview'>
-  
-    <text class='keytype'>临时密码</text>
-    <view><text class='edit_text'>清空</text></view>
-    </view>
-    <view class='keyview'>
-      <text class='keynum'>1224567899</text>
-      <view class="line"></view>
 
-      <view class='editview'>
-        <text class='date'>2018-9-1 15:09</text>
-        <view>
-          <text class='edit_text'>分享</text>
-        </view>
-        <view>
-          <text class='edit_text'>删除</text>
-        </view>
+  <view class='list' hidden='{{countkeyList<=0}}'>
+    <view class='keytypeview'>
+      <text class='keytype'>临时密码</text>
+      <view bindtap='delAllCountPsw'>
+        <text class='edit_text'>清空</text>
       </view>
     </view>
+    <block wx:for='{{countkeyList}}' wx:for-index="index" wx:key="this">
+      <view class='item' data-index='{{index}}'>
+        <text class='keynum'>{{item.key}}</text>
+        <view class="line"></view>
+
+        <view class='editview'>
+          <text class='date'>{{item.create_date}}</text>
+          <view bindtap='shareCountkey' data-index='{{index}}'>
+            <text class='edit_text'>分享</text>
+          </view>
+          <view bindtap='delCountkey' data-index='{{index}}'>
+            <text class='edit_text'>删除</text>
+          </view>
+        </view>
+      </view>
+    </block>
+
   </view>
 </view>

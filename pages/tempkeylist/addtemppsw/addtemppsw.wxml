@@ -6,6 +6,7 @@
   </view>
 
   <view class='line'></view>
+  <input class='input' bindinput="userInput" placeholder="请输入您的数字密码"></input>
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{typeList}}">
     <view class="picker">
       密钥类型: {{typeList[index]}}
@@ -30,8 +31,8 @@
     </view>
   </picker>
 
-  <text class='text'>{{tips}}</text>
+  <text class='text'>{{tips[index]}}</text>
   <view class='title'>
-    <button class='button'>生成密码</button>
+    <button class='button' bindtap='createNewPsw'>生成密码</button>
   </view>
 </view>

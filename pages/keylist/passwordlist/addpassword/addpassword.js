@@ -56,7 +56,7 @@ Page({
 
   setPassword: function() {
     var that = this
-    serverProxy.addPassword(this.data.keyType, this.data.keyname,
+    serverProxy.addKey(this.data.keyType, this.data.keyname,
       function(msg){
        if(msg.statusCode == 200) {
          var id = msg.data.id

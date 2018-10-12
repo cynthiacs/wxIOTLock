@@ -25,9 +25,17 @@
   margin-top: 20rpx;
 }
 
+.input {
+  background-color: #f4f6f8;
+  margin: 10rpx;
+  padding: 20rpx;
+  /* padding-right: 13rpx; */
+
+}
+
 .picker {
   background-color: #f4f6f8;
-  padding: 13px;
+  padding: 20rpx;
   margin: 10rpx;
 }
 
