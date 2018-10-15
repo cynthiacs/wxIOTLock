@@ -25,7 +25,23 @@ Page({
     })
   },
 
-  shareCountkey: function(e) {
+  shareDeadlineKey: function (e) {
+    var index = e.currentTarget.dataset.index
+    var pswInfo = this.data.deadlinekeyList[index]
+    wx.navigateTo({
+      url: 'sharepsw/sharepsw?pswtype=限时密码&psw=' + pswInfo.key + '&tips=' + '有效期至：' + pswInfo.due_date,
+    })
+  },
+
+  shareTimeKey: function (e) {
+    var index = e.currentTarget.dataset.index
+    var pswInfo = this.data.timekeyList[index]
+    wx.navigateTo({
+      url: 'sharepsw/sharepsw?pswtype=限时段密码&psw=' + pswInfo.key + '&tips=' + '有效时间段：' + pswInfo.bt + '-' + pswInfo.et,
+    })
+  },
+
+  shareCountkey: function (e) {
     var index = e.currentTarget.dataset.index
     var pswInfo = this.data.countkeyList[index]
     wx.navigateTo({
@@ -33,12 +49,12 @@ Page({
     })
   },
 
-  delCountkey: function(e) {
+  delCountkey: function (e) {
     var that = this
     var index = e.currentTarget.dataset.index
     serverProxy.deletePassword('counts', this.data.countkeyList[index].id,
       function (msg) {
-        if(msg.statusCode == 200 && msg.data.success) {
+        if (msg.statusCode == 200 && msg.data.success) {
           wx.showToast({
             title: '删除密钥成功',
             icon: 'none',
@@ -49,7 +65,7 @@ Page({
       })
   },
 
-  updateCountPsw: function() {
+  updateCountPsw: function () {
     var that = this
     serverProxy.getPassword('counts', function (msg) {
       console.log("counts:")
@@ -60,7 +76,7 @@ Page({
     })
   },
 
-  updateDeadlinePsw: function() {
+  updateDeadlinePsw: function () {
     var that = this
     serverProxy.getPassword('time', function (msg) {
       console.log("time:")
@@ -71,7 +87,7 @@ Page({
     })
   },
 
-  updateTimePsw: function() {
+  updateTimePsw: function () {
     var that = this
     serverProxy.getPassword('deadline', function (msg) {
       console.log("deadline:")
