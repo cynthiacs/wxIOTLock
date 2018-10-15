@@ -10,6 +10,9 @@ Page({
     countkeyList: [],
     timekeyList: [],
     deadlinekeyList: [],
+    onceList: [],
+    longList: [],
+    longPswsize: 0,
   },
 
   /**
@@ -98,6 +101,35 @@ Page({
     })
   },
 
+  updateOncePsw: function () {
+    var that = this
+    serverProxy.getPassword('once', function (msg) {
+      console.log("oncePasswords:")
+      console.log(msg)
+      that.setData({
+        onceList: msg.data
+      })
+    })
+  },
+
+  updateLongPsw: function () {
+    var that = this
+    serverProxy.getLongPasswords(function (msg) {
+      console.log("longPasswords:")
+      console.log(msg)
+      var pswSize = 0
+      for(var i = 0; i < msg.data.length; i++) {
+        if(msg.data[i].pwdinfo != null) {
+          pswSize++
+        }
+      }
+      that.setData({
+        longList: msg.data,
+        longPswsize: pswSize
+      })
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -109,9 +141,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.updateCountPsw()
-    this.updateDeadlinePsw()
-    this.updateTimePsw()
+    // this.updateCountPsw()
+    // this.updateDeadlinePsw()
+    // this.updateTimePsw()
+    this.updateLongPsw()
+    this.updateOncePsw()
   },
 
   /**

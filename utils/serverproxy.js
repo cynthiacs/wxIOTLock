@@ -128,34 +128,61 @@ function getPassword(passwordType, listener) {
   wxRequest(options, listener)
 }
 
+function getLongPasswords(listener) {
+  var data = {
+    access_token: app.globalData.sessionId,
+    devname: devName
+  }
+  var options = {
+    url: '/iot/api/password/search/lskey',
+    data: data,
+    method: 'GET',
+  }
+  wxRequest(options, listener)
+}
+
 function newPassword(passwordType, param, listener) {
   console.log("newPassword " + passwordType)
   var data = {
     access_token: app.globalData.sessionId,
-    
     devname: devName,
     key: param.key,
   }
   var pswstr = 'counts'
   switch(parseInt(passwordType)) {
     case 0:
-      data.counts = param.counts
       data.name = '临时密码'
-      break;
+      newOncePassword(data, listener)
+      return
     case 1:
       data.due_date = param.due_date
       data.name = '限时密码'
       pswstr = 'deadline'
-      break;
+      break
     case 2:
       data.bt = param.bt
       data.et = param.et
       data.name = '限时段密码'
       pswstr = 'time'
-      break;
+      break
   }
   var options = {
     url: '/iot/api/password/' + pswstr + '/add',
+    data: data,
+    method: 'POST',
+  }
+  wxRequest(options, listener)
+}
+
+function newOncePassword(data, listener) {
+  // var data = {
+  //   access_token: app.globalData.sessionId,
+  //   name: '临时密码',
+  //   devname: devName,
+  //   key: param.key,
+  // }
+  var options = {
+    url: '/iot/api/password/once/add',
     data: data,
     method: 'POST',
   }
@@ -203,4 +230,5 @@ module.exports = {
   getPassword: getPassword,
   newPassword: newPassword,
   deletePassword: deletePassword,
+  getLongPasswords: getLongPasswords,
 }
