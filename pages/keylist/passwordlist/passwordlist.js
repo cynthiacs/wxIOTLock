@@ -38,6 +38,9 @@ Page({
     icon: null,
     isNotBlankList: false,
     keyType: 0,
+    hiddenmodalput: true,
+    index: 0,
+    newName: '',
   },
 
   /**
@@ -93,6 +96,54 @@ Page({
           title: '获取钥匙列表失败',
           icon: 'none',
           duration: 3000
+        })
+      }
+    })
+  },
+
+  editKey: function(e) {
+    var index = e.currentTarget.dataset.index
+    this.setData({
+      hiddenmodalput: false,
+      index: index
+    })
+  },
+
+  userInput: function(e) {
+    this.setData({
+      newName: e.detail.value,
+    })
+  },
+
+  cancel: function(e) {
+    this.setData({
+      hiddenmodalput: true,
+    })
+  },
+
+  confirm: function(e) {
+    var that = this
+    var newName = this.data.newName
+    if(newName == '') {
+      wx.showToast({
+        title: '请输入新的钥匙名字',
+        icon: 'none',
+        duration: 1500
+      })
+      return
+    }
+    this.setData({
+      hiddenmodalput: true,
+    })
+    var keyId = this.data.keys[this.data.index].id
+    serverProxy.editKey(this.data.keyType, keyId, newName, function(msg) {
+      if(msg.statusCode == 200) {
+        that.updateKeys()
+      }else {
+        wx.showToast({
+          title: '重命名失败',
+          icon: 'none',
+          duration: 1500
         })
       }
     })

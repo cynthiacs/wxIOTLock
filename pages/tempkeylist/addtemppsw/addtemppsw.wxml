@@ -7,31 +7,33 @@
 
   <view class='line'></view>
   <input class='input' bindinput="userInput" placeholder="请输入您的数字密码"></input>
-  <picker bindchange="bindPickerChange" value="{{index}}" range="{{typeList}}">
+  <input class='input' hidden='{{typeList[index].id!=3}}' bindinput="countsInput" placeholder="请输入次数"></input>
+
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{typeList}}" range-key="{{'name'}}">
     <view class="picker">
-      密钥类型: {{typeList[index]}}
+      密钥类型: {{typeList[index].name}}
     </view>
   </picker>
 
   <picker mode="date" value="{{date}}" start="{{today}}" end="2038-10-01" bindchange="bindDateChange">
-    <view class="picker" hidden='{{index!=1}}'>
+    <view class="picker" hidden='{{typeList[index].id!=1}}'>
       有效期至: {{date}}
     </view>
   </picker>
 
   <picker mode="time" value="{{bgtime}}" start="{{now}}" end="23:59" bindchange="bindbgTimeChange">
-    <view class="picker" hidden='{{index!=2}}'>
+    <view class="picker" hidden='{{typeList[index].id!=2}}'>
       开始时间: {{bgtime}}
     </view>
   </picker>
 
   <picker mode="time" value="{{edtime}}" start="{{now}}" end="23:59" bindchange="bindedTimeChange">
-    <view class="picker" hidden='{{index!=2}}'>
+    <view class="picker" hidden='{{typeList[index].id!=2}}'>
       开始时间: {{edtime}}
     </view>
   </picker>
 
-  <text class='text'>{{tips[index]}}</text>
+  <text class='text'>{{typeList[index].tip}}</text>
   <view class='title'>
     <button class='button' bindtap='createNewPsw'>生成密码</button>
   </view>

@@ -24,38 +24,55 @@ Page({
 
   addpsw: function () {
     wx.navigateTo({
-      url: 'addtemppsw/addtemppsw',
+      url: 'addtemppsw/addtemppsw?longPswsize=' + this.data.longPswsize,
     })
   },
 
-  shareDeadlineKey: function (e) {
+  editlongPsw: function(e) {
     var index = e.currentTarget.dataset.index
-    var pswInfo = this.data.deadlinekeyList[index]
+    var item = this.data.longList[index]
+    var pos = item.pos
     wx.navigateTo({
-      url: 'sharepsw/sharepsw?pswtype=限时密码&psw=' + pswInfo.key + '&tips=' + '有效期至：' + pswInfo.due_date,
+      url: 'addtemppsw/addtemppsw?longPswsize=' + this.data.longPswsize + '&pos=' + pos,
     })
   },
 
-  shareTimeKey: function (e) {
+  sharelongPsw: function (e) {
     var index = e.currentTarget.dataset.index
-    var pswInfo = this.data.timekeyList[index]
+    var pswInfo = this.data.longList[index].pwdinfo
+    var tips = ''
+    var pswtype = ''
+    switch (parseInt(pswInfo.typeindex)) {
+      case 1:
+        pswtype = '限时密码'
+        tips = '有效期至：' + pswInfo.detail.due_date
+        break
+      case 2:
+        pswtype = '限时段密码'
+        tips = '有效时间段：' + pswInfo.detail.bt + '-' + pswInfo.detail.et
+        break
+      case 3:
+        pswtype = '限次密码'
+        tips = '有效开锁次数：' + pswInfo.detail.counts
+        break
+    }
     wx.navigateTo({
-      url: 'sharepsw/sharepsw?pswtype=限时段密码&psw=' + pswInfo.key + '&tips=' + '有效时间段：' + pswInfo.bt + '-' + pswInfo.et,
+      url: 'sharepsw/sharepsw?pswtype=' + pswtype + '&psw=' + pswInfo.detail.password + '&tips=' + tips,
     })
   },
 
-  shareCountkey: function (e) {
+  shareOncePsw: function(e) {
     var index = e.currentTarget.dataset.index
-    var pswInfo = this.data.countkeyList[index]
+    var pswInfo = this.data.onceList[index]
     wx.navigateTo({
       url: 'sharepsw/sharepsw?pswtype=临时密码&psw=' + pswInfo.key + '&tips=' + '仅能开锁一次',
     })
   },
 
-  delCountkey: function (e) {
+  delOncePsw: function (e) {
     var that = this
     var index = e.currentTarget.dataset.index
-    serverProxy.deletePassword('counts', this.data.countkeyList[index].id,
+    serverProxy.deletePassword(this.data.onceList[index].id,
       function (msg) {
         if (msg.statusCode == 200 && msg.data.success) {
           wx.showToast({
@@ -63,42 +80,9 @@ Page({
             icon: 'none',
             duration: 1500
           })
-          that.updateCountPsw()
+          that.updateOncePsw()
         }
       })
-  },
-
-  updateCountPsw: function () {
-    var that = this
-    serverProxy.getPassword('counts', function (msg) {
-      console.log("counts:")
-      console.log(msg)
-      that.setData({
-        countkeyList: msg.data
-      })
-    })
-  },
-
-  updateDeadlinePsw: function () {
-    var that = this
-    serverProxy.getPassword('time', function (msg) {
-      console.log("time:")
-      console.log(msg)
-      that.setData({
-        timekeyList: msg.data
-      })
-    })
-  },
-
-  updateTimePsw: function () {
-    var that = this
-    serverProxy.getPassword('deadline', function (msg) {
-      console.log("deadline:")
-      console.log(msg)
-      that.setData({
-        deadlinekeyList: msg.data
-      })
-    })
   },
 
   updateOncePsw: function () {
@@ -118,16 +102,29 @@ Page({
       console.log("longPasswords:")
       console.log(msg)
       var pswSize = 0
-      for(var i = 0; i < msg.data.length; i++) {
-        if(msg.data[i].pwdinfo != null) {
+      var list = msg.data
+      for (var i = 0; i < list.length; i++) {
+        if (list[i].pwdinfo != null) {
+          that.setTypeIndex(list[i].pwdinfo)
           pswSize++
         }
       }
+      console.log(pswSize)
       that.setData({
-        longList: msg.data,
+        longList: list,
         longPswsize: pswSize
       })
     })
+  },
+
+  setTypeIndex: function (item) {
+    if (item.type == 'deadline') {
+      item.typeindex = 1
+    } else if (item.type == 'time') {
+      item.typeindex = 2
+    } else {
+      item.typeindex = 3
+    }
   },
 
   /**
@@ -141,9 +138,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // this.updateCountPsw()
-    // this.updateDeadlinePsw()
-    // this.updateTimePsw()
     this.updateLongPsw()
     this.updateOncePsw()
   },

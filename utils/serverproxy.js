@@ -72,6 +72,21 @@ function getKeys(keytype, listener) {
   wxRequest(options, listener)
 }
 
+function editKey(keytype, keyid, name, listener) {
+  var typestr = getKeyType(keytype)
+  var data = {
+    access_token: app.globalData.sessionId,
+    devname: devName,
+    name: name
+  }
+  var options = {
+    url: '/iot/api/' + typestr + '/' + keyid + '/edit',
+    data: data,
+    method: 'POST',
+  }
+  wxRequest(options, listener)
+}
+
 function deleteKey(keytype, keyid, listener) {
   var typestr = getKeyType(keytype)
   var data = {
@@ -165,7 +180,12 @@ function newPassword(passwordType, param, listener) {
       data.name = '限时段密码'
       pswstr = 'time'
       break
+    case 3:
+      data.name = '限次密码'
+      data.counts = parseInt(param.counts)
+    break
   }
+  data.pos = param.pos
   var options = {
     url: '/iot/api/password/' + pswstr + '/add',
     data: data,
@@ -175,12 +195,6 @@ function newPassword(passwordType, param, listener) {
 }
 
 function newOncePassword(data, listener) {
-  // var data = {
-  //   access_token: app.globalData.sessionId,
-  //   name: '临时密码',
-  //   devname: devName,
-  //   key: param.key,
-  // }
   var options = {
     url: '/iot/api/password/once/add',
     data: data,
@@ -189,13 +203,13 @@ function newOncePassword(data, listener) {
   wxRequest(options, listener)
 }
 
-function deletePassword(passwordtype, id, listener) {
+function deletePassword(id, listener) {
   var data = {
     access_token: app.globalData.sessionId,
     devname: devName,
   }
   var options = {
-    url: '/iot/api/password/' + passwordtype + '/' + id + '/del',
+    url: '/iot/api/password/once/' + id + '/del',
     data: data,
     method: 'POST'
   }
@@ -225,6 +239,7 @@ module.exports = {
   login: login,
   addKey: addKey,
   getKeys: getKeys,
+  editKey: editKey,
   deleteKey: deleteKey,
   unlockonce: unlockonce,
   getPassword: getPassword,

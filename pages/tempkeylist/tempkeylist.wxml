@@ -7,7 +7,7 @@
   <view class='list' hidden='{{longPswsize<=0}}'>
     <text class='keytype'>长期密码</text>
     <block wx:for='{{longList}}' wx:for-index="index" wx:key="this">
-      <view class='item' wx:if='{{item.pwdinfo.type==deadline}}' data-index='{{index}}'>
+      <view class='item' wx:if='{{item.pwdinfo.typeindex==1}}' data-index='{{index}}'>
         <view class='textback'>
           <text class='date'>限时密码</text>
         </view>
@@ -16,16 +16,16 @@
         <view class="line"></view>
         <view class='editview'>
           <text class='date'>{{item.pwdinfo.create_date}}</text>
-          <view bindtap='shareDeadlineKey' data-index='{{index}}'>
+          <view bindtap='sharelongPsw' data-index='{{index}}'>
             <text class='edit_text'>分享</text>
           </view>
-          <view bindtap='editDeadlineKey' data-index='{{index}}'>
+          <view bindtap='editlongPsw' data-index='{{index}}'>
             <text class='edit_text'>修改</text>
           </view>
         </view>
       </view>
 
-      <view class='item' data-index='{{index}}' wx:if='{{item.pwdinfo.type==time}}'>
+      <view class='item' data-index='{{index}}' wx:if='{{item.pwdinfo.typeindex==2}}'>
         <view class='textback'>
           <text class='date'>限时段密码</text>
         </view>
@@ -36,16 +36,16 @@
 
         <view class='editview'>
           <text class='date'>{{item.pwdinfo.create_date}}</text>
-          <view bindtap='shareTimeKey' data-index='{{index}}'>
+          <view bindtap='sharelongPsw' data-index='{{index}}'>
             <text class='edit_text'>分享</text>
           </view>
-          <view bindtap='editTimeKey' data-index='{{index}}'>
+          <view bindtap='editlongPsw' data-index='{{index}}'>
             <text class='edit_text'>修改</text>
           </view>
         </view>
       </view>
 
-      <view class='item ' data-index='{{index}} ' wx:if='{{item.pwdinfo.type==counts}} '>
+      <view class='item' data-index='{{index}}' wx:if='{{item.pwdinfo.typeindex==3}}'>
         <view class='textback '>
           <text class='date '>限次密码</text>
         </view>
@@ -56,45 +56,21 @@
 
         <view class='editview'>
           <text class='date'>{{item.pwdinfo.create_date}}</text>
-          <view bindtap='shareTimeKey' data-index='{{index}}'>
+          <view bindtap='sharelongPsw' data-index='{{index}}'>
             <text class='edit_text'>分享</text>
           </view>
-          <view bindtap='editTimeKey' data-index='{{index}}'>
+          <view bindtap='editlongPsw' data-index='{{index}}'>
             <text class='edit_text'>修改</text>
           </view>
         </view>
       </view>
-
     </block>
   </view>
-
-  <!-- <block wx:for='{{timekeyList}}' wx:for-index="index" wx:key="this">
-      <view class='item' data-index='{{index}}'>
-        <view class='textback'>
-          <text class='date'>限时段密码</text>
-        </view>
-        <text class='keynum'>{{item.key}}</text>
-        <text class='date'>有效时间段：{{item.bt}}-{{item.et}}</text>
-
-        <view class="line"></view>
-
-        <view class='editview'>
-          <text class='date'>{{item.create_date}}</text>
-          <view bindtap='shareTimeKey' data-index='{{index}}'>
-            <text class='edit_text'>分享</text>
-          </view>
-          <view bindtap='editTimeKey'>
-            <text class='edit_text'>修改</text>
-          </view>
-        </view>
-      </view>
-    </block>
-  </view> -->
 
   <view class='list' hidden='{{onceList<=0}}'>
     <view class='keytypeview'>
       <text class='keytype'>临时密码</text>
-      <view bindtap='delAllCountPsw'>
+      <view bindtap='delAllOncePsw'>
         <text class='edit_text'>清空</text>
       </view>
     </view>
@@ -105,10 +81,10 @@
 
         <view class='editview'>
           <text class='date'>{{item.create_date}}</text>
-          <view bindtap='shareCountkey' data-index='{{index}}'>
+          <view bindtap='shareOncePsw' data-index='{{index}}'>
             <text class='edit_text'>分享</text>
           </view>
-          <view bindtap='delCountkey' data-index='{{index}}'>
+          <view bindtap='delOncePsw' data-index='{{index}}'>
             <text class='edit_text'>删除</text>
           </view>
         </view>
