@@ -216,6 +216,20 @@ function deletePassword(id, listener) {
   wxRequest(options, listener)
 }
 
+function getUnlockLog(listener) {
+  var data = {
+    access_token: app.globalData.sessionId,
+    page: 1,
+    pagesize: 10,
+  }
+  var options = {
+    url: '/iot/api/unlock/records/' + devName,
+    data: data,
+    method: 'GET'
+  }
+  wxRequest(options, listener)
+}
+
 function wxRequest(options, listener) {
   wx.request({
     url: baseUrl + options.url,
@@ -246,4 +260,5 @@ module.exports = {
   newPassword: newPassword,
   deletePassword: deletePassword,
   getLongPasswords: getLongPasswords,
+  getUnlockLog: getUnlockLog,
 }

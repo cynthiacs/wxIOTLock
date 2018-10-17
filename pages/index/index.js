@@ -128,14 +128,9 @@ Page({
     })
   },
   
-  getBattery: function () {
-    // this.setData({
-    //   isHiddenLoading: false
-    // })
-    wx.showToast({
-      title: '电量剩余：30%',
-      icon: 'none',
-      duration: 3000
+  getUnlockLog: function () {
+    wx.navigateTo({
+      url: '../loglist/loglist',
     })
   },
 

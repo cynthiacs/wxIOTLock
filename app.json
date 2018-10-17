@@ -9,7 +9,8 @@
     "pages/keylist/passwordlist/addpassword/addpassword",
     "pages/tempkeylist/tempkeylist",
     "pages/tempkeylist/addtemppsw/addtemppsw",
-    "pages/tempkeylist/sharepsw/sharepsw"
+    "pages/tempkeylist/sharepsw/sharepsw",
+    "pages/loglist/loglist"
   ],
   "window": {
     "backgroundTextStyle": "light",

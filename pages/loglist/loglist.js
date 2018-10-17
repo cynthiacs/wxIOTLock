@@ -1,23 +1,34 @@
-// pages/keylist/keylist.js
+// pages/loglist/loglist.js
+const serverProxy = require('../../utils/serverproxy.js')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    lists: [
-      {
-        icon: "/icons/num_key.png",
-        title: "数字密码",
-      },
-      {
-        icon: "/icons/finger_key.png",
-        title: "指纹密码",
-      },
-      {
-        icon: "/icons/ic_key.png",
-        title: "IC卡密码",
-      }
+    list: [
+      // {
+      //   id: 1122,
+      //   typename: "指纹密码",
+      //   pwname: "我的指纹",
+      //   time: "2018-10-17T03:07:19.000Z",
+      //   device_name: "dev_rrpc"
+      // },
+      // {
+      //   id: 2345,
+      //   typename: "数字密码",
+      //   pwname: "老大",
+      //   time: "2018-10-17T03:25:19.000Z",
+      //   device_name: "dev_rrpc"
+      // },
+      // {
+      //   id: 6844,
+      //   typename: "限时密码",
+      //   pwname: "老二",
+      //   time: "2018-10-17T03:25:19.000Z",
+      //   device_name: "dev_rrpc"
+      // },
     ],
   },
 
@@ -25,14 +36,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-  },
-
-  addpsw: function (e) {
-    var index = e.currentTarget.dataset.index
-    console.log("index = " + index)
-    wx.navigateTo({
-      url: 'passwordlist/passwordlist?index=' + index
+    var that = this
+    serverProxy.getUnlockLog(function (msg) {
+      that.setData({
+        list: msg.data.rows
+      })
     })
   },
 

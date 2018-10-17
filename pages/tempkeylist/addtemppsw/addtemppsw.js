@@ -97,13 +97,20 @@ Page({
         title: '提示',
         content: '每个智能锁最多只能生成3条长期密码，请返回修改已有长期密码！',
         showCancel: false,
-        confirmColor: '5af0b1',
       })
       return
     }
     if(this.data.key == '') {
       wx.showToast({
         title: '请先输入您的数字密码',
+        icon: 'none',
+        duration: 1500
+      })
+      return
+    }
+    if (id == 3 && this.data.counts == 0) {
+      wx.showToast({
+        title: '请先输入限制次数',
         icon: 'none',
         duration: 1500
       })
@@ -143,7 +150,6 @@ Page({
           title: '新密码',
           content: msg.data.key,
           showCancel: false,
-          confirmColor: '5af0b1',
         })
       }else {
         wx.showToast({

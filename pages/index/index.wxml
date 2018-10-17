@@ -30,21 +30,21 @@
     </view>
     
     <view class="item_right" class="top_image" bindtap="getKeyLists">
-      <image src="/icons/lockinfo.png" class="image" />
+      <image src="/icons/keylist.png" class="image" />
       <view class="mark">
         <text class="text">钥匙列表</text>
       </view>
     </view>
 
     <view class="item_right" class="top_image" bindtap="shareKey">
-      <image src="/icons/share.png" class="image" />
+      <image src="/icons/sharepsw.png" class="image" />
       <view class="mark">
         <text class="text">分享密钥</text>
       </view>
     </view>
 
-    <view class="item_right" class="top_image" bindtap="getBattery">
-      <image src="/icons/battery.png" class="image" />
+    <view class="item_right" class="top_image" bindtap="getUnlockLog">
+      <image src="/icons/unlocklog.png" class="image" />
       <view class="mark">
         <text class="text">门锁日志</text>
       </view>
@@ -53,14 +53,14 @@
   <view class="line"></view>
   <view class="item">
     <view class="item_left" class="top_image">
-      <image src="/icons/setting.png" class="image" />
+      <image src="/icons/lockinfo.png" class="image" />
       <view class="mark">
         <text class="text">激活智能锁</text>
       </view>
     </view>
     <view class='vertical-line'></view>
     <view class="item_right" class="top_image" bindtap="">
-      <image src="/icons/user_guide.png" class="image" />
+      <image src="/icons/warning.png" class="image" />
       <view class="mark">
         <text class="text">报警信息</text>
       </view>

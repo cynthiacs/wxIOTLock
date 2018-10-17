@@ -1,0 +1,19 @@
+<!--pages/loglist/loglist.wxml-->
+<view class='list'>
+  <block wx:for='{{list}}' wx:for-index="index" wx:key="this">
+    <view class='item' data-index="{{index}}">
+      <view class='textback'>
+        <text class='small_text'>{{item.typename}}</text>
+      </view>
+      <text class='name'>{{item.pwname}}</text>
+
+      <view class="line"></view>
+      <view class='editview'>
+        <text class='small_text'>{{item.time}}</text>
+        <view bindtap='deleteLog' data-index='{{index}}'>
+          <text class='deltext'>删除</text>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

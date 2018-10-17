@@ -10,15 +10,15 @@ Page({
   data: {
     lists: [
       {
-        icon: "/icons/password.png",
+        icon: "/icons/num_key.png",
         title: "数字钥匙",
       },
       {
-        icon: "/icons/fingerprint.png",
+        icon: "/icons/finger_key.png",
         title: "指纹钥匙",
       },
       {
-        icon: "/icons/rfid.png",
+        icon: "/icons/ic_key.png",
         title: "IC卡钥匙",
       }
     ],
