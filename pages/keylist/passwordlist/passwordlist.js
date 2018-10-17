@@ -35,8 +35,6 @@ Page({
       //   device_name: "dev_rrpc"
       // },
     ],
-    icon: null,
-    isNotBlankList: false,
     keyType: 0,
     hiddenmodalput: true,
     index: 0,
@@ -54,7 +52,6 @@ Page({
       title: lists[index].title + '列表',
     })
     this.setData({
-      icon: lists[index].icon,
       keyType: index
     })
     
@@ -78,17 +75,16 @@ Page({
   updateKeys: function() {
     var that = this
     serverProxy.getKeys(this.data.keyType, function (msg) {
+      // wx.hideLoading()
       if (msg.statusCode == 200) {
         console.log(msg)
         if (msg.data.length > 0) {
           that.setData({
             keys: msg.data,
-            isNotBlankList: true
           })
         }else {
           that.setData({
             keys: [],
-            isNotBlankList: false
           })
         }
       } else {
@@ -106,6 +102,7 @@ Page({
     this.setData({
       hiddenmodalput: false,
       index: index,
+      newName: this.data.keys[index].name,
     })
   },
 
@@ -173,6 +170,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    // wx.showLoading({
+    //   title: '获取钥匙列表',
+    // })
     this.updateKeys()
   },
 

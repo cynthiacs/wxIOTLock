@@ -56,12 +56,6 @@ page {
   display: table-cell;
 }
 
-/* .item-middle {
-  flex: 1;
-  margin-top: 10rpx;
-  display: table-cell;
-} */
-
 .item_right {
   display: block;
   padding: 15rpx;

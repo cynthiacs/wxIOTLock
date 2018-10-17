@@ -3,14 +3,9 @@
   <button class="authbtn" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo"> 授权登录 </button>
 </view>
 <view hidden='{{!isAuthed}}'>
-  <loading hidden="{{isHiddenLoading}}" stytle="display:flex  width:100rpx">
+  <!-- <loading hidden="{{isHiddenLoading}}" stytle="display:flex  width:100rpx">
     查询中...
-  </loading>
-  <toast hidden="{{isHiddenToast}}" stytle="display:flex  width:100rpx" duration="3000" bindchange="toastHide">
-    {{battery}}
-  </toast>
-
-
+  </loading> -->
   <view class="discovery withtab">
     <swiper class="activity" indicator-dots="{{indicatorDots}}" circular="true" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
       <block wx:for="{{imgUrls}}" wx:key='this'>

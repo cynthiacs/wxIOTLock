@@ -22,7 +22,6 @@ Page({
         title: "IC卡钥匙",
       }
     ],
-    icon: null,
     title: null,
     keyType: 0,
     keyname: null,
@@ -38,7 +37,6 @@ Page({
     var index = options.index
     var lists = this.data.lists
     this.setData({
-      icon: lists[index].icon,
       title: lists[index].title,
       keyType: index,
       keyname: lists[index].title,

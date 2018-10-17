@@ -16,9 +16,6 @@ Page({
     autoplay: true,
     interval: 5000,
     duration: 1000,
-    isHiddenLoading: true,
-    isHiddenToast: true,
-    battery: "电量剩余：",
     code: null
   },
 
