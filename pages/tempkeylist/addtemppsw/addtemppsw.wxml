@@ -6,7 +6,7 @@
   </view>
 
   <view class='line'></view>
-  <input class='input' bindinput="userInput" placeholder="请输入您的数字密码"></input>
+  <input class='input' type='number' bindinput="userInput" placeholder="请输入您的数字密码"></input>
   <input class='input' type='number' hidden='{{typeList[index].id!=3}}' bindinput="countsInput" placeholder="请输入次数"></input>
 
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{typeList}}" range-key="{{'name'}}">

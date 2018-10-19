@@ -1,0 +1,107 @@
+/* pages/keyslist/keyslist.wxss */
+page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: rgba(65, 36, 36, 0.144);
+}
+
+.list {
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  padding-top: 10rpx;
+}
+
+.input {
+  border-bottom: 1px solid #b3b3b3;
+}
+
+.keytypeview {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.keytype {
+  font-size: 34rpx;
+  color: rgb(114, 109, 109)
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 8rpx;
+  margin-left: 8rpx;
+  margin-right: 8rpx;
+  margin-top: 8rpx;
+  background-color: #fff;
+}
+
+.item-left {
+  margin-top: 15rpx;
+  display: table-cell;
+  text-align: center;
+}
+
+.image {
+  width: 88rpx;
+  height: 88rpx;
+  /* border-radius: 44rpx;
+  background-color: #eee; */
+}
+
+.item-middle {
+  flex: 1;
+  margin-left: 10rpx;
+  padding-top: 13rpx;
+  overflow: hidden;
+}
+
+.title {
+  color: #000;
+  font-family: "微软雅黑";
+  font-weight: bold;
+  line-height: 20rpx;
+  padding: 32rpx 16rpx, 0, 16rpx;
+  font-size: 40rpx;
+  margin-top: 60rpx;
+  overflow: hidden; /*自动隐藏文字*/
+  text-overflow: ellipsis; /*文字隐藏后添加省略号*/
+}
+
+.date {
+  font-family: "微软雅黑";
+  color: #808080;
+  line-height: 10rpx;
+  font-size: 32rpx;
+  padding: 0 16rpx, 0, 16rpx;
+  overflow: hidden; /**自动隐藏文字*/
+  text-overflow: ellipsis; /**文字隐藏后添加省略号*/
+  white-space: nowrap; /**强制不换行*/
+}
+
+.item_right {
+  padding-top: 13rpx;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.time {
+  color: #808080;
+  font-size: 18rpx;
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  background-color: #e0e1e2;
+}
+
+.edit_text {
+  font-size: 34rpx;
+  color: rgb(90, 140, 153);
+}

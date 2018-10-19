@@ -13,6 +13,7 @@ Page({
     onceList: [],
     longList: [],
     longPswsize: 0,
+    oncePswSize: 0,
   },
 
   /**
@@ -87,12 +88,18 @@ Page({
 
   updateOncePsw: function () {
     var that = this
+    var len = this.data.onceList.length
     serverProxy.getPassword('once', function (msg) {
       console.log("oncePasswords:")
       console.log(msg)
       that.setData({
         onceList: msg.data
       })
+      if (that.data.onceList.length > len) {
+        wx.pageScrollTo({
+          scrollTop: 80,
+        })
+      }
     })
   },
 

@@ -1,0 +1,17 @@
+<view class='label'>
+  <view class='text'>
+    <text>PID：</text>
+  </view>
+  <view><input class="input" placeholder="请输入PID" bindinput="userInput" /></view>
+</view>
+<view class='line'></view>
+
+<view class='label'>
+  <view class='text'>
+    <text>门锁名字：</text>
+  </view>
+  <view><input class="input" placeholder="请输入门锁名字" bindinput="userInput" /></view>
+</view>
+<view class='line'></view>
+
+<button class='btn' bindtap='addLock'>激活</button>

@@ -49,5 +49,6 @@
   padding-left: 13px;
   padding-right: 13rpx;
   margin: 10rpx;
-  background: #5af0b1
+  background: #428ee2;
+  color: #fff
 }

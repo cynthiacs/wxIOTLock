@@ -1,4 +1,5 @@
 //app.js
+
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -39,9 +40,16 @@ App({
     //   }
     // })
   },
+
+  setDevId: function(id, name) {
+    this.globalData.deviceId = id
+    this.globalData.deviceName = name
+  },
+
   globalData: {
     sessionId: null,
     userInfo: null,
-    deviceName: "dev_rrpc"
+    deviceName: "dev_rrpc",
+    deviceId: 4,
   }
 })

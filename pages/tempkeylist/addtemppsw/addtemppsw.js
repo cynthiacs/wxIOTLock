@@ -151,6 +151,9 @@ Page({
           content: msg.data.key,
           showCancel: false,
         })
+        wx.navigateBack({
+          delta: 1,
+        })
       }else {
         wx.showToast({
           title: '创建密码失败，请确认数字密码是否有误',

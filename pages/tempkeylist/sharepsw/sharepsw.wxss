@@ -43,6 +43,6 @@ page {
 
 .button {
   width: 90%;
-  background: #5af0b1;
+  background: #428ee2;
   color: #fff
 }

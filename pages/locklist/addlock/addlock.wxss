@@ -1,0 +1,39 @@
+/* pages/locklist/addlock/addlock.wxss */
+page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.label {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 50rpx;
+}
+
+/* .text {
+  width: 52%;
+  flex: 1;
+  
+} */
+
+.input {
+  margin-left: 5rpx;
+}
+
+.line {
+  width: 90%;
+  margin-left: 50rpx;
+  height: 1rpx;
+  background-color: rgba(29, 2, 2, 0.144);
+}
+
+.btn {
+  width: 80%;
+  padding-left: 13px;
+  padding-right: 13rpx;
+  margin: 100rpx;
+  background: #5af0b1
+}

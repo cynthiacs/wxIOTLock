@@ -86,8 +86,8 @@ page {
 .image {
   width: 88rpx;
   height: 88rpx;
-  border-radius: 44rpx;
-  background-color: #eee;
+  /* border-radius: 44rpx;
+  background-color: #eee; */
 }
 
 .line {

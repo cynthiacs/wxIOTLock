@@ -133,7 +133,19 @@ Page({
 
   getKeyLists: function () {
     wx.navigateTo({
-      url: '../keylist/keylist',
+      url: '../keyslist/keyslist',
+    })
+  },
+
+  keyManagerment: function() {
+    wx.navigateTo({
+      url: '../keymanagerment/keymanagerment',
+    })
+  },
+
+  lockSetting: function() {
+    wx.navigateTo({
+      url: '../locklist/locklist',
     })
   },
 

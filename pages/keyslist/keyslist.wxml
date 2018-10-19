@@ -1,0 +1,109 @@
+<!--pages/keyslist/keyslist.wxml-->
+
+<view>
+  <modal id="modal" hidden="{{hiddenmodalput}}" title="重命名" confirm-text="确定" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
+    <input class='input' type='text' placeholder="请输入新的钥匙名字" bindinput="userInput" value='{{newName}}' />
+  </modal>
+
+  <view class='list' hidden='{{numKeys.length<=0}}'>
+    <view class='keytypeview'>
+      <text class='keytype'>数字钥匙</text>
+      <!-- <view bindtap='delAllOncePsw'>
+        <text class='edit_text'>清空</text>
+      </view> -->
+    </view>
+    <block wx:for='{{numKeys}}' wx:for-index="index" wx:key="this">
+      <view class='item' data-index="{{index}}">
+        <view class="item-left">
+          <image src="/icons/num_key.png" class="image" />
+        </view>
+        <view class="item-middle">
+          <view>
+            <text class="title">{{item.name}}</text>
+          </view>
+          <view>
+            <text class="date">{{item.create_date}}</text>
+          </view>
+        </view>
+        <view class='item_right'>
+          <view bindtap='editKey' data-index="{{index}}" data-type="{{0}}">
+            <!-- <image class="image" src='/icons/edit.png'></image> -->
+            <text class='edit_text'>编辑</text>
+          </view>
+          <view bindtap='deleteKey' data-index="{{index}}" data-type="{{0}}">
+            <!-- <image class="image" src='/icons/delete.png'></image> -->
+            <text class='edit_text'>删除</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view class='list' hidden='{{fingerKeys.length<=0}}'>
+    <view class='keytypeview'>
+      <text class='keytype'>指纹钥匙</text>
+      <!-- <view bindtap='delAllOncePsw'>
+        <text class='edit_text'>清空</text>
+      </view> -->
+    </view>
+    <block wx:for='{{fingerKeys}}' wx:for-index="index" wx:key="this">
+      <view class='item' data-index="{{index}}">
+        <view class="item-left">
+          <image src="/icons/finger_key.png" class="image" />
+        </view>
+        <view class="item-middle">
+          <view>
+            <text class="title">{{item.name}}</text>
+          </view>
+          <view>
+            <text class="date">{{item.create_date}}</text>
+          </view>
+        </view>
+        <view class='item_right'>
+          <view bindtap='editKey' data-index="{{index}}" data-type="{{1}}">
+            <!-- <image class="image" src='/icons/edit.png'></image> -->
+            <text class='edit_text'>编辑</text>
+          </view>
+          <view bindtap='deleteKey' data-index="{{index}}" data-type="{{1}}">
+            <!-- <image class="image" src='/icons/delete.png'></image> -->
+            <text class='edit_text'>删除</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view class='list' hidden='{{icKeys.length<=0}}'>
+    <view class='keytypeview'>
+      <text class='keytype'>IC卡钥匙</text>
+      <!-- <view bindtap='delAllOncePsw'>
+        <text class='edit_text'>清空</text>
+      </view> -->
+    </view>
+    <block wx:for='{{icKeys}}' wx:for-index="index" wx:key="this">
+      <view class='item' data-index="{{index}}">
+        <view class="item-left">
+          <image src="/icons/ic_key.png" class="image" />
+        </view>
+        <view class="item-middle">
+          <view>
+            <text class="title">{{item.name}}</text>
+          </view>
+          <view>
+            <text class="date">{{item.create_date}}</text>
+          </view>
+        </view>
+        <view class='item_right'>
+          <view bindtap='editKey' data-index="{{index}}" data-type="{{2}}">
+            <!-- <image class="image" src='/icons/edit.png'></image> -->
+            <text class='edit_text'>编辑</text>
+          </view>
+          <view bindtap='deleteKey' data-index="{{index}}" data-type="{{2}}">
+            <!-- <image class="image" src='/icons/delete.png'></image> -->
+            <text class='edit_text'>删除</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

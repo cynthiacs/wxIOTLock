@@ -8,6 +8,12 @@ function serverProxy() {
   this.token = null
 }
 
+function setDevName(id, name) {
+  app.globalData.deviceName = name
+  app.globalData.deviceId = id
+  devName = name
+}
+
 function login(wxCode, userinfo, listener) {
   console.log("serverproxy: login")
   // var baseUrl = 'https://www.leadcoreiot.top';
@@ -20,7 +26,7 @@ function login(wxCode, userinfo, listener) {
   var data = {
     js_code: wxCode,
     userinfo: JSON.stringify(userinfoJson),
-    devid: "4"
+    devid: app.globalData.devid
   }
   wx.request({
     url: baseUrl + '/iot/api/wx/login',
@@ -60,6 +66,7 @@ function addKey(keytype, keyname, listener) {
 
 function getKeys(keytype, listener) {
   var typestr = getKeyType(keytype)
+  console.log("getKeys:devname = "+devName)
   var data = {
     access_token: app.globalData.sessionId,
     devname: devName
@@ -136,7 +143,7 @@ function getPassword(passwordType, listener) {
     devname: devName
   }
   var options = {
-    url: '/iot/api/password/'+passwordType+'/search',
+    url: '/iot/api/password/' + passwordType + '/search',
     data: data,
     method: 'GET',
   }
@@ -164,7 +171,7 @@ function newPassword(passwordType, param, listener) {
     key: param.key,
   }
   var pswstr = 'counts'
-  switch(parseInt(passwordType)) {
+  switch (parseInt(passwordType)) {
     case 0:
       data.name = '临时密码'
       newOncePassword(data, listener)
@@ -183,7 +190,7 @@ function newPassword(passwordType, param, listener) {
     case 3:
       data.name = '限次密码'
       data.counts = parseInt(param.counts)
-    break
+      break
   }
   data.pos = param.pos
   var options = {
@@ -220,10 +227,24 @@ function getUnlockLog(listener) {
   var data = {
     access_token: app.globalData.sessionId,
     page: 1,
-    pagesize: 10,
+    pagesize: 25,
   }
   var options = {
     url: '/iot/api/unlock/records/' + devName,
+    data: data,
+    method: 'GET'
+  }
+  wxRequest(options, listener)
+}
+
+function getLocks(listener) {
+  var data = {
+    access_token: app.globalData.sessionId,
+    // page: 1,
+    // pagesize: 10,
+  }
+  var options = {
+    url: '/iot/api/terminal/search/',
     data: data,
     method: 'GET'
   }
@@ -261,4 +282,6 @@ module.exports = {
   deletePassword: deletePassword,
   getLongPasswords: getLongPasswords,
   getUnlockLog: getUnlockLog,
+  getLocks: getLocks,
+  setDevName: setDevName,
 }

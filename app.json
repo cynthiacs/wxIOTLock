@@ -3,11 +3,15 @@
     "pages/index/index",
     "pages/keylist/keylist",
     "pages/keylist/passwordlist/passwordlist",
-    "pages/keylist/passwordlist/addpassword/addpassword",
     "pages/tempkeylist/tempkeylist",
     "pages/tempkeylist/addtemppsw/addtemppsw",
     "pages/tempkeylist/sharepsw/sharepsw",
-    "pages/loglist/loglist"
+    "pages/loglist/loglist",
+    "pages/locklist/locklist",
+    "pages/locklist/addlock/addlock",
+    "pages/keymanagerment/keymanagerment",
+    "pages/keymanagerment/addpassword/addpassword",
+    "pages/keyslist/keyslist"
   ],
   "window": {
     "backgroundTextStyle": "light",

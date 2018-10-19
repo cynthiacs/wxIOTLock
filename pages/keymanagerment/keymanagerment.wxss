@@ -1,4 +1,4 @@
-/* pages/keylist/keylist.wxss */
+/* pages/keymanagerment/keymanagerment.wxss */
 
 .item {
   display: flex;
