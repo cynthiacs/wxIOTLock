@@ -8,15 +8,15 @@ Page({
     lists: [
       {
         icon: "/icons/num_key.png",
-        title: "数字密码",
+        title: "数字钥匙",
       },
       {
         icon: "/icons/finger_key.png",
-        title: "指纹密码",
+        title: "指纹钥匙",
       },
       {
         icon: "/icons/ic_key.png",
-        title: "IC卡密码",
+        title: "IC卡钥匙",
       }
     ],
   },

@@ -7,12 +7,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // tips: [
-    //   '说明：临时密码为一次性密码，密码使用后将永久失效。',
-    //   '说明：限时密码可限制密码的使用期限，时间超过有效日期后密码失效，密码生成后不能删除，但可修改密码有效期。',
-    //   '说明：限时段密码可限制密码的使用时间段，仅在有效时间段内密码有效，过期或未到该时段，密码均无效，密码生成后不能删除，但可修改有效时段。',
-    //   '说明：限次密码可限制密码的使用次数，使用次数超过限定次数后密码失效，密码生成后不能删除，但可修改次数。'],
-    // typeList: ['临时密码', '限时密码', '限时段密码', '限次密码'],
     typeList: [
       {
         id: 0,
@@ -35,7 +29,6 @@ Page({
         tip: '说明：限次密码可限制密码的使用次数，使用次数超过限定次数后密码失效，密码生成后不能删除，但可修改次数。'
       },
     ],
-    longPswsize: 0,
     index: 0,
     today: '2016-09-01',
     date: '2016-09-01',
@@ -60,9 +53,6 @@ Page({
 
   bindPickerChange: function(e) {
     var index = e.detail.value
-    // if (this.data.pos && index == 0) {
-    //   index = 1
-    // }
     this.setData({
       index: index
     })
@@ -92,7 +82,7 @@ Page({
     console.log("createNewPsw: index = " + index)
     var id = this.data.typeList[index].id
     console.log("createNewPsw: id = " + id)
-    if (!this.data.pos && this.data.longPswsize >= 3 && id > 0) {
+    if (id > 0 && this.data.pos == 0) {
       wx.showModal({
         title: '提示',
         content: '每个智能锁最多只能生成3条长期密码，请返回修改已有长期密码！',
@@ -124,24 +114,17 @@ Page({
         break
       case 1://限时密码
         param.due_date = this.data.date
-        // param.pos = ++this.data.longPswsize
         break
       case 2://限时段密码
         param.bt = this.data.bgtime
         param.et = this.data.edtime
-        // param.pos = ++this.data.longPswsize
         break
       case 3://限次密码
         param.counts = this.data.counts
-        // param.pos = ++this.data.longPswsize
         break
     }
     if (id > 0) {
-      if (this.data.pos) {
-        param.pos = this.data.pos
-      } else {
-        param.pos = ++this.data.longPswsize
-      }
+      param.pos = this.data.pos
     }
     
     serverProxy.newPassword(id, param, function(msg) {
@@ -174,14 +157,14 @@ Page({
     var d = now.getDate()
     var h = now.getHours()
     var min = now.getMinutes()
-    if(options.pos) {
+    console.log(options)
+    if(options.os == 'edit') {
       this.setData({
         typeList: this.data.typeList.slice(1)
       })
     }
     
     this.setData({
-      longPswsize: options.longPswsize,
       pos: options.pos,
       today: y + '-' + this.getTimestr(m) + '-' + this.getTimestr(d),
       date: y + '-' + this.getTimestr(m) + '-' + this.getTimestr(d),

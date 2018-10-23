@@ -19,8 +19,12 @@ Page({
     code: null
   },
 
-  onLoad: function () {
+  onLoad: function (options) {
     console.log("onLoad")
+    console.log(options)
+    if (options.scene) {
+      let scene = decodeURIComponent(options.scene)
+    }
     console.log(app.globalData.sessionId)
     if (app.globalData.sessionId != null) {
       this.setData({

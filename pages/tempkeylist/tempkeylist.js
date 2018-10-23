@@ -12,8 +12,9 @@ Page({
     deadlinekeyList: [],
     onceList: [],
     longList: [],
-    longPswsize: 0,
+    emptyPos: 0,
     oncePswSize: 0,
+    pageHasHide: false,
   },
 
   /**
@@ -25,7 +26,7 @@ Page({
 
   addpsw: function () {
     wx.navigateTo({
-      url: 'addtemppsw/addtemppsw?longPswsize=' + this.data.longPswsize,
+      url: 'addtemppsw/addtemppsw?os=' + 'add' + '&pos=' + this.data.emptyPos,
     })
   },
 
@@ -34,7 +35,7 @@ Page({
     var item = this.data.longList[index]
     var pos = item.pos
     wx.navigateTo({
-      url: 'addtemppsw/addtemppsw?longPswsize=' + this.data.longPswsize + '&pos=' + pos,
+      url: 'addtemppsw/addtemppsw?os=' + 'edit' + '&pos=' + pos,
     })
   },
 
@@ -86,6 +87,25 @@ Page({
       })
   },
 
+  delAllOncePsw: function(e) {
+    console.log("delAllOncePsw")
+    var that = this
+    var cleanCount = 0
+    var list = this.data.onceList
+    for(var i = 0; i < list.length; i++) {
+      serverProxy.deletePassword(list[i].id,
+        function (msg) {
+          if (msg.statusCode == 200 && msg.data.success) {
+            cleanCount++
+            if(cleanCount == list.length) {
+              that.updateOncePsw()
+            }
+          }
+        })
+    }
+
+  },
+
   updateOncePsw: function () {
     var that = this
     var len = this.data.onceList.length
@@ -95,7 +115,7 @@ Page({
       that.setData({
         onceList: msg.data
       })
-      if (that.data.onceList.length > len) {
+      if (that.data.pageHasHide && that.data.onceList.length > len) {
         wx.pageScrollTo({
           scrollTop: 80,
         })
@@ -108,18 +128,18 @@ Page({
     serverProxy.getLongPasswords(function (msg) {
       console.log("longPasswords:")
       console.log(msg)
-      var pswSize = 0
+      var emptyPos = 0
       var list = msg.data
       for (var i = 0; i < list.length; i++) {
         if (list[i].pwdinfo != null) {
           that.setTypeIndex(list[i].pwdinfo)
-          pswSize++
+        } else if (emptyPos == 0) {
+          emptyPos = list[i].pos
         }
       }
-      console.log(pswSize)
       that.setData({
         longList: list,
-        longPswsize: pswSize
+        emptyPos: emptyPos
       })
     })
   },
@@ -153,7 +173,9 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    this.setData({
+      pageHasHide: true
+    })
   },
 
   /**

@@ -48,7 +48,7 @@
   <view class="line"></view>
   <view class="item">
     <view class="item_left" class="top_image" bindtap='keyManagerment'>
-      <image src="/icons/lockinfo.png" class="image" />
+      <image src="/icons/new.png" class="image" />
       <view class="mark">
         <text class="text">钥匙管理</text>
       </view>
@@ -62,7 +62,7 @@
     </view>
     <view class='vertical-line'></view>
     <view class="item_right" class="top_image" bindtap="lockSetting">
-      <image src="/icons/lockinfo.png" class="image" />
+      <image src="/icons/default.png" class="image" />
       <view class="mark">
         <text class="text">智能锁设置</text>
       </view>
