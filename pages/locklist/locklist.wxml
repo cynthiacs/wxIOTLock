@@ -1,9 +1,9 @@
 <!--pages/locklist/locklist.wxml-->
 
-<!-- <view class='addview' bindtap='addLock'>
+<view class='addview' bindtap='addLock'>
   <text class='text'>激活智能锁</text>
   <image class='image' src='/icons/next.png'></image>
-</view> -->
+</view>
 <radio-group class='radio-group' bindchange='radioChange'>
 <text class='text'>默认门锁设置</text>
   <label class="radio" wx:for="{{list}}" wx:key='this'>

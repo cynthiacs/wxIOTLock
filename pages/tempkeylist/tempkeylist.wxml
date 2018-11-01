@@ -4,7 +4,7 @@
     <text class='keytype'>新增密码</text>
     <image class='image' src='/icons/next.png'></image>
   </view>
-  <view class='list' hidden='{{longList<=0}}'>
+  <view class='list' hidden='{{longPswSize<=0}}'>
     <text class='keytype'>长期密码</text>
     <block wx:for='{{longList}}' wx:for-index="index" wx:key="this">
       <view class='item' wx:if='{{item.pwdinfo.typeindex==1}}' data-index='{{index}}'>
@@ -67,7 +67,7 @@
     </block>
   </view>
 
-  <view class='list' hidden='{{onceList<=0}}'>
+  <view class='list' hidden='{{onceList.length<=0}}'>
     <view class='keytypeview'>
       <text class='keytype'>临时密码</text>
       <view bindtap='delAllOncePsw'>

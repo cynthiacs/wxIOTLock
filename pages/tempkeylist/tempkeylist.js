@@ -12,8 +12,8 @@ Page({
     deadlinekeyList: [],
     onceList: [],
     longList: [],
+    longPswSize: 0,
     emptyPos: 0,
-    oncePswSize: 0,
     pageHasHide: false,
   },
 
@@ -133,6 +133,7 @@ Page({
       for (var i = 0; i < list.length; i++) {
         if (list[i].pwdinfo != null) {
           that.setTypeIndex(list[i].pwdinfo)
+          that.data.longPswSize++
         } else if (emptyPos == 0) {
           emptyPos = list[i].pos
         }

@@ -14,7 +14,7 @@ function setDevName(id, name) {
   devName = name
 }
 
-function login(wxCode, userinfo, listener) {
+function login(wxCode, userinfo, devId, listener) {
   console.log("serverproxy: login")
   // var baseUrl = 'https://www.leadcoreiot.top';
   this.wxCode = wxCode
@@ -26,7 +26,7 @@ function login(wxCode, userinfo, listener) {
   var data = {
     js_code: wxCode,
     userinfo: JSON.stringify(userinfoJson),
-    devid: app.globalData.devid
+    devid: devId
   }
   wx.request({
     url: baseUrl + '/iot/api/wx/login',
@@ -238,6 +238,10 @@ function getUnlockLog(listener) {
 }
 
 function getLocks(listener) {
+  if (!app.globalData.sessionId) {
+    console.log("getLocks error sessionId:" + app.globalData.sessionId)
+    return
+  }
   var data = {
     access_token: app.globalData.sessionId,
     // page: 1,
