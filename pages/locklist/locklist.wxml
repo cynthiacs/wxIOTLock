@@ -4,6 +4,10 @@
   <text class='text'>激活智能锁</text>
   <image class='image' src='/icons/next.png'></image>
 </view>
+<!-- <view class='addview' bindtap='shareWXCode'>
+  <text class='text'>分享二维码</text>
+  <image class='image' src='/icons/next.png'></image>
+</view> -->
 <radio-group class='radio-group' bindchange='radioChange'>
 <text class='text'>默认门锁设置</text>
   <label class="radio" wx:for="{{list}}" wx:key='this'>

@@ -130,17 +130,19 @@ Page({
       console.log(msg)
       var emptyPos = 0
       var list = msg.data
+      var pswSize = 0
       for (var i = 0; i < list.length; i++) {
         if (list[i].pwdinfo != null) {
           that.setTypeIndex(list[i].pwdinfo)
-          that.data.longPswSize++
+          pswSize++
         } else if (emptyPos == 0) {
           emptyPos = list[i].pos
         }
       }
       that.setData({
         longList: list,
-        emptyPos: emptyPos
+        emptyPos: emptyPos,
+        longPswSize: pswSize
       })
     })
   },

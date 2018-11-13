@@ -38,35 +38,125 @@ Page({
           let param = (path.split("?"))[1]
           let paramArr = param.split("&")
           for(let i = 0; i < paramArr.length; i++) {
+            console.log("paramArr["+i+"]:"+paramArr[i])
             let devArr = paramArr[0].split("=")
-            for(let j = 0; j < devArr.length; j++) {
-              if(devArr[j] == "devid") {
-                devId = devArr[j+1]
-                break
+            if(devArr[0] == "scene") {
+              var scene = decodeURIComponent(devArr[1])
+              var sArr = scene.split('&')
+              devId = (sArr[0].split('='))[1]
+              console.log("scene:" + devId)
+              break
+            } else{
+              for (let j = 0; j < devArr.length; j++) {
+                console.log("devArr[" + j + "]:" + devArr[j])
+                if (devArr[j] == "devid") {
+                  devId = devArr[j + 1]
+                  break
+                }
               }
             }
+            
             if(devId) {
               break
             }
           }
           console.log("scan get devId:"+devId)
           if(devId) {
-            wx.showModal({
-              title: '添加智能锁设备',
-              content: '是否确定添加ID为'+devId+'的智能锁',
-              success(res) {
-                if (!app.globalData.sessionId) {
-                  that.login(devId)
-                }else {
-                  console.log("you have logined, to bind")
-                }
+            var list = that.data.list
+            var hasBinded = false
+            for (let k = 0; k < list.length; k++) {
+              if (devId == list[k].id) {
+                console.log("lock has been binded")
+                hasBinded = true
+                break
               }
-            })
+            }
+            if (hasBinded) {
+              wx.showModal({
+                title: '添加智能锁设备',
+                content: '您已经添加了ID为' + devId + '的智能锁，请在下面的列表中选择',
+                showCancel: false,
+              })
+            }else {
+              wx.showModal({
+                title: '添加智能锁设备',
+                content: '是否确定添加ID为' + devId + '的智能锁',
+                success(res) {
+                  if (res.confirm) {
+                    if (!app.globalData.sessionId) {
+                      that.login(devId)
+                    } else {
+                      console.log("you have logined, to bind")
+                      that.bindNewLock(devId)
+                    }
+                  }
+                }
+              })
+            }
+            return
+          }else {
+            // that.showError()
           }
         }else {
-          //show no info
+          // that.showError()
         }
+        that.showError()
+      },
+      fail(res) {
+        that.showError()
+      }
+    })
+    
+  },
 
+  showError: function() {
+    wx.showModal({
+      title: '友情提示',
+      content: '未扫描到有效的智能锁信息',
+      showCancel: false
+    })
+  },
+
+  bindNewLock: function (devId) {
+    var that = this
+    serverProxy.bindLock(devId, function (msg) {
+      console.log("bindLock:")
+      console.log(msg)
+      if (msg.data.success) {
+        //如果绑定成功gid设为id
+        serverProxy.getLocks(function (msg) {
+          if (msg.statusCode == 200) {
+            var newList = msg.data
+            for (var j = 0; j < newList.length; j++) {
+              if (devId == newList[j].id) {
+                serverProxy.setDevName(devId, newList[j].name)
+                break
+              }
+            }
+          }
+        })
+      } else {
+        var userId = msg.data.owner_user_id
+        if (userId) {
+          that.showApplyDialog()
+        }
+      }
+    })
+  },
+
+  showApplyDialog: function () {
+    wx.showModal({
+      title: '绑定申请',
+      content: '该设备已绑定管理员，需要向管理员申请绑定，申请通过后会通知你，是否确定申请？',
+      success(res) {
+        if (res.confirm)
+          console.log("todo: apply for manager")
+        else if (res.cancel)
+          wx.showToast({
+            title: '绑定设备失败',
+            icon: 'none',
+            duration: 2000,
+          })
       }
     })
   },
@@ -95,7 +185,7 @@ Page({
                       var id = app.globalData.deviceId
                       var list = msg.data
                       for (var i = 0; i < list.length; i++) {
-                        if (id && id == list[i].group_id) {
+                        if (id && id == list[i].id) {
                           // app.globalData.deviceName = list[i].name
                           serverProxy.setDevName(id, list[i].name)
                           list[i].checked = true
@@ -134,7 +224,7 @@ Page({
         var id = app.globalData.deviceId
         var list = msg.data
         for (var i = 0; i < list.length; i++) {
-          if (id && id == list[i].group_id) {
+          if (id && id == list[i].id) {
             list[i].checked = true
             break
           }

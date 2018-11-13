@@ -11,6 +11,7 @@ function serverProxy() {
 function setDevName(id, name) {
   app.globalData.deviceName = name
   app.globalData.deviceId = id
+  wx.setStorageSync("DEVID", id)
   devName = name
 }
 
@@ -26,7 +27,10 @@ function login(wxCode, userinfo, devId, listener) {
   var data = {
     js_code: wxCode,
     userinfo: JSON.stringify(userinfoJson),
-    devid: devId
+    // devid: devId
+  }
+  if(devId) {
+    data.devid = devId
   }
   wx.request({
     url: baseUrl + '/iot/api/wx/login',
@@ -140,7 +144,7 @@ function unlockonce(listener) {
 function getPassword(passwordType, listener) {
   var data = {
     access_token: app.globalData.sessionId,
-    devname: devName
+    // devname: devName
   }
   var options = {
     url: '/iot/api/password/' + passwordType + '/search',
@@ -151,6 +155,10 @@ function getPassword(passwordType, listener) {
 }
 
 function getLongPasswords(listener) {
+  if (!devName) {
+    console.log("getLongPasswords: no devname")
+    return
+  }
   var data = {
     access_token: app.globalData.sessionId,
     devname: devName
@@ -213,7 +221,7 @@ function newOncePassword(data, listener) {
 function deletePassword(id, listener) {
   var data = {
     access_token: app.globalData.sessionId,
-    devname: devName,
+    // devname: devName,
   }
   var options = {
     url: '/iot/api/password/once/' + id + '/del',
@@ -255,6 +263,18 @@ function getLocks(listener) {
   wxRequest(options, listener)
 }
 
+function bindLock(devId, listener) {
+  var data = {
+    access_token: app.globalData.sessionId,
+  }
+  var options = {
+    url: '/iot/api/terminal/'+devId+'/binduser/',
+    data: data,
+    method: 'POST'
+  }
+  wxRequest(options, listener)
+}
+
 function wxRequest(options, listener) {
   wx.request({
     url: baseUrl + options.url,
@@ -288,4 +308,5 @@ module.exports = {
   getUnlockLog: getUnlockLog,
   getLocks: getLocks,
   setDevName: setDevName,
+  bindLock: bindLock,
 }

@@ -1,6 +1,6 @@
 // pages/tempkeylist/addtemppsw/addtemppsw.js
 const serverProxy = require('../../../utils/serverproxy.js')
-//[{"id":7,"name":"密码","due_date":"2018-10-12T00:00:00.000Z","create_date":"2018-10-12T03:02:55.530Z","device_name":"dev_rrpc","key":"249238"}]
+const app = getApp()
 
 Page({
   /**
@@ -133,10 +133,15 @@ Page({
           title: '新密码',
           content: msg.data.key,
           showCancel: false,
+          success(res) {
+            if(res.confirm) {
+              wx.navigateBack({
+                delta: 1,
+              })
+            }
+          }
         })
-        wx.navigateBack({
-          delta: 1,
-        })
+        
       }else {
         wx.showToast({
           title: '创建密码失败，请确认数字密码是否有误',
@@ -158,6 +163,14 @@ Page({
     var h = now.getHours()
     var min = now.getMinutes()
     console.log(options)
+    if (!app.globalData.deviceName) {
+      this.setData({
+        typeList: this.data.typeList.splice(0, 1)
+      })
+      console.log(this.data.typeList.length)
+    }
+
+
     if(options.os == 'edit') {
       this.setData({
         typeList: this.data.typeList.slice(1)
