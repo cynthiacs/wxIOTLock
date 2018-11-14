@@ -39,8 +39,6 @@ Page({
     this.setData({
       mDevId: devId
     })
-
-    var that = this
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
@@ -52,25 +50,11 @@ Page({
           var session = wx.getStorageSync('SESSIONID')
           if (!session) {
             console.log("session has been cleaned")
-            that.login()
+            this.login()
           } else {
             app.globalData.sessionId = session
             this.sessionCheck()
           }
-
-          // if (!gdevId) {
-          //   // app.globalData.deviceId = devId
-          //   this.login(devId)
-          // } else {
-          //   var sessionId = wx.getStorageSync('SESSIONID')
-          //   console.log("storage sessionId = " + sessionId)
-          //   if (sessionId) {
-          //     app.globalData.sessionId = sessionId
-          //     this.sessionCheck(devId)
-          //   } else {
-          //     this.login()
-          //   }
-          // }
         } else {
           console.log("wx.getSetting not authed")
         }
@@ -79,56 +63,30 @@ Page({
   },
 
   sessionCheck: function () {
-    var that = this
     wx.checkSession({
       success: res => {
         console.log("session effective")
-        serverProxy.getLocks(function (msg) {
+        serverProxy.getLocks(msg => {
           console.log("getLocks:")
           console.log(msg)
           if (msg.statusCode == 200) {
             var gid = app.globalData.deviceId
-            var id = that.data.mDevId
+            var id = this.data.mDevId
             var list = msg.data
-            if (!gid) {
-              if (list != null && list.length > 0) {
-                console.log("get lock from list")
-                serverProxy.setDevName(list[0].id, list[0].name)
-              }
-            } else {
-              for (var i = 0; i < list.length; i++) {
-                if (gid && gid == list[i].id) {
-                  serverProxy.setDevName(gid, list[i].name)
-                  console.log("get lock name of gid:" + app.globalData.deviceName)
-                  break
+            if(!id) {
+              if (!gid) {
+                if (list != null && list.length > 0) {
+                  console.log("get lock from list")
+                  serverProxy.setDevName(list[0].id, list[0].name)
                 }
+              } else {
+                this.setNewGID(gid, list)
               }
-            }
-            if (id && id != gid) {
-              console.log("to bind devId " + id)
-              serverProxy.bindLock(id, function (msg) {
-                console.log("bindLock:")
-                console.log(msg)
-                if (msg.data.success) {
-                  //如果绑定成功gid设为id
-                  serverProxy.getLocks(function (msg) {
-                    if (msg.statusCode == 200) {
-                      var newList = msg.data
-                      for (var j = 0; j < newList.length; j++) {
-                        if (id == newList[j].id) {
-                          serverProxy.setDevName(id, newList[j].name)
-                          break
-                        }
-                      }
-                    }
-                  })
-                } else {
-                  var userId = msg.data.owner_user_id
-                  if (userId) {
-                    that.showApplyDialog()
-                  }
-                }
-              })
+            }else {
+              if (!this.setNewGID(id, list)) {
+                console.log("to bind devId " + id)
+                this.bindNewLock(id)
+              }
             }
           }
         })
@@ -136,7 +94,28 @@ Page({
       fail: res => {
         //连接失效，不提示用户，重新登陆
         console.log("session invalid")
-        that.login()
+        this.login()
+      }
+    })
+  },
+
+  bindNewLock: function(id) {
+    serverProxy.bindLock(id, msg => {
+      console.log("bindLock:")
+      console.log(msg)
+      if (msg.data.success) {
+        //如果绑定成功gid设为id
+        serverProxy.getLocks(msg => {
+          if (msg.statusCode == 200) {
+            var newList = msg.data
+            this.setNewGID(id, newList)
+          }
+        })
+      } else {
+        var userId = msg.data.owner_user_id
+        if (userId) {
+          this.showApplyDialog()
+        }
       }
     })
   },
@@ -158,6 +137,17 @@ Page({
     })
   },
 
+  setNewGID: function(id, list) {
+    for (let i = 0; i < list.length; i++) {
+      if (id && id == list[i].id) {
+        serverProxy.setDevName(id, list[i].name)
+        console.log("setNewGID new lock name:" + app.globalData.deviceName)
+        return true
+      }
+    }
+    return false
+  },
+
   bindGetUserInfo: function (e) {
     //第一次使用，用户授权 
     console.log(e)
@@ -167,28 +157,21 @@ Page({
   },
 
   login: function (devId) {
-    var that = this
     wx.login({
       success: res => {
         console.log("wx login success")
         var code = res.code
-        //test code
-        // app.globalData.sessionId = "021qEHFZ1wrOJ01TLKFZ1RoYFZ1qEHFo"
-        // wx.setStorageSync("SESSIONID", app.globalData.sessionId)
-        // that.setData({
-        //   isAuthed: true
-        // })
         wx.getUserInfo({
           success: res => {
             var userInfo = res.userInfo
             app.globalData.userInfo = userInfo
-            var id = that.data.mDevId
+            var id = this.data.mDevId
             var devId = app.globalData.deviceId
             if (id) {
               devId = id
             }
             console.log("before login:" + devId)
-            serverProxy.login(code, userInfo, devId, function (msg) {
+            serverProxy.login(code, userInfo, devId, msg => {
               if (msg.statusCode == 200) {
                 console.log("server login success")
                 console.log(msg)
@@ -198,20 +181,13 @@ Page({
                   var userId = msg.data.owner_user_id
                   if (userId) {
                     console.log("login result: dev has manager")
-                    that.showApplyDialog()
+                    this.showApplyDialog()
                   } else {
-                    serverProxy.getLocks(function (msg) {
+                    serverProxy.getLocks(msg => {
                       console.log(msg)
                       if (msg.statusCode == 200) {
-                        var id = app.globalData.deviceId
                         var list = msg.data
-                        for (var i = 0; i < list.length; i++) {
-                          if (devId && devId == list[i].id) {
-                            serverProxy.setDevName(devId, list[i].name)
-                            console.log("get lock name:" + app.globalData.deviceName)
-                            break
-                          }
-                        }
+                        this.setNewGID(devId, list)
                       }
                     })
                   }
@@ -219,9 +195,9 @@ Page({
                   wx.showModal({
                     title: '温馨提示',
                     content: '您还没有绑定门锁信息，请去智能锁设置中设置默认锁或者添加门锁信息',
-                    success(res) {
+                    success: res => {
                       if (res.confirm)
-                        that.lockSetting()
+                        this.lockSetting()
                     }
                   })
                 }
@@ -238,7 +214,7 @@ Page({
             console.log(res)
           }
         })
-        that.setData({
+        this.setData({
           isAuthed: true
         })
       },
@@ -345,12 +321,11 @@ Page({
       title: '温馨提示',
       content: '您还没有设置智能锁，快去设置您的智能锁吧',
       showCancel: false,
+      success: res => {
+        if(res.confirm) {
+          this.lockSetting()
+        }
+      }
     })
   },
-
-  toastHide: function () {
-    this.setData({
-      isHiddenToast: true
-    })
-  }
 })

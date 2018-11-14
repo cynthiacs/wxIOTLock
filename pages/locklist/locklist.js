@@ -28,9 +28,8 @@ Page({
     // wx.navigateTo({
     //   url: 'addlock/addlock',
     // })
-    var that = this
     wx.scanCode({
-      success(res) {
+      success: res => {
         console.log(res)
         if(res.path) {
           var devId
@@ -40,13 +39,18 @@ Page({
           for(let i = 0; i < paramArr.length; i++) {
             console.log("paramArr["+i+"]:"+paramArr[i])
             let devArr = paramArr[0].split("=")
-            if(devArr[0] == "scene") {
+            console.log("devArr.length:" + devArr.length)
+            if (devArr[0] == "scene" && devArr.length <= 2) {
+              // for ios & simulator.
+              // eg:paramArr[0]:scene=devid%3D1%26pk%3Da19ZV8Xax35
               var scene = decodeURIComponent(devArr[1])
               var sArr = scene.split('&')
               devId = (sArr[0].split('='))[1]
               console.log("scene:" + devId)
               break
             } else{
+              // for android
+              // ed:paramArr[0]:scene=devid=1
               for (let j = 0; j < devArr.length; j++) {
                 console.log("devArr[" + j + "]:" + devArr[j])
                 if (devArr[j] == "devid") {
@@ -62,7 +66,7 @@ Page({
           }
           console.log("scan get devId:"+devId)
           if(devId) {
-            var list = that.data.list
+            var list = this.data.list
             var hasBinded = false
             for (let k = 0; k < list.length; k++) {
               if (devId == list[k].id) {
@@ -81,35 +85,31 @@ Page({
               wx.showModal({
                 title: '添加智能锁设备',
                 content: '是否确定添加ID为' + devId + '的智能锁',
-                success(res) {
+                success: res => {
                   if (res.confirm) {
                     if (!app.globalData.sessionId) {
-                      that.login(devId)
+                      this.login(devId)
                     } else {
                       console.log("you have logined, to bind")
-                      that.bindNewLock(devId)
+                      this.bindNewLock(devId)
                     }
                   }
                 }
               })
             }
             return
-          }else {
-            // that.showError()
           }
-        }else {
-          // that.showError()
         }
-        that.showError()
+        this.showError()
       },
-      fail(res) {
-        that.showError()
+      fail: res => {
+        this.showError()
       }
     })
     
   },
 
-  showError: function() {
+  showError: function () {
     wx.showModal({
       title: '友情提示',
       content: '未扫描到有效的智能锁信息',
@@ -118,13 +118,12 @@ Page({
   },
 
   bindNewLock: function (devId) {
-    var that = this
-    serverProxy.bindLock(devId, function (msg) {
+    serverProxy.bindLock(devId, msg => {
       console.log("bindLock:")
       console.log(msg)
       if (msg.data.success) {
         //如果绑定成功gid设为id
-        serverProxy.getLocks(function (msg) {
+        serverProxy.getLocks(msg => {
           if (msg.statusCode == 200) {
             var newList = msg.data
             for (var j = 0; j < newList.length; j++) {
@@ -138,7 +137,7 @@ Page({
       } else {
         var userId = msg.data.owner_user_id
         if (userId) {
-          that.showApplyDialog()
+          this.showApplyDialog()
         }
       }
     })
@@ -162,7 +161,6 @@ Page({
   },
 
   login: function(devId) {
-    var that = this
     wx.login({
       success: res => {
         var code = res.code
@@ -172,14 +170,14 @@ Page({
             app.globalData.userInfo = userInfo
             console.log("after getUserInfo:" + devId)
             if (devId) {
-              serverProxy.login(code, userInfo, devId, function (msg) {
+              serverProxy.login(code, userInfo, devId, msg => {
                 if (msg.statusCode == 200) {
                   console.log("server login success")
                   app.globalData.sessionId = msg.data.token
                   wx.setStorageSync("SESSIONID", app.globalData.sessionId)
                   app.globalData.deviceId = devId
                   wx.setStorageSync("DEVID", app.globalData.deviceId)
-                  serverProxy.getLocks(function (msg) {
+                  serverProxy.getLocks(msg => {
                     console.log(msg)
                     if (msg.statusCode == 200) {
                       var id = app.globalData.deviceId
@@ -193,7 +191,7 @@ Page({
                           break
                         }
                       }
-                      that.setData({
+                      this.setData({
                         list: list
                       })
                     }
@@ -217,8 +215,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this
-    serverProxy.getLocks(function(msg) {
+    serverProxy.getLocks(msg => {
       console.log(msg)
       if(msg.statusCode == 200) {
         var id = app.globalData.deviceId
@@ -229,7 +226,7 @@ Page({
             break
           }
         }
-        that.setData({
+        this.setData({
           list: list
         })
       }
