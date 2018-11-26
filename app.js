@@ -7,22 +7,11 @@ App({
     // logs.unshift(Date.now())
     // wx.setStorageSync('logs', logs)
 
-    
-
     var devId = wx.getStorageSync('DEVID')
     console.log("getStorageSync devId = " + devId)
     if (devId) {
       this.globalData.deviceId = devId
     }
-
-    // // 登录
-    // wx.login({
-    //   success: res => {
-    //     // 发送 res.code 到后台换取 openId, sessionKey, unionId
-    //   }
-    // })
-    // 获取用户信息
-    
   },
 
   setDevId: function(id, name) {
@@ -35,5 +24,6 @@ App({
     userInfo: null,
     deviceName: null,//"dev_rrpc",
     deviceId: undefined,//4,
+    formIds: []
   }
 })

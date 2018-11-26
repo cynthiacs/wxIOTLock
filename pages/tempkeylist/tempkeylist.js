@@ -7,9 +7,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    countkeyList: [],
-    timekeyList: [],
-    deadlinekeyList: [],
     onceList: [],
     longList: [],
     longPswSize: 0,

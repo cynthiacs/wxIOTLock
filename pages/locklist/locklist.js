@@ -1,6 +1,7 @@
 // pages/locklist/locklist.js
 const app = getApp()
 const serverProxy = require('../../utils/serverproxy.js')
+const customUI = require('../../utils/customUI.js')
 
 Page({
 
@@ -135,30 +136,30 @@ Page({
           }
         })
       } else {
-        var userId = msg.data.owner_user_id
-        if (userId) {
-          this.showApplyDialog()
+        var ownerId = msg.data.owner_user_id
+        if (ownerId) {
+          customUI.showApplyDialog(ownerId, devId)
         }
       }
     })
   },
 
-  showApplyDialog: function () {
-    wx.showModal({
-      title: '绑定申请',
-      content: '该设备已绑定管理员，需要向管理员申请绑定，申请通过后会通知你，是否确定申请？',
-      success(res) {
-        if (res.confirm)
-          console.log("todo: apply for manager")
-        else if (res.cancel)
-          wx.showToast({
-            title: '绑定设备失败',
-            icon: 'none',
-            duration: 2000,
-          })
-      }
-    })
-  },
+  // showApplyDialog: function (ownerId, devId) {
+  //   wx.showModal({
+  //     title: '绑定申请',
+  //     content: '该设备已绑定管理员，需要向管理员申请绑定，申请通过后会通知你，是否确定申请？',
+  //     success(res) {
+  //       if (res.confirm)
+  //         console.log("todo: apply for manager")
+  //       else if (res.cancel)
+  //         wx.showToast({
+  //           title: '绑定设备失败',
+  //           icon: 'none',
+  //           duration: 2000,
+  //         })
+  //     }
+  //   })
+  // },
 
   login: function(devId) {
     wx.login({

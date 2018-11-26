@@ -1,0 +1,50 @@
+/* pages/authpage/authpage.wxss */
+page {
+  height: 100%;
+}
+
+.authpage{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: space-between; */
+}
+
+.image{
+  margin-top: 50rpx;
+  width: 88rpx;
+  height: 88rpx;
+}
+
+.text{
+  margin-top: 50rpx;
+}
+
+.line{
+  margin-top: 50rpx;
+  width: 100%;
+  height: 1rpx;
+  background-color: #9a9fa5;
+}
+
+.infoview{
+  margin-top: 50rpx;
+  width: 100%;
+  padding-left: 100rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.cotent{
+  margin-left: 30rpx;
+}
+
+.btnview{
+  width: 500rpx;
+  display: flex;
+  flex-direction: row;
+  margin: 50rpx;
+  justify-content: space-between; 
+}

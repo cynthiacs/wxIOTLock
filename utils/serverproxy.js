@@ -275,6 +275,47 @@ function bindLock(devId, listener) {
   wxRequest(options, listener)
 }
 
+function reportFormId(formIds, listener) {
+  var data = {
+    access_token: app.globalData.sessionId,
+    formids: formIds,
+  }
+  var options = {
+    url: '/iot/api/wx/storeformid',
+    data: data,
+    method: 'POST'
+  }
+  wxRequest(options, listener)
+}
+
+function replyAuth(agree, devId, userId, listener) {
+  var data = {
+    access_token: app.globalData.sessionId,
+    user_id: userId,
+    agree: agree,
+  }
+  var options = {
+    url: '/iot/api/terminal/'+devId+'/authuser',
+    data: data,
+    method: 'POST'
+  }
+  wxRequest(options, listener)
+}
+
+function applyAuth(ownerId, devId, listener) {
+  var data = {
+    access_token: app.globalData.sessionId,
+    ownerid: ownerId,
+    devid: devId,
+  }
+  var options = {
+    url: '/iot/api/wx/reqauth',
+    data: data,
+    method: 'POST'
+  }
+  wxRequest(options, listener)
+}
+
 function wxRequest(options, listener) {
   wx.request({
     url: baseUrl + options.url,
@@ -309,4 +350,7 @@ module.exports = {
   getLocks: getLocks,
   setDevName: setDevName,
   bindLock: bindLock,
+  reportFormId: reportFormId,
+  replyAuth: replyAuth,
+  applyAuth: applyAuth,
 }

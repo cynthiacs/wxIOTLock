@@ -16,57 +16,50 @@
     </swiper>
   </view>
 
-  <view class="item">
-    <view class="item_left" class="top_image" bindtap="unlockonce">
-      <image src="/icons/unlock.png" class="image" />
-      <view class="mark">
+  <form report-submit='true' bindsubmit='formSubmit'>
+    <view class="item">
+      <button class='btn1' form-type='submit' data-index='0'>
+        <image class='btnImg' src='/icons/unlock.png'></image>
         <text class="text">一键开锁</text>
-      </view>
-    </view>
-    
-    <view class="item_right" class="top_image" bindtap="getKeyLists">
-      <image src="/icons/keylist.png" class="image" />
-      <view class="mark">
+      </button>
+
+      <button class='btn1' form-type='submit' data-index='1'>
+        <image class='btnImg' src='/icons/keylist.png'></image>
         <text class="text">钥匙列表</text>
-      </view>
-    </view>
+      </button>
 
-    <view class="item_right" class="top_image" bindtap="shareKey">
-      <image src="/icons/sharepsw.png" class="image" />
-      <view class="mark">
+      <button class='btn1' form-type='submit' data-index='2'>
+        <image class='btnImg' src='/icons/sharepsw.png'></image>
         <text class="text">分享密钥</text>
-      </view>
-    </view>
+      </button>
 
-    <view class="item_right" class="top_image" bindtap="getUnlockLog">
-      <image src="/icons/unlocklog.png" class="image" />
-      <view class="mark">
+      <button class='btn1' form-type='submit' data-index='3'>
+        <image class='btnImg' src='/icons/unlocklog.png'></image>
         <text class="text">门锁日志</text>
-      </view>
+      </button>
     </view>
-  </view>
-  <view class="line"></view>
-  <view class="item">
-    <view class="item_left" class="top_image" bindtap='keyManagerment'>
-      <image src="/icons/new.png" class="image" />
-      <view class="mark">
+    <view class="line"></view>
+    <view class="item">
+      <button class='btn1' form-type='submit' data-index='4'>
+        <image class='btnImg' src='/icons/new.png'></image>
         <text class="text">钥匙管理</text>
-      </view>
-    </view>
-    <view class='vertical-line'></view>
-    <view class="item_right" class="top_image" bindtap="">
-      <image src="/icons/warning.png" class="image" />
-      <view class="mark">
+      </button>
+
+      <view class='vertical-line'></view>
+
+      <button class='btn1' form-type='submit' data-index='5'>
+        <image class='btnImg' src='/icons/warning.png'></image>
         <text class="text">报警信息</text>
-      </view>
-    </view>
-    <view class='vertical-line'></view>
-    <view class="item_right" class="top_image" bindtap="lockSetting">
-      <image src="/icons/default.png" class="image" />
-      <view class="mark">
+      </button>
+
+      <view class='vertical-line'></view>
+
+      <button class='btn1' form-type='submit' data-index='6'>
+        <image class='btnImg' src='/icons/default.png'></image>
         <text class="text">智能锁设置</text>
-      </view>
+      </button>
     </view>
-  </view>
-  <view class="line"></view>
+    <view class="line"></view>
+  </form>
+
 </view>

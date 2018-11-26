@@ -41,12 +41,12 @@ page {
 .item {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  padding: 25rpx;
-  margin-left: 68rpx;
-  margin-bottom: 13rpx;
-  margin-top: 30rpx;
-  margin-right: 72rpx;
+  /* justify-content: space-between; */
+  padding: 10rpx;
+  /* margin-left: 68rpx; */
+  margin-bottom: 10rpx;
+  margin-top: 20rpx;
+  /* margin-right: 72rpx; */
   background-color: #fff;
 }
 
@@ -70,7 +70,7 @@ page {
   color: #000;
   font-family: "微软雅黑";
   font-weight: bold;
-  line-height: 10rpx;
+  /* line-height: 10rpx; */
   font-size: 22rpx;
 }
 
@@ -97,7 +97,31 @@ page {
 }
 
 .vertical-line {
-  height: 150rpx;
+  height: 200rpx;
   width: 1rpx;
   background-color: #9a9fa5;
+
+}
+
+.btn1{
+  width: 200rpx;
+  height: 200rpx;
+  /* margin-top: 20rpx; */
+  background-color: white;
+  color: #999999;
+  border-radius: 0rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+}
+
+.btnImg {
+  width: 88rpx;
+  height: 88rpx;
+}
+
+.btn1::after {
+  border: 0; 
 }
