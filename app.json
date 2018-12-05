@@ -12,7 +12,8 @@
     "pages/keymanagerment/keymanagerment",
     "pages/keymanagerment/addpassword/addpassword",
     "pages/keyslist/keyslist",
-    "pages/authpage/authpage"
+    "pages/authpage/authpage",
+    "pages/lockinfo/lockinfo"
   ],
   "window": {
     "backgroundTextStyle": "light",

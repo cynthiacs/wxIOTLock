@@ -38,6 +38,51 @@ page {
   height: 555rpx;
 }
 
+.actView {
+  height: 200rpx;
+  display: flex;
+  align-items: center;
+  margin: 10rpx;
+}
+
+.actBtn {
+  width: 50%;
+  background-color:#fff;
+  border: 1px solid #000;
+  border-radius: 26px;
+}
+
+.actBtn::after {
+  border: none;
+}
+
+.infoview {
+  height: 200rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 10rpx;
+  padding-left: 50rpx;
+  background: #e9e8e8;
+}
+
+.infoview::after {
+  border: none;
+}
+
+.lockimage {
+  width: 88rpx;
+  height: 88rpx;
+}
+
+.label {
+  margin-left: 2rpx;
+}
+
+.rightimage {
+  margin-left: 250rpx;
+}
+
 .item {
   display: flex;
   flex-direction: row;
@@ -45,25 +90,9 @@ page {
   padding: 10rpx;
   /* margin-left: 68rpx; */
   margin-bottom: 10rpx;
-  margin-top: 20rpx;
+  /* margin-top: 20rpx; */
   /* margin-right: 72rpx; */
   background-color: #fff;
-}
-
-.item-left {
-  margin-top: 20rpx;
-  padding: 15rpx;
-  display: table-cell;
-}
-
-.item_right {
-  display: block;
-  padding: 15rpx;
-  margin-top: 20rpx;
-}
-
-.top_image {
-  display: table-column;
 }
 
 .text {
@@ -72,22 +101,6 @@ page {
   font-weight: bold;
   /* line-height: 10rpx; */
   font-size: 22rpx;
-}
-
-.text-middle {
-  color: #000;
-  font-family: "微软雅黑";
-  font-weight: bold;
-  line-height: 10rpx;
-  font-size: 22rpx;
-  padding-left: 17rpx;
-}
-
-.image {
-  width: 88rpx;
-  height: 88rpx;
-  /* border-radius: 44rpx;
-  background-color: #eee; */
 }
 
 .line {
@@ -103,9 +116,9 @@ page {
 
 }
 
-.btn1{
+.btn{
   width: 200rpx;
-  height: 200rpx;
+  height: 150rpx;
   /* margin-top: 20rpx; */
   background-color: white;
   color: #999999;
@@ -122,6 +135,6 @@ page {
   height: 88rpx;
 }
 
-.btn1::after {
+.btn::after {
   border: 0; 
 }

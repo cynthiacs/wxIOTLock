@@ -1,4 +1,5 @@
 const app = getApp()
+const util = require('util.js')
 var baseUrl = 'https://www.leadcoreiot.top';
 var devName = app.globalData.deviceName
 function serverProxy() {
@@ -275,10 +276,43 @@ function bindLock(devId, listener) {
   wxRequest(options, listener)
 }
 
-function reportFormId(formIds, listener) {
+function reportFormId(reportnow, formId) {
+  var date = (new Date()).valueOf()
+  console.log(date)
+  var newDate = new Date(date + 7 * 24 * 60 * 60 * 1000)
+  console.log(newDate)
+  var dateStr = util.formatTime(newDate)
+  console.log(dateStr)
+  // console.log(newDate.toISOString())
+  var formInfo = {}
+  formInfo.formid = formId
+  formInfo.due_date = dateStr
+  app.globalData.formIds.push(formInfo)
+  console.log(app.globalData.formIds)
+
+  if (reportnow || app.globalData.formIds.length >= 3) {
+    //todo:push to server
+    console.log("formIds len >= 3, report to server")
+    reportFormIds(msg => {
+      if (msg.statusCode == 200) {
+        console.log("reportFormId success")
+        console.log(msg)
+        app.globalData.formIds = []
+      }
+    })
+  }
+}
+
+function reportFormIds(listener) {
+  if (app.globalData.formIds.length <= 0) {
+    console.log("no formId to report")
+    return
+  }
+  var formIdJstr = JSON.stringify(app.globalData.formIds)
+  console.log(formIdJstr)
   var data = {
     access_token: app.globalData.sessionId,
-    formids: formIds,
+    formids: formIdJstr,
   }
   var options = {
     url: '/iot/api/wx/storeformid',
@@ -288,11 +322,12 @@ function reportFormId(formIds, listener) {
   wxRequest(options, listener)
 }
 
-function replyAuth(agree, devId, userId, listener) {
+function replyAuth(agree, devId, userId, applyid, listener) {
   var data = {
     access_token: app.globalData.sessionId,
     user_id: userId,
     agree: agree,
+    applyid: applyid
   }
   var options = {
     url: '/iot/api/terminal/'+devId+'/authuser',
@@ -310,6 +345,22 @@ function applyAuth(ownerId, devId, listener) {
   }
   var options = {
     url: '/iot/api/wx/reqauth',
+    data: data,
+    method: 'POST'
+  }
+  wxRequest(options, listener)
+}
+
+function getAuthInfo(authType, status, listener) {
+  var data = {
+    access_token: app.globalData.sessionId,
+    type: authType,//1-apply, 2-auth
+  }
+  if(status) {
+    data.status = status
+  }
+  var options = {
+    url: '/iot/api/apply/search',
     data: data,
     method: 'POST'
   }
@@ -351,6 +402,8 @@ module.exports = {
   setDevName: setDevName,
   bindLock: bindLock,
   reportFormId: reportFormId,
+  reportFormIds: reportFormIds,
   replyAuth: replyAuth,
   applyAuth: applyAuth,
+  getAuthInfo: getAuthInfo,
 }

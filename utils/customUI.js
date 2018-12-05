@@ -32,6 +32,10 @@ function showApplyDialog(ownerid, id) {
         })
     }
   })
+  serverProxy.reportFormIds(msg => {
+    console.log("showApplyDialog: reportFormIds")
+    console.log(msg)
+  })
 }
 
 module.exports = {

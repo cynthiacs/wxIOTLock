@@ -12,6 +12,8 @@ Page({
     devId: null,
     devName: null,
     date: null,
+    applyid: null,
+    hasChecked: true,
   },
 
   /**
@@ -24,12 +26,28 @@ Page({
       devName: options.devname,
       userId: options.fromuser,
       userName: options.username,
+      applyid: options.applyid,
+    })
+    serverProxy.getAuthInfo('2', '0', msg => {
+      console.log(msg)
+      if(msg.statusCode == 200) {
+        let authlist = msg.data
+        for(let i = 0 ; i < authlist.length; i++) {
+          if (parseInt(this.data.applyid)  == authlist[i].id) {
+            this.setData({
+              hasChecked: false
+            })
+            return
+          }
+        }
+      }
     })
   },
 
   agree: function() {
-    console.log(this.devId)
-    serverProxy.replyAuth(1, this.data.devId, this.data.userId, msg => {
+    console.log(this.data.devId)
+    serverProxy.replyAuth("1", this.data.devId, this.data.userId,
+        this.data.applyid, msg => {
       console.log(msg)
       if (msg.statusCode == 200) {
         console.log("agree success")
@@ -46,7 +64,8 @@ Page({
   },
 
   disagree: function() {
-    serverProxy.replyAuth(0, this.data.devId, this.data.userId, msg => {
+    serverProxy.replyAuth("0", this.data.devId, this.data.userId,
+      this.data.applyid, msg => {
       console.log(msg)
       if (msg.statusCode == 200) {
         console.log("disagree success")

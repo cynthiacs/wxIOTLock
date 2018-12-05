@@ -23,9 +23,9 @@ page {
 }
 
 .list {
-  margin-left: 20rpx;
+  margin-left: 10rpx;
   margin-right: 20rpx;
-  padding-top: 10rpx;
+  /* padding-top: 10rpx; */
 }
 
 .keytypeview {
@@ -67,7 +67,7 @@ page {
 }
 
 .keynum {
-  font-size: 40rpx;
+  font-size: 34rpx;
   font-weight: bold;
 }
 
@@ -81,11 +81,73 @@ page {
 }
 
 .date {
-  font-size: 34rpx;
+  font-size: 28rpx;
   color: rgba(151, 147, 147, 0.849)
 }
 
 .edit_text {
   font-size: 34rpx;
   color: rgb(90, 140, 153);
+  /* margin-left: 50rpx; */
+}
+
+.new_item {
+  display: flex;
+  flex-direction: row;
+  height: 150rpx;
+  background: #fff;
+  border-radius: 10rpx;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+  padding-left: 20rpx;
+}
+
+.frontview {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.typeimage {
+  width: 88rpx;
+  height: 88rpx;
+}
+
+.vertical-line {
+  height: 100rpx;
+  width: 1rpx;
+  background-color: #9a9fa5;
+  margin-left: 20rpx;
+}
+
+.label {
+  margin-left: 20rpx;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 20rpx;
+}
+
+.blanktext {
+  font-size: 34rpx;
+  color: white;
+  /* margin-left: 50rpx; */
+}
+
+.sharebtn {
+  height: 150rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: none;
+  margin-right: 20rpx;
+}
+
+.sharebtn::after {
+  border: none;
 }

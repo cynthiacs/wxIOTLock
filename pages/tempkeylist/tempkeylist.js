@@ -1,5 +1,7 @@
 // pages/tempkeylist/tempkeylist.js
+const app = getApp()
 const serverProxy = require('../../utils/serverproxy.js')
+
 
 Page({
 
@@ -23,8 +25,13 @@ Page({
 
   addpsw: function () {
     wx.navigateTo({
-      url: 'addtemppsw/addtemppsw?os=' + 'add' + '&pos=' + this.data.emptyPos,
+      // url: 'addtemppsw/addtemppsw?os=' + 'add' + '&pos=' + this.data.emptyPos,
+      url: 'addtemppsw/addtemppsw?os=' + 'add',
     })
+  },
+
+  addLongPsw: function(e) {
+
   },
 
   editlongPsw: function(e) {
@@ -109,8 +116,14 @@ Page({
     serverProxy.getPassword('once', function (msg) {
       console.log("oncePasswords:")
       console.log(msg)
+      let list = msg.data
+      for(let i = 0; i < list.length; i++) {
+        let date = list[i].create_date
+        let dateArr = date.split('.')
+        list[i].create_date = dateArr[0]
+      }
       that.setData({
-        onceList: msg.data
+        onceList: list
       })
       if (that.data.pageHasHide && that.data.onceList.length > len) {
         wx.pageScrollTo({
@@ -147,6 +160,9 @@ Page({
   setTypeIndex: function (item) {
     if (item.type == 'deadline') {
       item.typeindex = 1
+      let duedate = item.detail.due_date
+      let dataArr = duedate.split('.')
+      item.detail.due_date = dataArr[0]
     } else if (item.type == 'time') {
       item.typeindex = 2
     } else {
@@ -165,7 +181,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.updateLongPsw()
+    if (app.globalData.deviceName != null) {
+      this.updateLongPsw()
+    }
+    
     this.updateOncePsw()
   },
 

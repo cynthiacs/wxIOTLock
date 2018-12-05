@@ -4,6 +4,7 @@ const app = getApp()
 const serverProxy = require('../../utils/serverproxy.js')
 const util = require('../../utils/util.js')
 const customUI = require('../../utils/customUI.js')
+const devOpt = require('../../utils/devOpt.js')
 
 Page({
   data: {
@@ -19,6 +20,7 @@ Page({
     interval: 5000,
     duration: 1000,
     mDevId: undefined,
+    mDevName: null,
     code: null
   },
 
@@ -46,14 +48,14 @@ Page({
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           console.log("wx.getSetting has authed")
-          this.setData({
-            isAuthed: true
-          })
           var session = wx.getStorageSync('SESSIONID')
           if (!session) {
             console.log("session has been cleaned")
             this.login()
           } else {
+            this.setData({
+              isAuthed: true
+            })
             app.globalData.sessionId = session
             this.sessionCheck()
           }
@@ -79,7 +81,8 @@ Page({
               if (!gid) {
                 if (list != null && list.length > 0) {
                   console.log("get lock from list")
-                  serverProxy.setDevName(list[0].id, list[0].name)
+                  this.setNewGID(list[0].id, list)
+                  // serverProxy.setDevName(list[0].id, list[0].name)
                 }
               } else {
                 this.setNewGID(gid, list)
@@ -122,44 +125,13 @@ Page({
     })
   },
 
-  // showApplyDialog: function (ownerid, id) {
-  //   wx.showModal({
-  //     title: '绑定申请',
-  //     content: '该设备已绑定管理员，需要向管理员申请绑定，申请通过后会通知你，是否确定申请？',
-  //     success(res) {
-  //       if (res.confirm) {
-  //         console.log("todo: apply for manager")
-  //         serverProxy.applyAuth(ownerid, id, msg => {
-  //           console.log(msg)
-  //           if(msg.statusCode == 200) {
-  //             console.log("applyAuth success")
-  //             wx.showModal({
-  //               title: '绑定申请已发送',
-  //               content: '已向管理员发起绑定申请，申请通过后会由微信服务通知给您！',
-  //               showCancel:false,
-  //               })
-  //           }else {
-  //             wx.showToast({
-  //               title: '绑定请求发送失败，可能是网络原因，请稍后重试',
-  //               icon: 'none',
-  //               duration: 1500,
-  //             })
-  //           }
-  //         })
-  //       }else if (res.cancel)
-  //         wx.showToast({
-  //           title: '绑定设备失败',
-  //           icon: 'none',
-  //           duration: 2000,
-  //         })
-  //     }
-  //   })
-  // },
-
   setNewGID: function(id, list) {
     for (let i = 0; i < list.length; i++) {
       if (id && id == list[i].id) {
         serverProxy.setDevName(id, list[i].name)
+        this.setData({
+          mDevName: list[i].name
+        })
         console.log("setNewGID new lock name:" + app.globalData.deviceName)
         return true
       }
@@ -175,35 +147,16 @@ Page({
     }
   },
 
+  loginformSubmit: function(e) {
+    console.log("loginformSubmit e:")
+    console.log(e)
+    serverProxy.reportFormId(false, e.detail.formId)
+  },
+
   formSubmit:function(e) {
     console.log("formSubmit e:")
     console.log(e)
-    var date = (new Date()).valueOf()
-    console.log(date)
-    var newDate = new Date(date + 7 * 24 * 60 * 60 * 1000)
-    console.log(newDate)
-    var dateStr = util.formatTime(newDate)
-    console.log(dateStr)
-    // console.log(newDate.toISOString())
-    var formInfo = {}
-    formInfo.formid = e.detail.formId
-    formInfo.due_date = dateStr
-    app.globalData.formIds.push(formInfo)
-    console.log(app.globalData.formIds)
-    
-    if(app.globalData.formIds.length >= 3) {
-      //todo:push to server
-      console.log("formIds len >= 3, report to server")
-      var formIdJstr = JSON.stringify(app.globalData.formIds)
-      console.log(formIdJstr)
-      serverProxy.reportFormId(formIdJstr, msg => {
-        if(msg.statusCode == 200) {
-          console.log("reportFormId success")
-          console.log(msg)
-          app.globalData.formIds = []
-        }
-      })
-    }
+    serverProxy.reportFormId(false, e.detail.formId)
 
     var index = e.detail.target.dataset.index
     console.log("menu index:" + index)
@@ -228,10 +181,16 @@ Page({
       case 6:
         this.lockSetting()
         break
+      case 7:
+        this.actLock()
+        break
+      case 8:
+        this.getLockInfo()
+        break
     }
   },
 
-  login: function (devId) {
+  login: function () {
     wx.login({
       success: res => {
         console.log("wx login success")
@@ -252,30 +211,32 @@ Page({
                 console.log(msg)
                 app.globalData.sessionId = msg.data.token
                 wx.setStorageSync("SESSIONID", app.globalData.sessionId)
-                if (devId) {
-                  var ownerId = msg.data.owner_user_id
-                  if (ownerId) {
-                    console.log("login result: dev has manager")
-                    customUI.showApplyDialog(ownerId, devId)
-                  } else {
-                    serverProxy.getLocks(msg => {
-                      console.log(msg)
-                      if (msg.statusCode == 200) {
-                        var list = msg.data
-                        this.setNewGID(devId, list)
-                      }
-                    })
-                  }
-                } else {
-                  wx.showModal({
-                    title: '温馨提示',
-                    content: '您还没有绑定门锁信息，请去智能锁设置中设置默认锁或者添加门锁信息',
-                    success: res => {
-                      if (res.confirm)
-                        this.lockSetting()
-                    }
-                  })
+                this.setData({
+                  isAuthed: true
+                })
+                var ownerId = msg.data.owner_user_id
+                if (ownerId && devId) {
+                  console.log("login result: dev has manager")
+                  customUI.showApplyDialog(ownerId, devId)
+                  return
                 }
+                serverProxy.getLocks(msg => {
+                  console.log(msg)
+                  if (msg.statusCode == 200) {
+                    var list = msg.data
+                    if(devId) {
+                      this.setNewGID(devId, list)
+                    } else if (list.length > 0) {
+                      this.setNewGID(list[0].id, list)
+                    } else {
+                      wx.showModal({
+                        title: '温馨提示',
+                        content: '您还没有绑定门锁信息，请扫码激活您的门锁设备',
+                        showCancel: false,
+                      })
+                    }
+                  }
+                })
               } else {
                 wx.showToast({
                   title: '登录失败，可能是网络问题',
@@ -289,9 +250,7 @@ Page({
             console.log(res)
           }
         })
-        this.setData({
-          isAuthed: true
-        })
+        
       },
       fail: res => {
         wx.showToast({
@@ -300,6 +259,22 @@ Page({
           duration: 1500
         })
       }
+    })
+  },
+
+  actLock: function () {
+    devOpt.scanActLock(msg => {
+      console.log("update mDevName")
+      this.setData({
+        mDevName: app.globalData.deviceName
+      })
+    })
+  },
+
+  getLockInfo: function () {
+    console.log("getLockInfo")
+    wx.navigateTo({
+      url: '../lockinfo/lockinfo?devname=' + this.data.mDevName,
     })
   },
 
@@ -344,7 +319,7 @@ Page({
     // }
     wx.navigateTo({
       url: '../tempkeylist/tempkeylist',
-      // url: '../authpage/authpage',
+      // url: '../authpage/authpage?devid=' + '2' + '&devname=' + 'Awinter002' + '&fromuser=' + '7' +'&username='+'半点书香'+'&applyid='+'9',
     })
   },
 

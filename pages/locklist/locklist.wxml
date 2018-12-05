@@ -1,9 +1,9 @@
 <!--pages/locklist/locklist.wxml-->
 
-<view class='addview' bindtap='addLock'>
+<!-- <view class='addview' bindtap='addLock'>
   <text class='text'>激活智能锁</text>
   <image class='image' src='/icons/next.png'></image>
-</view>
+</view> -->
 <!-- <view class='addview' bindtap='shareWXCode'>
   <text class='text'>分享二维码</text>
   <image class='image' src='/icons/next.png'></image>

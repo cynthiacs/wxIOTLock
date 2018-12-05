@@ -26,9 +26,6 @@ Page({
   },
 
   addLock: function () {
-    // wx.navigateTo({
-    //   url: 'addlock/addlock',
-    // })
     wx.scanCode({
       success: res => {
         console.log(res)

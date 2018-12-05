@@ -1,0 +1,45 @@
+/* pages/lockinfo/lockinfo.wxss */
+page {
+  height: 100%;
+  background: #e9e8e8;
+}
+
+.titlebar {
+  width: 100%;
+  height: 200rpx;
+  display: flex;
+  /* flex-direction: row; */
+  align-items: center;
+  padding-left: 50rpx;
+  background: rgb(95, 95, 122)
+}
+
+.actView {
+  height: 200rpx;
+  display: flex;
+  align-items: center;
+  /* background: #e9e8e8; */
+}
+
+.actBtn {
+  width: 50%;
+  /* background-color:#fff; */
+  background: none;
+  border: 1px solid #000;
+  border-radius: 26px;
+}
+
+.btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: #fff;
+  align-items: center;
+  margin-top: 10rpx;
+  padding-left: 20rpx;
+}
+
+.image {
+  width: 88rpx;
+  height: 88rpx;
+}

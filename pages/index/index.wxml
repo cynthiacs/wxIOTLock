@@ -1,7 +1,9 @@
 <!--index.wxml-->
-<view class="welcome" hidden='{{isAuthed}}'>
-  <button class="authbtn" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo"> 授权登录 </button>
-</view>
+<form report-submit='true' bindsubmit='loginformSubmit'>
+  <view class="welcome" hidden='{{isAuthed}}'>
+    <button class="authbtn" form-type='submit' open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo"> 授权登录 </button>
+  </view>
+</form>
 <view hidden='{{!isAuthed}}'>
   <!-- <loading hidden="{{isHiddenLoading}}" stytle="display:flex  width:100rpx">
     查询中...
@@ -17,44 +19,54 @@
   </view>
 
   <form report-submit='true' bindsubmit='formSubmit'>
+    <view class='actView' hidden='{{mDevName!=null}}'>
+      <button class='actBtn' form-type='submit' data-index='7'>激活我的智能锁</button>
+    </view>
+    <button class='infoview' hidden='{{mDevName==null}}' form-type='submit' data-index='8'>
+      <image class='lockimage' src='/icons/lockinfo.png'></image>
+      <label class='label'>{{mDevName}}</label>
+      <image class='lockimage rightimage' src='/icons/next.png'></image>
+    </button>
+
     <view class="item">
-      <button class='btn1' form-type='submit' data-index='0'>
+      <button class='btn' form-type='submit' data-index='0'>
         <image class='btnImg' src='/icons/unlock.png'></image>
         <text class="text">一键开锁</text>
       </button>
 
-      <button class='btn1' form-type='submit' data-index='1'>
-        <image class='btnImg' src='/icons/keylist.png'></image>
-        <text class="text">钥匙列表</text>
-      </button>
-
-      <button class='btn1' form-type='submit' data-index='2'>
+      <button class='btn' form-type='submit' data-index='2'>
         <image class='btnImg' src='/icons/sharepsw.png'></image>
         <text class="text">分享密钥</text>
       </button>
 
-      <button class='btn1' form-type='submit' data-index='3'>
-        <image class='btnImg' src='/icons/unlocklog.png'></image>
-        <text class="text">门锁日志</text>
+      <button class='btn' form-type='submit' data-index='1'>
+        <image class='btnImg' src='/icons/keylist.png'></image>
+        <text class="text">钥匙列表</text>
+      </button>
+
+      <button class='btn' form-type='submit' data-index='4'>
+        <image class='btnImg' src='/icons/new.png'></image>
+        <text class="text">钥匙录入</text>
       </button>
     </view>
     <view class="line"></view>
     <view class="item">
-      <button class='btn1' form-type='submit' data-index='4'>
-        <image class='btnImg' src='/icons/new.png'></image>
-        <text class="text">钥匙管理</text>
+
+      <button class='btn' form-type='submit' data-index='3'>
+        <image class='btnImg' src='/icons/unlocklog.png'></image>
+        <text class="text">门锁日志</text>
       </button>
 
       <view class='vertical-line'></view>
 
-      <button class='btn1' form-type='submit' data-index='5'>
+      <button class='btn' form-type='submit' data-index='5'>
         <image class='btnImg' src='/icons/warning.png'></image>
         <text class="text">报警信息</text>
       </button>
 
       <view class='vertical-line'></view>
 
-      <button class='btn1' form-type='submit' data-index='6'>
+      <button class='btn' form-type='submit' data-index='6'>
         <image class='btnImg' src='/icons/default.png'></image>
         <text class="text">智能锁设置</text>
       </button>

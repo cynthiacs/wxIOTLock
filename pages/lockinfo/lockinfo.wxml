@@ -1,0 +1,19 @@
+<!--pages/lockinfo/lockinfo.wxml-->
+<view class='titlebar'>
+<label class='label'>{{mDevName}}</label>
+</view>
+<view class='actView'>
+  <button class='actBtn' bindtap='actLock'>激活新的智能锁</button>
+</view>
+<button class='btn' bindtap='chooseLock'>
+    <text class='keytype'>设备切换</text>
+    <image class='image' src='/icons/next.png'></image>
+ </button>
+ <button class='btn' bindtap=''>
+    <text class='keytype'>帮助与反馈</text>
+    <image class='image' src='/icons/next.png'></image>
+ </button>
+ <button class='btn' bindtap=''>
+    <text class='keytype'>关于我们</text>
+    <image class='image' src='/icons/next.png'></image>
+ </button>
