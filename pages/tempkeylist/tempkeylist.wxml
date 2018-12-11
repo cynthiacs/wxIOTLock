@@ -4,10 +4,10 @@
     <text class='keytype'>新增密码</text>
     <image class='image' src='/icons/next.png'></image>
   </view> -->
-  <view class='list'>
+  <view class='list' hidden='{{longList.length<=0}}'>
     <text class='keytype'>长期密码</text>
     <block wx:for='{{longList}}' wx:for-index="index" wx:key="this">
-      <view class='new_item' wx:if='{{item.pwdinfo.typeindex==1}}' bindtap='editlongPsw' data-index='{{index}}'>
+      <view class='new_item' wx:if='{{item.pwdinfo.typeindex==1}}'>
         <!-- <view class='textback'>
           <text class='date'>限时密码</text>
         </view>
@@ -23,22 +23,29 @@
             <text class='edit_text'>修改</text>
           </view>
         </view> -->
-        <image class='typeimage' src='/icons/new.png'></image>
+        <view class='frontview'>
+        <image class='typeimage' src='/icons/icon_date.png'></image>
         <view class='vertical-line'></view>
         <view class='title'>
           <text class='keynum'>{{item.pwdinfo.detail.password}}</text>
           <text class='date'>有效期至：{{item.pwdinfo.detail.due_date}}</text>
         </view>
+        </view>
+        <view class='rightview'>
         <button class='sharebtn' bindtap='sharelongPsw' data-index='{{index}}'>
-          <text class='edit_text'>分享</text>
+          <image class='righticon' src='/icons/item_btn_share.png'></image>
         </button>
+        <button class='sharebtn' bindtap='editlongPsw' data-index='{{index}}'>
+          <image class='righticon' src='/icons/item_btn_edit.png'></image>
+        </button>
+        </view>
         <!-- <view bindtap='editlongPsw' data-index='{{index}}'>
           <text class='edit_text'>修改</text>
         </view> -->
 
       </view>
 
-      <view class='new_item' bindtap='editlongPsw' data-index='{{index}}' wx:if='{{item.pwdinfo.typeindex==2}}'>
+      <view class='new_item' wx:if='{{item.pwdinfo.typeindex==2}}'>
         <!-- <view class='textback'>
           <text class='date'>限时段密码</text>
         </view>
@@ -56,19 +63,25 @@
             <text class='edit_text'>修改</text>
           </view>
         </view> -->
-        <image class='typeimage' src='/icons/new.png'></image>
+        <view class='frontview'>
+        <image class='typeimage' src='/icons/icon_time.png'></image>
         <view class='vertical-line'></view>
         <view class='title'>
           <text class='keynum'>{{item.pwdinfo.detail.password}}</text>
           <text class='date'>有效时间段：{{item.pwdinfo.detail.bt}}-{{item.pwdinfo.detail.et}}</text>
         </view>
+        </view>
+        <view class='rightview'>
         <button class='sharebtn' bindtap='sharelongPsw' data-index='{{index}}'>
-          <text class='edit_text'>分享</text>
+          <image class='righticon' src='/icons/item_btn_share.png'></image>
         </button>
-
+        <button class='sharebtn' bindtap='editlongPsw' data-index='{{index}}'>
+          <image class='righticon' src='/icons/item_btn_edit.png'></image>
+        </button>
+        </view>
       </view>
 
-      <view class='new_item' bindtap='editlongPsw' data-index='{{index}}' wx:if='{{item.pwdinfo.typeindex==3}}'>
+      <view class='new_item' wx:if='{{item.pwdinfo.typeindex==3}}'>
         <!-- <view class='textback '>
           <text class='date '>限次密码</text>
         </view>
@@ -87,20 +100,25 @@
           </view>
         </view> -->
         <view class='frontview'>
-          <image class='typeimage' src='/icons/new.png'></image>
+          <image class='typeimage' src='/icons/icon_times.png'></image>
           <view class='vertical-line'></view>
           <view class='title'>
             <text class='keynum '>{{item.pwdinfo.detail.password}}</text>
             <text class='date '>有效次数：{{item.pwdinfo.detail.counts}}</text>
           </view>
         </view>
+        <view class='rightview'>
         <button class='sharebtn' bindtap='sharelongPsw' data-index='{{index}}'>
-          <text class='edit_text'>分享</text>
+          <image class='righticon' src='/icons/item_btn_share.png'></image>
         </button>
+        <button class='sharebtn' bindtap='editlongPsw' data-index='{{index}}'>
+          <image class='righticon' src='/icons/item_btn_edit.png'></image>
+        </button>
+        </view>
       </view>
       <view class='new_item' bindtap='editlongPsw' data-index='{{index}}' wx:if='{{!item.pwdinfo}}'>
         <view class='frontview'>
-          <image class='typeimage' src='/icons/new.png'></image>
+          <image class='typeimage' src='/icons/icon_add.png'></image>
           <view class='vertical-line'></view>
           <label class='label'>添加长期密码</label>
         </view>
@@ -118,7 +136,7 @@
 
     <view class='new_item' bindtap='addpsw'>
       <view class='frontview'>
-        <image class='typeimage' src='/icons/new.png'></image>
+        <image class='typeimage' src='/icons/icon_add.png'></image>
         <view class='vertical-line'></view>
         <label class='label'>添加临时密码</label>
       </view>
@@ -139,19 +157,21 @@
           </view>
         </view> -->
         <view class='frontview'>
-          <image class='typeimage' src='/icons/new.png'></image>
+          <image class='typeimage' src='/icons/icon_count.png'></image>
           <view class='vertical-line'></view>
           <view class='title'>
             <text class='keynum'>{{item.key}}</text>
             <text class='date'>{{item.create_date}}</text>
           </view>
         </view>
+        <view class='rightview'>
         <button class='sharebtn' bindtap='shareOncePsw' data-index='{{index}}'>
-          <text class='edit_text'>分享</text>
+          <image class='righticon' src='/icons/item_btn_share.png'></image>
         </button>
         <button class='sharebtn' bindtap='delOncePsw' data-index='{{index}}'>
-          <text class='edit_text'>删除</text>
+          <image class='righticon' src='/icons/item_btn_delete.png'></image>
         </button>
+        </view>
       </view>
     </block>
 

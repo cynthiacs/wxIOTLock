@@ -163,15 +163,12 @@ Page({
     var h = now.getHours()
     var min = now.getMinutes()
     console.log(options)
-    if (!app.globalData.deviceName) {
+    if (options.os == 'add') {
       this.setData({
         typeList: this.data.typeList.splice(0, 1)
       })
       console.log(this.data.typeList.length)
-    }
-
-
-    if(options.os == 'edit') {
+    }else if(options.os == 'edit') {
       this.setData({
         typeList: this.data.typeList.slice(1)
       })

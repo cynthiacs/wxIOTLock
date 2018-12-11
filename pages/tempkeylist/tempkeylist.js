@@ -116,19 +116,21 @@ Page({
     serverProxy.getPassword('once', function (msg) {
       console.log("oncePasswords:")
       console.log(msg)
-      let list = msg.data
-      for(let i = 0; i < list.length; i++) {
-        let date = list[i].create_date
-        let dateArr = date.split('.')
-        list[i].create_date = dateArr[0]
-      }
-      that.setData({
-        onceList: list
-      })
-      if (that.data.pageHasHide && that.data.onceList.length > len) {
-        wx.pageScrollTo({
-          scrollTop: 80,
+      if(msg.statusCode == 200) {
+        let list = msg.data
+        for (let i = 0; i < list.length; i++) {
+          let date = list[i].create_date
+          let dateArr = date.split('.')
+          list[i].create_date = dateArr[0]
+        }
+        that.setData({
+          onceList: list
         })
+        if (that.data.pageHasHide && that.data.onceList.length > len) {
+          wx.pageScrollTo({
+            scrollTop: 80,
+          })
+        }
       }
     })
   },
@@ -138,22 +140,24 @@ Page({
     serverProxy.getLongPasswords(function (msg) {
       console.log("longPasswords:")
       console.log(msg)
-      var emptyPos = 0
-      var list = msg.data
-      var pswSize = 0
-      for (var i = 0; i < list.length; i++) {
-        if (list[i].pwdinfo != null) {
-          that.setTypeIndex(list[i].pwdinfo)
-          pswSize++
-        } else if (emptyPos == 0) {
-          emptyPos = list[i].pos
+      if(msg.statusCode == 200) {
+        var emptyPos = 0
+        var list = msg.data
+        var pswSize = 0
+        for (var i = 0; i < list.length; i++) {
+          if (list[i].pwdinfo != null) {
+            that.setTypeIndex(list[i].pwdinfo)
+            pswSize++
+          } else if (emptyPos == 0) {
+            emptyPos = list[i].pos
+          }
         }
+        that.setData({
+          longList: list,
+          emptyPos: emptyPos,
+          longPswSize: pswSize
+        })
       }
-      that.setData({
-        longList: list,
-        emptyPos: emptyPos,
-        longPswSize: pswSize
-      })
     })
   },
 

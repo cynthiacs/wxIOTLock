@@ -23,33 +23,48 @@
       <button class='actBtn' form-type='submit' data-index='7'>激活我的智能锁</button>
     </view>
     <button class='infoview' hidden='{{mDevName==null}}' form-type='submit' data-index='8'>
-      <image class='lockimage' src='/icons/lockinfo.png'></image>
-      <label class='label'>{{mDevName}}</label>
-      <image class='lockimage rightimage' src='/icons/next.png'></image>
+      <view class='frontview'>
+        <image class='lockimage' src='/icons/btn_input_un.png'></image>
+        <text class='name'>{{mDevName}}</text>
+      </view>
+      <image class='rightimage' src='/icons/more.png'></image>
     </button>
 
     <view class="item">
       <button class='btn' form-type='submit' data-index='0'>
-        <image class='btnImg' src='/icons/unlock.png'></image>
+        <image class='btnImg' src='/icons/btn_open.png' hidden='{{mDevName==null}}'></image>
+        <image class='btnImg' src='/icons/btn_open_un.png' hidden='{{mDevName!=null}}'></image>
         <text class="text">一键开锁</text>
       </button>
 
       <button class='btn' form-type='submit' data-index='2'>
-        <image class='btnImg' src='/icons/sharepsw.png'></image>
+        <image class='btnImg' src='/icons/btn_share.png'></image>
         <text class="text">分享密钥</text>
       </button>
 
       <button class='btn' form-type='submit' data-index='1'>
-        <image class='btnImg' src='/icons/keylist.png'></image>
+        <image class='btnImg' src='/icons/btn_user.png' hidden='{{mDevName==null}}'></image>
+        <image class='btnImg' src='/icons/btn_user_un.png' hidden='{{mDevName!=null}}'></image>
         <text class="text">钥匙列表</text>
       </button>
 
       <button class='btn' form-type='submit' data-index='4'>
-        <image class='btnImg' src='/icons/new.png'></image>
+        <image class='btnImg' src='/icons/btn_input.png' hidden='{{mDevName==null}}'></image>
+        <image class='btnImg' src='/icons/btn_input_un.png' hidden='{{mDevName!=null}}'></image>
         <text class="text">钥匙录入</text>
       </button>
     </view>
-    <view class="line"></view>
+    <button class='morelist'>
+      <view class='frontview'>
+        <image class='lockimage' src='/icons/icon_finger_key.png'></image>
+        <view class='title'>
+          <text class='name'>密码名称</text>
+          <text class='date'>2018-11-15 08:21</text>
+        </view>
+      </view>
+      <label class='rightlable'>更多</label>
+    </button>
+    <!-- <view class="line"></view>
     <view class="item">
 
       <button class='btn' form-type='submit' data-index='3'>
@@ -71,7 +86,7 @@
         <text class="text">智能锁设置</text>
       </button>
     </view>
-    <view class="line"></view>
+    <view class="line"></view> -->
   </form>
 
 </view>

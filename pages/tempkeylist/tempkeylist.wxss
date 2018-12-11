@@ -22,11 +22,10 @@ page {
   height: 88rpx;
 }
 
-.list {
+/* .list {
   margin-left: 10rpx;
   margin-right: 20rpx;
-  /* padding-top: 10rpx; */
-}
+} */
 
 .keytypeview {
   display: flex;
@@ -96,7 +95,7 @@ page {
   flex-direction: row;
   height: 150rpx;
   background: #fff;
-  border-radius: 10rpx;
+  /* border-radius: 10rpx; */
   align-items: center;
   justify-content: space-between;
   margin-top: 10rpx;
@@ -118,7 +117,7 @@ page {
 .vertical-line {
   height: 100rpx;
   width: 1rpx;
-  background-color: #9a9fa5;
+  background-color: #f8f8f8;
   margin-left: 20rpx;
 }
 
@@ -139,15 +138,29 @@ page {
   /* margin-left: 50rpx; */
 }
 
+.rightview {
+  /* width: 200rpx; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 2rpx;
+}
+
 .sharebtn {
   height: 150rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
   background: none;
-  margin-right: 20rpx;
+  padding: 8rpx;
+  /* margin-right: 5rpx; */
 }
 
 .sharebtn::after {
   border: none;
+}
+
+.righticon {
+  width: 70rpx;
+  height: 70rpx;
 }
