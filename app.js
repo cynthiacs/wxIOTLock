@@ -1,5 +1,5 @@
 //app.js
-
+import touch from './utils/touch.js'
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -25,5 +25,6 @@ App({
     deviceName: null,//"dev_rrpc",
     deviceId: undefined,//4,
     formIds: []
-  }
+  },
+  touch: new touch(),
 })

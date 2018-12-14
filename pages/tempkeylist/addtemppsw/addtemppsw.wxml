@@ -12,24 +12,28 @@
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{typeList}}" range-key="{{'name'}}">
     <view class="picker">
       密钥类型: {{typeList[index].name}}
+      <image class='moreicon' src='/icons/more.png'></image>
     </view>
   </picker>
 
   <picker mode="date" value="{{date}}" start="{{today}}" end="2038-10-01" bindchange="bindDateChange">
     <view class="picker" hidden='{{typeList[index].id!=1}}'>
       有效期至: {{date}}
+      <image class='moreicon' src='/icons/more.png'></image>
     </view>
   </picker>
 
   <picker mode="time" value="{{bgtime}}" start="{{now}}" end="23:59" bindchange="bindbgTimeChange">
     <view class="picker" hidden='{{typeList[index].id!=2}}'>
       开始时间: {{bgtime}}
+      <image class='moreicon' src='/icons/more.png'></image>
     </view>
   </picker>
 
   <picker mode="time" value="{{edtime}}" start="{{now}}" end="23:59" bindchange="bindedTimeChange">
     <view class="picker" hidden='{{typeList[index].id!=2}}'>
-      开始时间: {{edtime}}
+      结束时间: {{edtime}}
+      <image class='moreicon' src='/icons/more.png'></image>
     </view>
   </picker>
 

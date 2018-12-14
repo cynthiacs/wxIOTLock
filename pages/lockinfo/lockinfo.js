@@ -1,4 +1,5 @@
 // pages/lockinfo/lockinfo.js
+const app = getApp()
 const devOpt = require('../../utils/devOpt.js')
 Page({
 
@@ -47,6 +48,9 @@ Page({
    */
   onShow: function () {
     console.log("lockInfo:onshow")
+    this.setData({
+      mDevName: app.globalData.deviceName
+    })
   },
 
   /**

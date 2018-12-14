@@ -7,15 +7,15 @@ Page({
   data: {
     lists: [
       {
-        icon: "/icons/num_key.png",
+        icon: "/icons/icon_num_key.png",
         title: "数字钥匙",
       },
       {
-        icon: "/icons/finger_key.png",
+        icon: "/icons/icon_finger_key.png",
         title: "指纹钥匙",
       },
       {
-        icon: "/icons/ic_key.png",
+        icon: "/icons/icon_ic_key.png",
         title: "IC卡钥匙",
       }
     ],

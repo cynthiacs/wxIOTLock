@@ -37,18 +37,18 @@
         <text class="text">一键开锁</text>
       </button>
 
-      <button class='btn' form-type='submit' data-index='2'>
+      <button class='btn' form-type='submit' data-index='1'>
         <image class='btnImg' src='/icons/btn_share.png'></image>
         <text class="text">分享密钥</text>
       </button>
 
-      <button class='btn' form-type='submit' data-index='1'>
+      <button class='btn' form-type='submit' data-index='2'>
         <image class='btnImg' src='/icons/btn_user.png' hidden='{{mDevName==null}}'></image>
         <image class='btnImg' src='/icons/btn_user_un.png' hidden='{{mDevName!=null}}'></image>
         <text class="text">钥匙列表</text>
       </button>
 
-      <button class='btn' form-type='submit' data-index='4'>
+      <button class='btn' form-type='submit' data-index='3'>
         <image class='btnImg' src='/icons/btn_input.png' hidden='{{mDevName==null}}'></image>
         <image class='btnImg' src='/icons/btn_input_un.png' hidden='{{mDevName!=null}}'></image>
         <text class="text">钥匙录入</text>
@@ -67,7 +67,7 @@
     <!-- <view class="line"></view>
     <view class="item">
 
-      <button class='btn' form-type='submit' data-index='3'>
+      <button class='btn' form-type='submit' data-index='4'>
         <image class='btnImg' src='/icons/unlocklog.png'></image>
         <text class="text">门锁日志</text>
       </button>

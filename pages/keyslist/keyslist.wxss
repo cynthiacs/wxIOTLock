@@ -28,6 +28,74 @@ page {
   color: rgb(114, 109, 109)
 }
 
+.alllist {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+}
+
+.content {
+  width: 100%;
+  height: 150rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 20rpx;
+  margin-top: 10rpx;
+  background-color: #fff;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  -webkit-transform: translateX(300rpx);
+  transform: translateX(300rpx);
+  margin-left: -300rpx;
+}
+
+.opt {
+  width: 300rpx;
+  height: 150rpx;
+  display: flex;
+  flex-direction: row;
+  margin-top: 10rpx;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  -webkit-transform: translateX(300rpx);
+  transform: translateX(300rpx);
+  padding: 0rpx;
+}
+
+.editbtn {
+  width: 150rpx;
+  height: 150rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #f7f7f8;
+  border-radius: 0rpx;
+
+}
+.editbtn::after {
+  border: none;
+}
+
+.delbtn {
+  width: 150rpx;
+  height: 150rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color:  red;
+  border-radius: 0rpx;
+}
+
+.delbtn::after {
+  border: none;
+}
+
+.touch-move-active .content, .touch-move-active .opt {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+
 .item {
   display: flex;
   flex-direction: row;
@@ -52,6 +120,20 @@ page {
   background-color: #eee; */
 }
 
+.vertical-line {
+  height: 100rpx;
+  width: 1rpx;
+  background-color: #f8f8f8;
+  margin-left: 20rpx;
+}
+
+.titleview {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 20rpx;
+}
+
 .item-middle {
   flex: 1;
   margin-left: 10rpx;
@@ -62,11 +144,11 @@ page {
 .title {
   color: #000;
   font-family: "微软雅黑";
-  font-weight: bold;
-  line-height: 20rpx;
-  padding: 32rpx 16rpx, 0, 16rpx;
-  font-size: 40rpx;
-  margin-top: 60rpx;
+  /* font-weight: bold; */
+  /* line-height: 20rpx; */
+  /* padding: 32rpx 16rpx, 0, 16rpx; */
+  font-size: 34rpx;
+  /* margin-top: 60rpx; */
   overflow: hidden; /*自动隐藏文字*/
   text-overflow: ellipsis; /*文字隐藏后添加省略号*/
 }
@@ -74,9 +156,9 @@ page {
 .date {
   font-family: "微软雅黑";
   color: #808080;
-  line-height: 10rpx;
-  font-size: 32rpx;
-  padding: 0 16rpx, 0, 16rpx;
+  /* line-height: 10rpx; */
+  font-size: 28rpx;
+  /* padding: 0 16rpx, 0, 16rpx; */
   overflow: hidden; /**自动隐藏文字*/
   text-overflow: ellipsis; /**文字隐藏后添加省略号*/
   white-space: nowrap; /**强制不换行*/

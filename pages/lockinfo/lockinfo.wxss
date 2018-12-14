@@ -36,7 +36,13 @@ page {
   background: #fff;
   align-items: center;
   margin-top: 10rpx;
-  padding-left: 20rpx;
+  padding-left: 40rpx;
+  border-radius: 0;
+}
+
+.btn::after{
+  border: none;
+  border-radius: 0;
 }
 
 .image {

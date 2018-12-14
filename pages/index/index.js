@@ -150,14 +150,24 @@ Page({
   loginformSubmit: function(e) {
     console.log("loginformSubmit e:")
     console.log(e)
-    serverProxy.reportFormId(false, e.detail.formId)
+    let strFormId = e.detail.formId
+    if (strFormId.indexOf('t') != -1) {
+      console.log("illegal formid")
+    }else {
+      serverProxy.reportFormId(false, strFormId)
+    }
+    
   },
 
   formSubmit:function(e) {
     console.log("formSubmit e:")
     console.log(e)
-    serverProxy.reportFormId(false, e.detail.formId)
-
+    let strFormId = e.detail.formId
+    if (strFormId.indexOf('t') != -1) {
+      console.log("illegal formid")
+    } else {
+      serverProxy.reportFormId(false, strFormId)
+    }
     var index = e.detail.target.dataset.index
     console.log("menu index:" + index)
     switch(parseInt(index)) {
@@ -165,16 +175,16 @@ Page({
         this.unlockonce()
         break
       case 1:
-        this.getKeyLists()
-        break
-      case 2:
         this.shareKey()
         break
+      case 2:
+        this.getKeyLists()
+        break
       case 3:
-        this.getUnlockLog()
+        this.keyManagerment()
         break
       case 4:
-        this.keyManagerment()
+        this.getUnlockLog()
         break
       case 5:
         break
@@ -191,75 +201,87 @@ Page({
   },
 
   login: function () {
-    wx.login({
-      success: res => {
-        console.log("wx login success")
-        var code = res.code
-        wx.getUserInfo({
-          success: res => {
-            var userInfo = res.userInfo
-            app.globalData.userInfo = userInfo
-            var id = this.data.mDevId
-            var devId = app.globalData.deviceId
-            if (id) {
-              devId = id
-            }
-            console.log("before login:" + devId)
-            serverProxy.login(code, userInfo, devId, msg => {
-              if (msg.statusCode == 200) {
-                console.log("server login success")
-                console.log(msg)
-                app.globalData.sessionId = msg.data.token
-                wx.setStorageSync("SESSIONID", app.globalData.sessionId)
-                this.setData({
-                  isAuthed: true
-                })
-                var ownerId = msg.data.owner_user_id
-                if (ownerId && devId) {
-                  console.log("login result: dev has manager")
-                  customUI.showApplyDialog(ownerId, devId)
-                  return
-                }
-                serverProxy.getLocks(msg => {
-                  console.log(msg)
-                  if (msg.statusCode == 200) {
-                    var list = msg.data
-                    if(devId) {
-                      this.setNewGID(devId, list)
-                    } else if (list.length > 0) {
-                      this.setNewGID(list[0].id, list)
-                    } else {
-                      wx.showModal({
-                        title: '温馨提示',
-                        content: '您还没有绑定门锁信息，请扫码激活您的门锁设备',
-                        showCancel: false,
-                      })
-                    }
-                  }
-                })
-              } else {
-                wx.showToast({
-                  title: '登录失败，可能是网络问题',
-                  icon: 'none',
-                  duration: 1500
-                })
-              }
-            })
-          },
-          fail: res => {
-            console.log(res)
-          }
+    let id = this.data.mDevId ? this.data.mDevId: app.globalData.deviceId
+    devOpt.login(id, msg => {
+      if (msg.statusCode == 200) {
+        this.setData({
+          isAuthed: true
         })
-        
-      },
-      fail: res => {
-        wx.showToast({
-          title: '登录失败，可能是网络问题',
-          icon: 'none',
-          duration: 1500
-        })
+        if(app.globalData.deviceName != null) {
+          this.setData({
+            mDevName: app.globalData.deviceName
+          })
+        }
       }
     })
+    // wx.login({
+    //   success: res => {
+    //     console.log("wx login success")
+    //     var code = res.code
+    //     wx.getUserInfo({
+    //       success: res => {
+    //         var userInfo = res.userInfo
+    //         app.globalData.userInfo = userInfo
+    //         var id = this.data.mDevId
+    //         var devId = app.globalData.deviceId
+    //         if (id) {
+    //           devId = id
+    //         }
+    //         console.log("before login:" + devId)
+    //         serverProxy.login(code, userInfo, devId, msg => {
+    //           if (msg.statusCode == 200) {
+    //             console.log("server login success")
+    //             console.log(msg)
+    //             app.globalData.sessionId = msg.data.token
+    //             wx.setStorageSync("SESSIONID", app.globalData.sessionId)
+    //             this.setData({
+    //               isAuthed: true
+    //             })
+    //             var ownerId = msg.data.owner_user_id
+    //             if (ownerId && devId) {
+    //               console.log("login result: dev has manager")
+    //               customUI.showApplyDialog(ownerId, devId)
+    //               return
+    //             }
+    //             serverProxy.getLocks(msg => {
+    //               console.log(msg)
+    //               if (msg.statusCode == 200) {
+    //                 var list = msg.data
+    //                 if(devId) {
+    //                   this.setNewGID(devId, list)
+    //                 } else if (list.length > 0) {
+    //                   this.setNewGID(list[0].id, list)
+    //                 } else {
+    //                   wx.showModal({
+    //                     title: '温馨提示',
+    //                     content: '您还没有绑定门锁信息，请扫码激活您的门锁设备',
+    //                     showCancel: false,
+    //                   })
+    //                 }
+    //               }
+    //             })
+    //           } else {
+    //             wx.showToast({
+    //               title: '登录失败，可能是网络问题',
+    //               icon: 'none',
+    //               duration: 1500
+    //             })
+    //           }
+    //         })
+    //       },
+    //       fail: res => {
+    //         console.log(res)
+    //       }
+    //     })
+    //   },
+    //   fail: res => {
+    //     wx.showToast({
+    //       title: '登录失败，可能是网络问题',
+    //       icon: 'none',
+    //       duration: 1500
+    //     })
+    //   }
+    // })
   },
 
   actLock: function () {
@@ -371,13 +393,20 @@ Page({
   showDialog: function () {
     wx.showModal({
       title: '温馨提示',
-      content: '您还没有设置智能锁，快去设置您的智能锁吧',
+      content: '您还没有激活智能锁，快去激活您的智能锁吧',
       showCancel: false,
       success: res => {
         if(res.confirm) {
           this.lockSetting()
         }
       }
+    })
+  },
+
+  onShow: function () {
+    console.log("index:onshow")
+    this.setData({
+      mDevName: app.globalData.deviceName
     })
   },
 })

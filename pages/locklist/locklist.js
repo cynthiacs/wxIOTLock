@@ -2,6 +2,8 @@
 const app = getApp()
 const serverProxy = require('../../utils/serverproxy.js')
 const customUI = require('../../utils/customUI.js')
+const devOpt = require('../../utils/devOpt.js')
+
 
 Page({
 
@@ -86,7 +88,8 @@ Page({
                 success: res => {
                   if (res.confirm) {
                     if (!app.globalData.sessionId) {
-                      this.login(devId)
+                      // this.login(devId)
+                      devOpt.login(devId)
                     } else {
                       console.log("you have logined, to bind")
                       this.bindNewLock(devId)

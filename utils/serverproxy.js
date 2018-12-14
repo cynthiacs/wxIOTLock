@@ -18,7 +18,6 @@ function setDevName(id, name) {
 
 function login(wxCode, userinfo, devId, listener) {
   console.log("serverproxy: login")
-  // var baseUrl = 'https://www.leadcoreiot.top';
   this.wxCode = wxCode
   this.userInfo = userinfo
   var userinfoJson = {}
@@ -28,30 +27,16 @@ function login(wxCode, userinfo, devId, listener) {
   var data = {
     js_code: wxCode,
     userinfo: JSON.stringify(userinfoJson),
-    // devid: devId
   }
   if(devId) {
     data.devid = devId
   }
-  wx.request({
-    url: baseUrl + '/iot/api/wx/login',
-    method: 'POST',
+  var options = {
+    url: '/iot/api/wx/login',
     data: data,
-    success: function (data) {
-      if (data.statusCode === 200) {
-        console.log(data.data.token)
-      } else {
-      }
-      listener(data)
-    },
-    fail: function (data) {
-      wx.showToast({
-        title: 'HTTP 请求失败',
-        icon: none,
-      })
-      // listener(data)
-    }
-  });
+    method: 'POST',
+  }
+  wxRequest(options, listener)
 }
 
 function addKey(keytype, keyname, listener) {
@@ -379,7 +364,7 @@ function wxRequest(options, listener) {
       // listener(data)
       wx.showToast({
         title: 'HTTP 请求失败',
-        icon: none,
+        icon: 'none',
       })
     }
   })

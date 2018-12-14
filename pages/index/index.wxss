@@ -30,12 +30,12 @@ page {
 
 .activity {
   width: 750rpx;
-  height: 465rpx;
+  height: 451rpx;
 }
 
 .activity image {
   width: 750rpx;
-  height: 465rpx;
+  height: 451rpx;
 }
 
 .actView {
@@ -62,7 +62,7 @@ page {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 15rpx;
+  margin: 13rpx;
   /* padding-left: 30rpx; */
   background: #f8f8f8;
 }
@@ -85,7 +85,7 @@ page {
 .name {
   margin-left: 38rpx;
   font-size: 33rpx;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 .rightimage {
@@ -102,7 +102,7 @@ page {
   margin-left: 10rpx;
   margin-right: 10rpx;
   /* margin-bottom: 10rpx; */
-  margin-top: 27rpx;
+  margin-top: 20rpx;
   background-color: #fff;
 }
 
@@ -150,14 +150,14 @@ page {
 }
 
 .morelist {
-  height: 177rpx;
+  height: 150rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   margin-left: 15rpx;
   margin-right: 15rpx;
-  margin-top: 10rpx;
+  margin-top: 50rpx;
   background: #fff;
   border: 2px solid #f2f2f2;
   border-radius: 10px;
@@ -170,11 +170,13 @@ page {
 .title {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
   /* margin-left: 38rpx; */
 }
 
 .date {
+  /* margin-top: 0rpx; */
   font-size: 25rpx;
   margin-left: 38rpx;
 }

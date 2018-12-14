@@ -1,5 +1,7 @@
 // pages/authpage/authpage.js
+const app = getApp()
 const serverProxy = require('../../utils/serverproxy.js')
+const devOpt = require('../../utils/devOpt.js')
 
 Page({
 
@@ -13,6 +15,7 @@ Page({
     devName: null,
     date: null,
     applyid: null,
+    isAuthed: false,
     hasChecked: true,
   },
 
@@ -28,12 +31,26 @@ Page({
       userName: options.username,
       applyid: options.applyid,
     })
+    var session = wx.getStorageSync('SESSIONID')
+    if (!session) {
+      console.log("session has been cleaned")
+    }else {
+      app.globalData.sessionId = session
+      this.setData({
+        isAuthed: true
+      })
+      this.checkApplyId()
+    }
+  },
+
+  checkApplyId: function() {
     serverProxy.getAuthInfo('2', '0', msg => {
+      console.log("getAuthInfo")
       console.log(msg)
-      if(msg.statusCode == 200) {
+      if (msg.statusCode == 200) {
         let authlist = msg.data
-        for(let i = 0 ; i < authlist.length; i++) {
-          if (parseInt(this.data.applyid)  == authlist[i].id) {
+        for (let i = 0; i < authlist.length; i++) {
+          if (parseInt(this.data.applyid) == authlist[i].id) {
             this.setData({
               hasChecked: false
             })
@@ -42,6 +59,21 @@ Page({
         }
       }
     })
+  },
+
+  bindGetUserInfo: function (e) {
+    //第一次使用，用户授权 
+    console.log(e)
+    if (e.detail.userInfo) {
+      devOpt.login(undefined, msg => {
+        if(msg.statusCode == 200) {
+          this.setData({
+            isAuthed: true
+          })
+          this.checkApplyId()
+        }
+      })
+    }
   },
 
   agree: function() {

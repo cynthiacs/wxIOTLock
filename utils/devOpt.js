@@ -119,64 +119,75 @@ function bindNewLock(devId, listener) {
   })
 }
 
-// function login(devId) {
-//   wx.login({
-//     success: res => {
-//       console.log("wx login success")
-//       var code = res.code
-//       wx.getUserInfo({
-//         success: res => {
-//           var userInfo = res.userInfo
-//           app.globalData.userInfo = userInfo
-//           console.log("before login:" + devId)
-//           serverProxy.login(code, userInfo, devId, msg => {
-//             if (msg.statusCode == 200) {
-//               console.log("server login success")
-//               console.log(msg)
-//               app.globalData.sessionId = msg.data.token
-//               wx.setStorageSync("SESSIONID", app.globalData.sessionId)
-//               var ownerId = msg.data.owner_user_id
-//               if (ownerId) {
-//                 console.log("login result: dev has manager")
-//                 customUI.showApplyDialog(ownerId, devId)
-//               } else {
-//                 serverProxy.getLocks(msg => {
-//                   console.log(msg)
-//                   if (msg.statusCode == 200) {
-//                     var list = msg.data
-//                     for (let i = 0; i < list.length; i++) {
-//                       if (id && id == list[i].id) {
-//                         serverProxy.setDevName(id, list[i].name)
-//                       }
-//                     }
-//                   }
-//                 })
-//               }
-//             } else {
-//               wx.showToast({
-//                 title: '扫描失败，可能是网络问题',
-//                 icon: 'none',
-//                 duration: 1500
-//               })
-//             }
-//           })
-//         },
-//         fail: res => {
-//           console.log(res)
-//         }
-//       })
-//     },
-//     fail: res => {
-//       wx.showToast({
-//         title: '登录失败，可能是网络问题',
-//         icon: 'none',
-//         duration: 1500
-//       })
-//     }
-//   })
-// }
+function login(devId, listener) {
+  wx.login({
+    success: res => {
+      console.log("wx login success")
+      var code = res.code
+      wx.getUserInfo({
+        success: res => {
+          var userInfo = res.userInfo
+          app.globalData.userInfo = userInfo
+          console.log("before login:" + devId)
+          serverProxy.login(code, userInfo, devId, msg => {
+            if (msg.statusCode == 200) {
+              console.log("server login success")
+              console.log(msg)
+              app.globalData.sessionId = msg.data.token
+              wx.setStorageSync("SESSIONID", app.globalData.sessionId)
+              var ownerId = msg.data.owner_user_id
+              if (ownerId && devId) {
+                console.log("login result: dev has manager")
+                customUI.showApplyDialog(ownerId, devId)
+              } else {
+                serverProxy.getLocks(msg => {
+                  console.log(msg)
+                  if (msg.statusCode == 200) {
+                    var list = msg.data
+                    if (devId) {
+                      for (let i = 0; i < list.length; i++) {
+                        if (devId && devId == list[i].id) {
+                          serverProxy.setDevName(devId, list[i].name)
+                        }
+                      }
+                    } else if (list.length > 0) {
+                      serverProxy.setDevName(list[0].id, list[0].name)
+                    }
+                    if (listener) {
+                      listener(msg)
+                    }
+                  }
+                })
+              }
+            } else {
+              if (listener) {
+                listener(msg)
+              }
+              wx.showToast({
+                title: '登录失败，可能是网络问题',
+                icon: 'none',
+                duration: 1500
+              })
+            }
+          })
+        },
+        fail: res => {
+          console.log(res)
+        }
+      })
+    },
+    fail: res => {
+      wx.showToast({
+        title: '登录失败，可能是网络问题',
+        icon: 'none',
+        duration: 1500
+      })
+    }
+  })
+}
 
 module.exports = {
   scanActLock: scanActLock,
   bindNewLock: bindNewLock,
+  login: login,
 }

@@ -15,7 +15,7 @@ page {
   align-items: center;
   /* margin-top: 20rpx;
   margin-bottom: 20rpx; */
-  margin: 40rpx;
+  margin: 20rpx;
   padding: 10rpx;
 }
 

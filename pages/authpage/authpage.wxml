@@ -1,6 +1,8 @@
 <!--pages/authpage/authpage.wxml-->
-
-<view class='authpage'>
+  <view class="welcome" hidden='{{isAuthed}}'>
+    <button class="authbtn" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo"> 授权登录 </button>
+  </view>
+<view class='authpage' hidden='{{!isAuthed}}'>
   <image class='image' src='../../icons/warning.png'></image>
   <text class='text'>有人向你发起设备授权请求</text>
   <view class='line'></view>
