@@ -345,16 +345,16 @@ Page({
     })
   },
 
-  getUnlockLog: function () {
-    if (!app.globalData.deviceId ||
-      app.globalData.deviceId == -1) {
-      this.showDialog()
-      return
-    }
-    wx.navigateTo({
-      url: '../loglist/loglist',
-    })
-  },
+  // getUnlockLog: function () {
+  //   if (!app.globalData.deviceId ||
+  //     app.globalData.deviceId == -1) {
+  //     this.showDialog()
+  //     return
+  //   }
+  //   wx.navigateTo({
+  //     url: '../loglist/loglist',
+  //   })
+  // },
 
   getKeyLists: function () {
     if (!app.globalData.deviceId ||
@@ -378,11 +378,17 @@ Page({
     })
   },
 
-  lockSetting: function () {
+  getMoreInfo: function() {
     wx.navigateTo({
-      url: '../locklist/locklist',
+      url: '../loglist/loglist',
     })
   },
+
+  // lockSetting: function () {
+  //   wx.navigateTo({
+  //     url: '../locklist/locklist',
+  //   })
+  // },
 
   // setPassword: function () {
   //   wx.navigateTo({

@@ -39,7 +39,7 @@ page {
 }
 
 .actView {
-  height: 200rpx;
+  height: 180rpx;
   display: flex;
   align-items: center;
   margin: 10rpx;
@@ -57,7 +57,7 @@ page {
 }
 
 .infoview {
-  height: 211rpx;
+  height: 180rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -85,7 +85,7 @@ page {
 .name {
   margin-left: 38rpx;
   font-size: 33rpx;
-  /* font-weight: bold; */
+  line-height: 33rpx;
 }
 
 .rightimage {
@@ -176,9 +176,10 @@ page {
 }
 
 .date {
-  /* margin-top: 0rpx; */
   font-size: 25rpx;
   margin-left: 38rpx;
+  line-height: 25rpx;
+  margin-top: 25rpx;
 }
 
 .rightlable {

@@ -30,17 +30,75 @@ Page({
       //   device_name: "dev_rrpc"
       // },
     ],
+    currentTab: 0,
+    bgdate: '2018-09-01',
+    eddate: '2018-09-01',
   },
-
+ 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this
-    serverProxy.getUnlockLog(function (msg) {
-      that.setData({
+    var now = new Date()
+    var nowvalue = now.valueOf()
+    var bg = new Date(nowvalue - 7 * 24 * 60 * 60 * 1000)
+    var edy = now.getFullYear()
+    var edm = now.getMonth() + 1
+    var edd = now.getDate()
+    var bgy = bg.getFullYear()
+    var bgm = bg.getMonth() + 1
+    var bgd = bg.getDate()
+    console.log(now)
+    this.setData({
+      eddate: edy + '-' + this.getTimestr(edm) + '-' + this.getTimestr(edd),
+      bgdate: bgy + '-' + this.getTimestr(bgm) + '-' + this.getTimestr(bgd),
+    })
+    serverProxy.getUnlockLog(msg => {
+      this.setData({
         list: msg.data.rows
       })
+    })
+  },
+
+  getTimestr: function (time) {
+    if (time < 10) {
+      time = '0' + time
+    }
+    return time
+  },
+
+  //滑动切换
+  swiperTab: function (e) {
+    var that = this;
+    that.setData({
+      currentTab: e.detail.current
+    });
+  },
+  //点击切换
+  clickTab: function (e) {
+    var that = this;
+    if (this.data.currentTab === e.target.dataset.current) {
+      return false;
+    } else {
+      that.setData({
+        currentTab: e.target.dataset.current
+      })
+    }
+  },
+
+  bindbgDateChange: function (e) {
+    var bg = e.detail.value
+    console.log(bg)
+    var bgvalue = new Date(bg.replace(/-/g, "/"))
+    
+    this.setData({
+      bgdate: e.detail.value
+    })
+  },
+
+  bindedDateChange: function (e) {
+    this.setData({
+      eddate: e.detail.value
     })
   },
 

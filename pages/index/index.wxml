@@ -24,8 +24,11 @@
     </view>
     <button class='infoview' hidden='{{mDevName==null}}' form-type='submit' data-index='8'>
       <view class='frontview'>
-        <image class='lockimage' src='/icons/btn_input_un.png'></image>
+        <image class='lockimage' src='/icons/device.png'></image>
+        <view class='title'>
         <text class='name'>{{mDevName}}</text>
+        <text class='date'>备注名</text>
+        </view>
       </view>
       <image class='rightimage' src='/icons/more.png'></image>
     </button>
@@ -54,7 +57,7 @@
         <text class="text">钥匙录入</text>
       </button>
     </view>
-    <button class='morelist'>
+    <button class='morelist' bindtap='getMoreInfo'>
       <view class='frontview'>
         <image class='lockimage' src='/icons/icon_finger_key.png'></image>
         <view class='title'>

@@ -1,19 +1,52 @@
 <!--pages/loglist/loglist.wxml-->
-<view class='list'>
-  <block wx:for='{{list}}' wx:for-index="index" wx:key="this">
-    <view class='item' data-index="{{index}}">
-      <view class='textback'>
-        <text class='small_text'>{{item.typename}}</text>
-      </view>
-      <text class='name'>{{item.pwname}}</text>
-
-      <view class="line"></view>
-      <view class='editview'>
-        <text class='small_text'>{{item.time}}</text>
-        <view bindtap='deleteLog' data-index='{{index}}'>
-          <text class='deltext'>删除</text>
-        </view>
-      </view>
-    </view>
-  </block>
+<view class="swiper-tab">
+  <view class="swiper-tab-item {{currentTab==0?'active':''}}" data-current="0" bindtap="clickTab">开门信息
+  </view>
+  <view class="swiper-tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="clickTab">电量动态
+  </view>
 </view>
+
+<swiper current="{{currentTab}}" duration="300" bindchange="swiperTab">
+  <swiper-item>
+    <view class='odview'>
+      <view class='daterange'>
+        <picker mode="date" value="{{bgdate}}" start="{{today}}" end="2038-10-01" bindchange="bindbgDateChange">
+          <view class="picker">
+            <text class='pickertext'>{{bgdate}}</text>
+            <image class='moreicon' src='/icons/more.png'></image>
+          </view>
+        </picker>
+        <view>-</view>
+        <picker mode="date" value="{{eddate}}" start="{{today}}" end="2038-10-01" bindchange="bindedDateChange">
+          <view class="picker">
+            <text class='pickertext'>{{eddate}}</text>
+            <image class='moreicon' src='/icons/more.png'></image>
+          </view>
+        </picker>
+      </view>
+      <view class='list'>
+        <block wx:for='{{list}}' wx:for-index="index" wx:key="this">
+          <view class='item' data-index="{{index}}">
+            <view class='textback'>
+              <text class='small_text'>{{item.typename}}</text>
+            </view>
+            <text class='name'>{{item.pwname}}</text>
+
+            <view class="line"></view>
+            <view class='editview'>
+              <text class='small_text'>{{item.time}}</text>
+              <view bindtap='deleteLog' data-index='{{index}}'>
+                <text class='deltext'>删除</text>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+
+    </view>
+  </swiper-item>
+  <swiper-item>
+    <view>
+    </view>
+  </swiper-item>
+</swiper>
