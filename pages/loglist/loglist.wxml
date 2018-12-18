@@ -24,7 +24,7 @@
           </view>
         </picker>
       </view>
-      <view class='list'>
+      <view class='alllist'>
         <block wx:for='{{list}}' wx:for-index="index" wx:key="this">
           <view class='item' data-index="{{index}}">
             <view class='textback'>
