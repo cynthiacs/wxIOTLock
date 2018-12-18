@@ -6,7 +6,7 @@
   </view>
 </view>
 
-<swiper current="{{currentTab}}" duration="300" bindchange="swiperTab">
+<swiper class='swiper' current="{{currentTab}}" duration="300" bindchange="swiperTab">
   <swiper-item>
     <view class='odview'>
       <view class='daterange'>
@@ -24,9 +24,17 @@
           </view>
         </picker>
       </view>
-      <view class='list'>
+      <view class='alllist'>
         <block wx:for='{{list}}' wx:for-index="index" wx:key="this">
-          <view class='item' data-index="{{index}}">
+          <view class='content' data-index='{{index}}'>
+            <image class='image' src='{{types[item.keyType].icon}}'></image>
+            <view class='vertical-line'></view>
+            <view class='titleview'>
+              <text class='title'>{{item.pwname}}</text>
+              <text class='date'>{{item.time}}</text>
+            </view>
+          </view>
+          <!-- <view class='item' data-index="{{index}}">
             <view class='textback'>
               <text class='small_text'>{{item.typename}}</text>
             </view>
@@ -39,7 +47,7 @@
                 <text class='deltext'>删除</text>
               </view>
             </view>
-          </view>
+          </view> -->
         </block>
       </view>
 

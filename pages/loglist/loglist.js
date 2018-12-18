@@ -30,6 +30,20 @@ Page({
       //   device_name: "dev_rrpc"
       // },
     ],
+    types: [
+      {
+        icon: "/icons/icon_num_key.png",
+        title: "数字钥匙",
+      },
+      {
+        icon: "/icons/icon_finger_key.png",
+        title: "指纹钥匙",
+      },
+      {
+        icon: "/icons/icon_ic_key.png",
+        title: "IC卡钥匙",
+      }
+    ],
     currentTab: 0,
     bgdate: '2018-09-01',
     eddate: '2018-09-01',
