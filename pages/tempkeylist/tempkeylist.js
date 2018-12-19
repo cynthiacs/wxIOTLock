@@ -1,7 +1,7 @@
 // pages/tempkeylist/tempkeylist.js
 const app = getApp()
 const serverProxy = require('../../utils/serverproxy.js')
-
+const util = require('../../utils/util.js')
 
 Page({
 
@@ -119,9 +119,9 @@ Page({
       if(msg.statusCode == 200) {
         let list = msg.data
         for (let i = 0; i < list.length; i++) {
-          let date = list[i].create_date
-          let dateArr = date.split('.')
-          list[i].create_date = dateArr[0]
+          let datestr = list[i].create_date
+          let date = new Date(datestr)
+          list[i].create_date = util.formatTime(date)
         }
         that.setData({
           onceList: list
@@ -165,8 +165,8 @@ Page({
     if (item.type == 'deadline') {
       item.typeindex = 1
       let duedate = item.detail.due_date
-      let dataArr = duedate.split('.')
-      item.detail.due_date = dataArr[0]
+      let date = new Date(duedate)
+      item.detail.due_date = util.formatTime(date)
     } else if (item.type == 'time') {
       item.typeindex = 2
     } else {

@@ -1,4 +1,5 @@
 // pages/keyslist/keyslist.js
+const util = require('../../utils/util.js')
 const serverProxy = require('../../utils/serverproxy.js')
 const app = getApp()
 Page({
@@ -71,9 +72,9 @@ Page({
         for (let i = 0; i < resList.length; i++) {
           resList[i].keyType = keyType
           let datestr = resList[i].create_date
-          datestr = ((datestr.replace('T', ' ')).replace('Z', '')).replace(/-/g, '/')
-          let time = new Date(datestr).getTime()
-          resList[i].create_time = time
+          let date = new Date(datestr)
+          resList[i].create_date = util.formatTime(date)
+          resList[i].create_time = date.getTime()
         }
         switch (typeindex) {
           case 0:

@@ -6,10 +6,9 @@
   </view>
 </view>
 
-<swiper class='swiper' current="{{currentTab}}" duration="300" bindchange="swiperTab">
-  <swiper-item>
-    <view class='odview'>
-      <view class='daterange'>
+<swiper style='height:{{winHeight - 168}}rpx' class='swiper' current="{{currentTab}}" duration="300" bindchange="swiperTab">
+
+<view class='daterange'>
         <picker mode="date" value="{{bgdate}}" start="{{today}}" end="2038-10-01" bindchange="bindbgDateChange">
           <view class="picker">
             <text class='pickertext'>{{bgdate}}</text>
@@ -24,34 +23,23 @@
           </view>
         </picker>
       </view>
-      <view class='alllist'>
+  <swiper-item class='swiper-item'>
+    <view class='odview'>
+      
+      <scroll-view class='alllist' scroll-x='false' scroll-y='true' bindscrolltolower='toLower'>
         <block wx:for='{{list}}' wx:for-index="index" wx:key="this">
           <view class='content' data-index='{{index}}'>
             <image class='image' src='{{types[item.keyType].icon}}'></image>
             <view class='vertical-line'></view>
             <view class='titleview'>
               <text class='title'>{{item.pwname}}</text>
-              <text class='date'>{{item.time}}</text>
+              <text class='date'>{{item.datetime}}</text>
             </view>
           </view>
-          <!-- <view class='item' data-index="{{index}}">
-            <view class='textback'>
-              <text class='small_text'>{{item.typename}}</text>
-            </view>
-            <text class='name'>{{item.pwname}}</text>
-
-            <view class="line"></view>
-            <view class='editview'>
-              <text class='small_text'>{{item.time}}</text>
-              <view bindtap='deleteLog' data-index='{{index}}'>
-                <text class='deltext'>删除</text>
-              </view>
-            </view>
-          </view> -->
         </block>
-      </view>
-
+      </scroll-view>
     </view>
+
   </swiper-item>
   <swiper-item>
     <view>
