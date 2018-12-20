@@ -223,10 +223,14 @@ function getUnlockLog(bt, et, page, listener) {
   console.log(et)
   var data = {
     access_token: app.globalData.sessionId,
-    bt: bt,
-    et: et,
     page: page,
     pagesize: 50,
+  }
+  if(bt != null) {
+    data.bt = bt
+  }
+  if(et != null) {
+    data.et = et
   }
   var options = {
     url: '/iot/api/unlock/records/' + devName,
@@ -356,6 +360,8 @@ function getAuthInfo(authType, status, listener) {
   }
   wxRequest(options, listener)
 }
+
+// function getbattery()
 
 function wxRequest(options, listener) {
   wx.request({

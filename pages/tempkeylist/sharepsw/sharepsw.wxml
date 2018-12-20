@@ -1,9 +1,8 @@
 <!--pages/tempkeylist/sharepsw/sharepsw.wxml-->
 
 <view class='item'>
-  <view class='textback'>
-    <text class='text'>{{pswtype}}</text>
-  </view>
+  <image class='image' src='{{iconres}}'></image>
+  <text class='text'>{{pswtype}}</text>
   <text class='pswtext'>{{psw}}</text>
   <text class='text'>{{tips}}</text>
 </view>

@@ -1,32 +1,35 @@
 <!--pages/authpage/authpage.wxml-->
-  <view class="welcome" hidden='{{isAuthed}}'>
-    <button class="authbtn" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo"> 授权登录 </button>
-  </view>
+<view class="welcome" hidden='{{isAuthed}}'>
+  <button class="authbtn" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo"> 授权登录 </button>
+</view>
 <view class='authpage' hidden='{{!isAuthed}}'>
-  <image class='image' src='../../icons/warning.png'></image>
-  <text class='text'>有人向你发起设备授权请求</text>
-  <view class='line'></view>
-  <view class='infoview'>
-    <view class='info'>
-      <text class='title'>申请人</text>
-      <text class='cotent'>{{userName}}</text>
-    </view>
-    <view class='info'>
-      <text class='title'>设备名称</text>
-      <text class='cotent'>{{devName}}</text>
-    </view>
-    <view class='info'>
-      <text class='title'>申请时间</text>
-      <text class='cotent'>{{date}}</text>
+  <view class='infoback'>
+    <image class='image' src='../../icons/warning.png'></image>
+    <text class='text'>有人向你发起设备授权请求</text>
+    <!-- <view class='line'></view> -->
+    <view class='infoview'>
+      <view class='info'>
+        <text class='title'>申请人</text>
+        <text class='cotent'>{{userName}}</text>
+      </view>
+      <view class='info'>
+        <text class='title'>设备名称</text>
+        <text class='cotent'>{{devName}}</text>
+      </view>
+      <view class='info'>
+        <text class='title'>申请时间</text>
+        <text class='cotent'>{{date}}</text>
+      </view>
     </view>
   </view>
   <!-- <form class='btnview' report-report-submit='true' bindsubmit='formSubmit'> -->
-  <view class='btnview' hidden='{{hasChecked}}'>
-    <button class='button' bindtap='agree'>同意</button>
-    <button class='button' bindtap='disagree'>不同意</button>
+  <view class='tipview' hidden='{{hasChecked}}'>
+    <button class='btn' bindtap='agree'>同意</button>
+    <button class='btn' bindtap='disagree'>不同意</button>
   </view>
-  <view hidden='{{!hasChecked}}'>
-  <label>该申请您已处理过。</label>
+  <view class='tipview' hidden='{{!hasChecked}}'>
+    <label>该申请您已处理过。</label>
+    <button class='btn' bindtap='backHome'>返回首页</button>
   </view>
   <!-- </form> -->
 </view>

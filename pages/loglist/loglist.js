@@ -1,6 +1,7 @@
 // pages/loglist/loglist.js
 const serverProxy = require('../../utils/serverproxy.js')
 const util = require('../../utils/util.js')
+const devOpt = require('../../utils/devOpt.js')
 
 Page({
 
@@ -31,31 +32,6 @@ Page({
       //     device_name: "dev_rrpc"
       //   },
     ],
-    types: [{
-        icon: "/icons/icon_num_key.png",
-        title: "数字密码",
-      },
-      {
-        icon: "/icons/icon_finger_key.png",
-        title: "指纹密码",
-      },
-      {
-        icon: "/icons/icon_ic_key.png",
-        title: "IC卡密码",
-      },
-      {
-        icon: "/icons/icon_date.png",
-        title: "限时密码",
-      },
-      {
-        icon: "/icons/icon_time.png",
-        title: "限时段密码",
-      },
-      {
-        icon: "/icons/icon_times.png",
-        title: "限次密码",
-      }
-    ],
     currentTab: 0,
     bgdate: '2018-09-01',
     eddate: '2018-09-01',
@@ -73,47 +49,34 @@ Page({
 
     var nowvalue = now.valueOf()
     var bg = new Date(nowvalue - 7 * 24 * 60 * 60 * 1000)
-
-    // var edy = now.getFullYear()
-    // var edm = now.getMonth() + 1
-    // var edd = now.getDate()
-    // var bgy = bg.getFullYear()
-    // var bgm = bg.getMonth() + 1
-    // var bgd = bg.getDate()
     this.setData({
       eddate: util.formatDate(now),
       bgdate: util.formatDate(bg),
       bt: util.formatTime(bg),
       et: util.formatTime(now),
     })
-    this.getLogs()
+    this.getLogs(true)
   },
 
-  getLogs: function() {
+  getLogs: function(reset) {
     serverProxy.getUnlockLog(this.data.bt, this.data.et,
       this.data.currentPage, msg => {
         if (msg.statusCode == 200) {
           var datas = msg.data.rows
           for (var i = 0; i < datas.length; i++) {
-            if (datas[i].typename == '数字密码') {
-              datas[i].keyType = 0
-            } else if (datas[i].typename == '指纹') {
-              datas[i].keyType = 1
-            } else if (datas[i].typename == '门禁卡') {
-              datas[i].keyType = 2
-            } else if (datas[i].typename == '限时密码') {
-              datas[i].keyType = 3
-            } else if (datas[i].typename == '限时段密码') {
-              datas[i].keyType = 4
-            } else if (datas[i].typename == '限次密码') {
-              datas[i].keyType = 5
-            }
+            datas[i].iconres = devOpt.getIconFromName(datas[i].typename).icon
             var timestr = datas[i].time
             var date = new Date(timestr)
             datas[i].datetime = util.formatTime(date)
           }
+          var newlist
+          if(reset) {
+            newlist = datas
+          }else {
+            newlist = this.data.list.concat(datas)
+          }
           this.setData({
-            list: this.data.list.concat(datas),
+            list: newlist,
             totalpages: msg.data.totalpages,
           })
         }
@@ -151,7 +114,7 @@ Page({
     console.log("toLower:currentPage:" + this.data.currentPage)
     if (this.data.totalpages > this.data.currentPage) {
       this.data.currentPage++
-        this.getLogs()
+        this.getLogs(false)
     } else {
       wx.showToast({
         title: '已经到列表底部',
@@ -191,7 +154,7 @@ Page({
       eddate: ed,
       et: et
     })
-    this.getLogs()
+    this.getLogs(true)
   },
 
   bindedDateChange: function(e) {
@@ -221,7 +184,7 @@ Page({
       bgdate: bg,
       bt: bt
     })
-    this.getLogs()
+    this.getLogs(true)
   },
 
   /**

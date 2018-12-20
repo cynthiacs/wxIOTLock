@@ -1,13 +1,8 @@
-<!--pages/tempkeylist/tempkeylist.wxml-->
 <view>
-  <!-- <view class='createkey' bindtap='addpsw'>
-    <text class='keytype'>新增密码</text>
-    <image class='image' src='/icons/next.png'></image>
-  </view> -->
   <view class='list' hidden='{{longList.length<=0}}'>
     <text class='keytype'>长期密码</text>
     <block wx:for='{{longList}}' wx:for-index="index" wx:key="this">
-      <view class='new_item' wx:if='{{item.pwdinfo.typeindex==1}}'>
+      <view class='new_item' wx:if='{{item.pwdinfo.typeindex==4}}'>
         <!-- <view class='textback'>
           <text class='date'>限时密码</text>
         </view>
@@ -45,7 +40,7 @@
 
       </view>
 
-      <view class='new_item' wx:if='{{item.pwdinfo.typeindex==2}}'>
+      <view class='new_item' wx:if='{{item.pwdinfo.typeindex==5}}'>
         <!-- <view class='textback'>
           <text class='date'>限时段密码</text>
         </view>
@@ -81,7 +76,7 @@
         </view>
       </view>
 
-      <view class='new_item' wx:if='{{item.pwdinfo.typeindex==3}}'>
+      <view class='new_item' wx:if='{{item.pwdinfo.typeindex==6}}'>
         <!-- <view class='textback '>
           <text class='date '>限次密码</text>
         </view>

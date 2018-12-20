@@ -1,6 +1,7 @@
 <!--pages/lockinfo/lockinfo.wxml-->
 <view class='titlebar'>
-<label class='label'>{{mDevName}}</label>
+<text class='name'>{{mDevName}}</text>
+<text class='mark'>备注名</text>
 </view>
 <view class='actView'>
   <button class='actBtn' bindtap='actLock'>激活新的智能锁</button>

@@ -2,10 +2,10 @@
 <view class='all'>
   <view class='title'>
     <image class='image' src='/icons/logo.png'></image>
-    <text>您的智能锁密钥安全管家</text>
+    <text>智能锁安全管家</text>
   </view>
 
-  <view class='line'></view>
+  <!-- <view class='line'></view> -->
   <input class='input' type='number' password='true' bindinput="userInput" placeholder="请输入您的数字密码"></input>
   <input class='input' type='number' hidden='{{typeList[index].id!=3}}' bindinput="countsInput" placeholder="请输入次数"></input>
 

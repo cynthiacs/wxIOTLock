@@ -1,14 +1,21 @@
 /* pages/tempkeylist/addtemppsw/addtemppsw.wxss */
+page {
+  height: 100%;
+}
 
 .all {
+  height: 100%;
   display: flex;
   flex-direction: column;
+  /* justify-content: space-around; */
+  background-color: #f3f3f3
 }
 
 .title {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 30rpx;
 }
 
 .image {
@@ -26,7 +33,7 @@
 }
 
 .input {
-  background-color: #f4f6f8;
+  background-color: white;
   margin: 10rpx;
   padding: 20rpx;
   /* padding-right: 13rpx; */
@@ -38,7 +45,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: #f4f6f8;
+  background-color: white;
   padding: 20rpx;
   margin: 10rpx;
 }
@@ -55,10 +62,11 @@
 }
 
 .button {
-  width: 80%;
+  width: 50%;
   padding-left: 13px;
   padding-right: 13rpx;
-  margin: 10rpx;
+  margin-top: 20rpx;
   background: #428ee2;
-  color: #fff
+  color: rgb(143, 212, 214);
+  border-radius: 26px;
 }

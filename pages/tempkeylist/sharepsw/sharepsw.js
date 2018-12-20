@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    iconres: '',
     pswtype: '',
     psw: '',
     tips: '',
@@ -14,9 +15,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.pswtype)
-    console.log(options.psw)
+    console.log(options)
     this.setData({
+      iconres: options.iconres,
       pswtype: options.pswtype,
       psw: options.psw,
       tips: options.tips

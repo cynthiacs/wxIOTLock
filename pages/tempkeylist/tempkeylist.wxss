@@ -67,7 +67,7 @@ page {
 
 .keynum {
   font-size: 34rpx;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 .editview {

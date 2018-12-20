@@ -29,7 +29,7 @@
       <scroll-view class='alllist' scroll-x='false' scroll-y='true' bindscrolltolower='toLower'>
         <block wx:for='{{list}}' wx:for-index="index" wx:key="this">
           <view class='content' data-index='{{index}}'>
-            <image class='image' src='{{types[item.keyType].icon}}'></image>
+            <image class='image' src='{{item.iconres}}'></image>
             <view class='vertical-line'></view>
             <view class='titleview'>
               <text class='title'>{{item.pwname}}</text>

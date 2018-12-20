@@ -21,7 +21,8 @@ Page({
     duration: 1000,
     mDevId: undefined,
     mDevName: null,
-    code: null
+    code: null,
+    loginfo: null,
   },
 
   onLoad: function (options) {
@@ -82,7 +83,6 @@ Page({
                 if (list != null && list.length > 0) {
                   console.log("get lock from list")
                   this.setNewGID(list[0].id, list)
-                  // serverProxy.setDevName(list[0].id, list[0].name)
                 }
               } else {
                 this.setNewGID(gid, list)
@@ -129,9 +129,7 @@ Page({
     for (let i = 0; i < list.length; i++) {
       if (id && id == list[i].id) {
         serverProxy.setDevName(id, list[i].name)
-        this.setData({
-          mDevName: list[i].name
-        })
+        this.updateDevName()
         console.log("setNewGID new lock name:" + app.globalData.deviceName)
         return true
       }
@@ -208,9 +206,7 @@ Page({
           isAuthed: true
         })
         if(app.globalData.deviceName != null) {
-          this.setData({
-            mDevName: app.globalData.deviceName
-          })
+          this.updateDevName()
         }
       }
     })
@@ -287,9 +283,7 @@ Page({
   actLock: function () {
     devOpt.scanActLock(msg => {
       console.log("update mDevName")
-      this.setData({
-        mDevName: app.globalData.deviceName
-      })
+      this.updateDevName()
     })
   },
 
@@ -411,8 +405,37 @@ Page({
 
   onShow: function () {
     console.log("index:onshow")
+    this.updateDevName()
+  },
+
+  updateDevName: function() {
     this.setData({
       mDevName: app.globalData.deviceName
     })
-  },
+    if (this.data.mDevName != null) {
+      serverProxy.getUnlockLog(null, null, 1, msg => {
+        if (msg.statusCode == 200) {
+          var datas = msg.data.rows
+          if (datas.length > 0) {
+            var loginfo = {}
+            loginfo.pwname = datas[0].pwname
+            loginfo.datetime = util.formatTime(new Date(datas[0].time))
+            loginfo.iconres = devOpt.getIconFromName(datas[0].typename).icon
+            console.log(loginfo)
+            this.setData({
+              loginfo: loginfo
+            })
+          }else {
+            this.setData({
+              loginfo: null
+            })
+          }
+        }
+      })
+    }
+  }
+
+  
+
+
 })

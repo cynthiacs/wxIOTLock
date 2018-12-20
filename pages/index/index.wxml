@@ -57,12 +57,12 @@
         <text class="text">钥匙录入</text>
       </button>
     </view>
-    <button class='morelist' bindtap='getMoreInfo'>
+    <button class='morelist' bindtap='getMoreInfo' hidden='{{mDevName==null || loginfo==null}}'>
       <view class='frontview'>
-        <image class='lockimage' src='/icons/icon_finger_key.png'></image>
+        <image class='lockimage' src='{{loginfo.iconres}}'></image>
         <view class='title'>
-          <text class='name'>密码名称</text>
-          <text class='date'>2018-11-15 08:21</text>
+          <text class='name'>{{loginfo.pwname}}</text>
+          <text class='date'>{{loginfo.datetime}}</text>
         </view>
       </view>
       <label class='rightlable'>更多</label>

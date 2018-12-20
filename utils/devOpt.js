@@ -2,6 +2,36 @@ const app = getApp()
 const serverProxy = require('serverproxy.js')
 const customUI = require('customUI.js')
 
+const types = [{
+    icon: "/icons/icon_num_key.png",
+    pswtype: "数字密码",
+  },
+  {
+    icon: "/icons/icon_finger_key.png",
+    pswtype: "指纹密码",
+  },
+  {
+    icon: "/icons/icon_ic_key.png",
+    pswtype: "IC卡密码",
+  },
+  {
+    icon: "icon/icon_count.png",
+    pswtype: "临时密码",
+  },
+  {
+    icon: "/icons/icon_date.png",
+    pswtype: "限时密码",
+  },
+  {
+    icon: "/icons/icon_time.png",
+    pswtype: "限时段密码",
+  },
+  {
+    icon: "/icons/icon_times.png",
+    pswtype: "限次密码",
+  }
+]
+
 function scanActLock(listener) {
   wx.scanCode({
     success: res => {
@@ -186,8 +216,29 @@ function login(devId, listener) {
   })
 }
 
+function getIconFromName(keytypeName) {
+  var typeIndex = 0
+  if (keytypeName == '数字') {
+    typeIndex = 0
+  } else if (keytypeName == '指纹') {
+    typeIndex = 1
+  } else if (keytypeName == '门禁卡') {
+    typeIndex = 2
+  } else if (keytypeName == '临时密码') {
+    typeIndex = 3
+  } else if (keytypeName == '限时密码') {
+    typeIndex = 4
+  } else if (keytypeName == '限时段密码') {
+    typeIndex = 5
+  } else if (keytypeName == '限次密码') {
+    typeIndex = 6
+  }
+  return types[typeIndex]
+}
+
 module.exports = {
   scanActLock: scanActLock,
   bindNewLock: bindNewLock,
   login: login,
+  getIconFromName: getIconFromName,
 }

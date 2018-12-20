@@ -72,7 +72,7 @@ page {
   justify-content: space-between;
   margin: 13rpx;
   /* padding-left: 30rpx; */
-  background: #f8f8f8;
+  background: #f3f3f3;
 }
 
 .infoview::after {
@@ -163,7 +163,7 @@ page {
   justify-content: space-between;
   margin-left: 15rpx;
   margin-right: 15rpx;
-  margin-top: 50rpx;
+  margin-top: 30rpx;
   background: #fff;
   border: 2px solid #f2f2f2;
   border-radius: 10px;
@@ -186,6 +186,7 @@ page {
   margin-left: 38rpx;
   line-height: 25rpx;
   margin-top: 25rpx;
+  color: rgba(151, 147, 147, 0.849);
 }
 
 .rightlable {
